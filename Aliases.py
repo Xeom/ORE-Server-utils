@@ -182,27 +182,27 @@ def onCommandItemname(sender,args):
 def onCommandItemname(sender,args):
     
     if len(args) < 3:
-        sender.sendMessage(color("c")+"You must have the correct arguments -"+color("6")+" /eff [Effect] [Power] [Duration] [Player]")
+        sender.sendMessage(color("c")+"You must have the correct arguments -"+color("6")+" /eff [Effect] [Power] [Duration]")
         return False
-    
-    if len(args) > 3:
-        receiver = args[3]
-    
-    else:
-        receiver = sender
     
     for i in range(1,2):
         if args[i].isdigit() == False:
-            sender.sendMessage(color("c")+"Your potion duration and power must be integers -"+color("6")+" /eff [Effect] [Power] [Duration] [Player]")
+            sender.sendMessage(color("c")+"Your potion duration and power must be integers -"+color("6")+" /eff [Effect] [Power] [Duration]")
             return False
+            
+    if args[0] == "rem":
+        for effect in sender.getActivePotionEffects()
+        sender.removePotionEffect(effect.getType())
+            
+    elif args[0] == "list":
+        for effect in sender.getActivePotionEffects()
+        sender.sendMessage(color(str(random.randint(0,9))effect.getType()))
     
     args[0] = args[0].upper()
     args[0] = args[0].replace(" ","")
+    args[0] = args[0].replace(".","")
     
-    if isinvalid(args[0]) == True:
-        sender.sendMessage(color("4")+"Hello, Mr cheaty!")
-    
-    receiver.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), int(args[1])))
+    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), int(args[1])))
     
     return True
     
