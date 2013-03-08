@@ -191,11 +191,11 @@ def onCommandItemname(sender,args):
             return False
             
     if args[0] == "rem":
-        for effect in sender.getActivePotionEffects()
+        for effect in sender.getActivePotionEffects():
         sender.removePotionEffect(effect.getType())
             
     elif args[0] == "list":
-        for effect in sender.getActivePotionEffects()
+        for effect in sender.getActivePotionEffects():
         sender.sendMessage(color(str(random.randint(0,9))effect.getType()))
     
     args[0] = args[0].upper()
