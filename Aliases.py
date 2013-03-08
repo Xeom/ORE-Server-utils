@@ -57,33 +57,33 @@ def onCommandE(sender,args):
     
     if len(args) != 1:
         sender.sendMessage("01 - "+color("b")+"Speed")
-        sender.sendMessage("02 - "+color("9")+"Slowness")
-        sender.sendMessage("03 - "+color("e")+"Haste")
-        sender.sendMessage("04 - "+color("8")+"Mining Fatigue")
-        sender.sendMessage("05 - "+color("c")+"Strength")
+        sender.sendMessage("02 - "+color("9")+"Slow")
+        sender.sendMessage("03 - "+color("e")+"Fast_Digging")
+        sender.sendMessage("04 - "+color("8")+"Slow_Digging")
+        sender.sendMessage("05 - "+color("c")+"Increase_Damage")
         sender.sendMessage(color("6")+"Page "+color("c")+"1 "+color("6")+"of "+color("c")+"4")
         return True
     
     if args[0] == "2":
-        sender.sendMessage("06 - "+color("4")+"Health")
-        sender.sendMessage("07 - "+color("8")+"Damage")
-        sender.sendMessage("08 - "+color("3")+"Jump Boost")
-        sender.sendMessage("09 - "+color("7")+"Nausea")
+        sender.sendMessage("06 - "+color("4")+"Heal")
+        sender.sendMessage("07 - "+color("8")+"Harm")
+        sender.sendMessage("08 - "+color("3")+"Jump")
+        sender.sendMessage("09 - "+color("7")+"Confusion")
         sender.sendMessage("10 - "+color("d")+"Regeneration")
         sender.sendMessage(color("6")+"Page "+color("c")+"2 "+color("6")+"of "+color("c")+"4")
         return True
     
     if args[0] == "3":
-        sender.sendMessage("11 - "+color("5")+"Resistance")
-        sender.sendMessage("12 - "+color("6")+"Fire Resistance")
-        sender.sendMessage("13 - "+color("3")+"Water Breathing")
+        sender.sendMessage("11 - "+color("5")+"Damage_Resistance")
+        sender.sendMessage("12 - "+color("6")+"Fire_Resistance")
+        sender.sendMessage("13 - "+color("3")+"Water_Breathing")
         sender.sendMessage("14 - "+color("8")+"Invisibility")
         sender.sendMessage("15 - "+color("8")+"Blindness")
         sender.sendMessage(color("6")+"Page "+color("c")+"3 "+color("6")+"of "+color("c")+"4")
         return True
     
     if args[0] == "4":
-        sender.sendMessage("16 - "+color("1")+"Night Vision")
+        sender.sendMessage("16 - "+color("1")+"Night_Vision")
         sender.sendMessage("17 - "+color("a")+"Hunger")
         sender.sendMessage("18 - "+color("8")+"Weakness")
         sender.sendMessage("19 - "+color("2")+"Poison")
@@ -92,10 +92,10 @@ def onCommandE(sender,args):
         return True
     
     sender.sendMessage("01 - "+color("b")+"Speed")
-    sender.sendMessage("02 - "+color("9")+"Slowness")
-    sender.sendMessage("03 - "+color("e")+"Haste")
-    sender.sendMessage("04 - "+color("8")+"Mining Fatigue")
-    sender.sendMessage("05 - "+color("c")+"Strength")
+    sender.sendMessage("02 - "+color("9")+"Slow")
+    sender.sendMessage("03 - "+color("e")+"Fast_Digging")
+    sender.sendMessage("04 - "+color("8")+"Slow_Digging")
+    sender.sendMessage("05 - "+color("c")+"Increase_Damage")
     sender.sendMessage(color("6")+"Page "+color("c")+"1 "+color("6")+"of "+color("c")+"4")
     return True
 
@@ -194,9 +194,8 @@ def onCommandItemname(sender,args):
         for effect in sender.getActivePotionEffects():
             sender.removePotionEffect(effect.getType())
             
-    elif args[0] == "list":
-        for effect in sender.getActivePotionEffects():
-            sender.sendMessage(color(str(random.randint(0,9))effect.getType()))
+    if args[0] == "list":
+        sender.sendMessage("e "+int(args[1]))
     
     args[0] = args[0].upper()
     args[0] = args[0].replace(" ","")
