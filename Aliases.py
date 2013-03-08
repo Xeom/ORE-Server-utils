@@ -3,6 +3,8 @@ from Helper import sudo
 
 import random
 import org.bukkit as bukkit
+from org.bukkit.potion import PotionEffectType
+from org.bukkit.potion import PotionEffect
 
 itemnamewhitelist = "1234567890abcdeflmnok"
 
@@ -94,7 +96,7 @@ def onCommandE(sender,args):
 @hook.command("c", description="Display each format with its respective character.")
 def onCommandC(sender, args):
     
-    sender.sendMessage(''.join([color("a"), "a ", color("b"), "b ", color("c"), "c ", color("d"), "d ", color("e"), "e ", color("f"), "f ", color("l"), "l ",color("r"),color("m"), "m ",color("r"),color("n"), "n ",color("r"),color("o"), "o "]))
+    sender.sendMessage(''.join([color("a"), "a ", color("b"), "b ", color("c"), "c ", color("d"), "d ", color("e"), "e ", color("f"), "f ", color("l"), "l ",color("r"),color("m"), "m",color("r")," ",color("n"), "n",color("r")," ",color("o"), "o "]))
     sender.sendMessage(''.join([color("0"), "0 ", color("1"), "1 ", color("2"), "2 ", color("3"), "3 ", color("4"), "4 ", color("5"), "5 ", color("6"), "6 ", color("7"), "7 ", color("8"), "8 ", color("9"), "9 "]))
     
     return True
