@@ -181,6 +181,13 @@ def onCommandItemname(sender,args):
 @hook.command("eff", description="Get a custom potion effect!")
 def onCommandItemname(sender,args):
     
+    if args[0] == "rem":
+        for effect in sender.getActivePotionEffects():
+            sender.removePotionEffect(effect.getType())
+            
+    if args[0] == "list":
+        bukkit.Bukkit.dispatchCommand(sender,"e "+int(args[1]))
+    
     if len(args) < 3:
         sender.sendMessage(color("c")+"You must have the correct arguments -"+color("6")+" /eff [Effect] [Power] [Duration]")
         return False
@@ -189,13 +196,6 @@ def onCommandItemname(sender,args):
         if args[i].isdigit() == False:
             sender.sendMessage(color("c")+"Your potion duration and power must be integers -"+color("6")+" /eff [Effect] [Power] [Duration]")
             return False
-            
-    if args[0] == "rem":
-        for effect in sender.getActivePotionEffects():
-            sender.removePotionEffect(effect.getType())
-            
-    if args[0] == "list":
-        sender.sendMessage("e "+int(args[1]))
     
     args[0] = args[0].upper()
     args[0] = args[0].replace(" ","")
