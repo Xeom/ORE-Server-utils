@@ -201,7 +201,7 @@ def onCommandItemname(sender,args):
     if isinvalid(args[0]) == False:
         sender.sendMessage(color("4")+"Hello, Mr cheaty!")
     
-    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), int(args[1])))
+    receiver.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), int(args[1])))
     
     return True
     
