@@ -174,9 +174,8 @@ def onCommandItemname(sender,args):
 @hook.command("eff", description="Get a custom potion effect!")
 def onCommandItemname(sender,args):
     
-    if len(args) == 0:
-        sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /eff [Effect] [Power] [Duration] [Player]")
-        
+    if len(args) < 3:
+        sender.sendMessage(color("c")+"You must have the correct arguments -"+color("6")+" /eff [Effect] [Power] [Duration] [Player]")
         return False
     
     if len(args) > 3:
@@ -184,24 +183,23 @@ def onCommandItemname(sender,args):
     
     else:
         receiver = sender
-        
-        for i in args:
-            if i.isdigit() == False:
-                sender.sendMessage(color("c")+"Your potion arguments must be integers"+color("6")+" /eff [Effect] [Power] [Duration] [Player]")
     
-    if sender.addPotionEffect(PotionEffect(int(args[0]), int(args[2]), int(args[1]))) == "null":
-        return False
+    for i in range(1,2):
+        if args[i].isdigit() == False:
+            sender.sendMessage(color("c")+"Your potion duration and power must be integers -"+color("6")+" /eff [Effect] [Power] [Duration] [Player]")
+            return False
     
-    else:
-        return True
+    if sender.addPotionEffect(PotionEffect(PotionEffectType.args[0], int(args[2]), int(args[1])))
+    
+    return True
     
 #fast
 @hook.command("fast", description="Cheat at races! :D")	
 def onCommandFast(sender, args):
     
-    sender.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50000, 50))
-    sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 9))
-    sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 5, 2))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50000, 50, True))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 9, True))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 30, 2, True))
     sender.sendMessage(color("6")+color("l")+"SUPER"+color("6")+" speed! :D")
     
     return True
