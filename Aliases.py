@@ -179,16 +179,26 @@ def onCommandItemname(sender,args):
         
         return False
     
-    if len(args) == 4:
-        sender = args[3]
-    if sender.addPotionEffect(PotionEffect(args[0], args[2], args[1])) == "null":
+    if len(args) > 3:
+        receiver = args[3]
+    
+    else:
+        receiver = sender
+        
+        for i in args:
+            if i.isdigit() == False:
+                sender.sendMessage(color("c")+"Your potion arguments must be integers"+color("6")+" /eff [Effect] [Power] [Duration] [Player]")
+    
+    if sender.addPotionEffect(PotionEffect(int(args[0]), int(args[2]), int(args[1]))) == "null":
         return False
+    
     else:
         return True
     
 #fast
 @hook.command("fast", description="Cheat at races! :D")	
 def onCommandFast(sender, args):
+    
     sender.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50000, 50))
     sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 9))
     sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 5, 2))
