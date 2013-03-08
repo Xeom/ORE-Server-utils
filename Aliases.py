@@ -189,7 +189,9 @@ def onCommandItemname(sender,args):
             sender.sendMessage(color("c")+"Your potion duration and power must be integers -"+color("6")+" /eff [Effect] [Power] [Duration] [Player]")
             return False
     
-    if args[0].isalnum() == False:
+    args[0] = args[0].upper()
+    
+    if args[0].isidentifier() == False:
         sender.sendMessage(color("4")+"Hello, Mr cheaty!")
     
     sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), int(args[1])))
@@ -202,7 +204,7 @@ def onCommandFast(sender, args):
     
     sender.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50000, 50, True))
     sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 9, True))
-    sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 30, 2, True))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 30, 2, True))
     sender.sendMessage(color("6")+color("l")+"SUPER"+color("6")+" speed! :D")
     
     return True
