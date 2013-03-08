@@ -91,10 +91,10 @@ def onCommandE(sender,args):
     return True
 
 # Show chat colors
-@hook.command("c", description="Display each color with its respective character.")
+@hook.command("c", description="Display each format with its respective character.")
 def onCommandC(sender, args):
     
-    sender.sendMessage(''.join([color("a"), "a ", color("b"), "b ", color("c"), "c ", color("d"), "d ", color("e"), "e ", color("f"), "f ", color("l"), "l ", color("m"), "m ", color("n"), "n ", color("o"), "o "]))
+    sender.sendMessage(''.join([color("a"), "a ", color("b"), "b ", color("c"), "c ", color("d"), "d ", color("e"), "e ", color("f"), "f ", color("l"), "l ",color("r"),color("m"), "m ",color("r"),color("n"), "n ",color("r"),color("o"), "o "]))
     sender.sendMessage(''.join([color("0"), "0 ", color("1"), "1 ", color("2"), "2 ", color("3"), "3 ", color("4"), "4 ", color("5"), "5 ", color("6"), "6 ", color("7"), "7 ", color("8"), "8 ", color("9"), "9 "]))
     
     return True
@@ -134,14 +134,13 @@ def onCommandRandom(sender,args):
         return True
     
     if len(args) == 3:
-        sender.sendMessage(str(random.randint(args[2]*int(args[0]),args[2]*int(args[1]))/args[2]))
+        sender.sendMessage(str(random.randint(int(args[2])*int(args[0]),int(args[2])*int(args[1]))/int(args[2])))
     
     if len(args) == 0:
         sender.sendMessage(str(random.randint(0,10)))
         return True
     
     sender.sendMessage(color("c")+"Use the syntax "+color("6")+"/random [a] [b]")
-    
     return False
     
                            
@@ -150,7 +149,7 @@ def onCommandRandom(sender,args):
 def onCommandItemname(sender,args):
     
     if len(args) == 0:
-        sender.sendMessage(color("c")+"You must have an argument -"+color("6"),"/itemname [name] [format1] [format2] etc.")
+        sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /itemname [name] [format1] [format2] etc.")
     addpos = 0
     namestring = list(args[0])
     
@@ -163,10 +162,35 @@ def onCommandItemname(sender,args):
                 addpos = addpos + 2
             
             else:
-                sender.sendMessage(color("c")+"Sorry, the format",color("6")+(args[x])[i],color("c")+"is not availible.")
+                sender.sendMessage(color("c")+"Sorry, the format "+color("6")+(args[x])[i],color("c")+"is not availible.")
     
-    sender.sendMessage(str(displayname))
+    sender.sendMessage(str(namestring))
     
     return True
 
-
+#effect
+@hook.command("eff", description="Get a custom potion effect!")
+def onCommandItemname(sender,args):
+    
+    if len(args) == 0:
+        sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /eff [Effect] [Power] [Duration] [Player]")
+        
+        return False
+    
+    if len(args) == 4:
+        sender = args[3]
+    if sender.addPotionEffect(PotionEffect(args[0], args[2], args[1])) == "null":
+        return False
+    else:
+        return True
+    
+#fast
+@hook.command("fast", description="Cheat at races! :D")	
+def onCommandFast(sender, args):
+    sender.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50000, 50))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 9))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 5, 2))
+    sender.sendMessage(color("6")color("l")"SUPER"+color("6")+" speed! :D")
+    
+    return True
+        
