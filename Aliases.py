@@ -2,7 +2,10 @@ from Helper import color
 from Helper import sudo
 
 import random
+import re
+
 import org.bukkit as bukkit
+
 from org.bukkit.potion import PotionEffectType
 from org.bukkit.potion import PotionEffect
 
@@ -10,6 +13,10 @@ itemnamewhitelist = "1234567890abcdeflmnok"
 
 # /fast
 # /fixme
+    
+def isinvalid(string):
+    return re.match(r'^[a-z_][a-z0-9_]*$', string, re.I) is None
+
 
 # Time Commands
 @hook.command("day", description="Set your time to day.")
@@ -191,7 +198,7 @@ def onCommandItemname(sender,args):
     
     args[0] = args[0].upper()
     
-    if args[0].isidentifier() == False:
+    if isinvalid(args[0]) == False:
         sender.sendMessage(color("4")+"Hello, Mr cheaty!")
     
     sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), int(args[1])))
