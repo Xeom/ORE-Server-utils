@@ -197,6 +197,7 @@ def onCommandItemname(sender,args):
             return False
     
     args[0] = args[0].upper()
+    args[0] = args[0].replace(" ","")
     
     if isinvalid(args[0]) == False:
         sender.sendMessage(color("4")+"Hello, Mr cheaty!")
