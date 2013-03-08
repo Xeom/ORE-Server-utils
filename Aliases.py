@@ -15,7 +15,7 @@ itemnamewhitelist = "1234567890abcdeflmnok"
 # /fixme
     
 def isinvalid(string):
-    return re.match(r'^[a-z_][a-z0-9_]*$', string, re.I) is None
+    return re.match(r'^[a-z_][a-z0-9_]*$', string, re.I) is not None
 
 
 # Time Commands
@@ -199,7 +199,7 @@ def onCommandItemname(sender,args):
     args[0] = args[0].upper()
     args[0] = args[0].replace(" ","")
     
-    if isinvalid(args[0]) == False:
+    if isinvalid(args[0]) == True:
         sender.sendMessage(color("4")+"Hello, Mr cheaty!")
     
     receiver.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), int(args[1])))
