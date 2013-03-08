@@ -189,7 +189,7 @@ def onCommandItemname(sender,args):
             sender.sendMessage(color("c")+"Your potion duration and power must be integers -"+color("6")+" /eff [Effect] [Power] [Duration] [Player]")
             return False
     
-    if sender.addPotionEffect(PotionEffect(PotionEffectType.args[0], int(args[2]), int(args[1])))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.args[0], int(args[2]), int(args[1])))
     
     return True
     
