@@ -190,7 +190,7 @@ def onCommandFast(sender, args):
     sender.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50000, 50))
     sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 9))
     sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 5, 2))
-    sender.sendMessage(color("6")+color+("l")"SUPER"+color("6")+" speed! :D")
+    sender.sendMessage(color("6")+color+("l")+"SUPER"+color("6")+" speed! :D")
     
     return True
         
