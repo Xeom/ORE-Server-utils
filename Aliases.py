@@ -1,6 +1,8 @@
+from __future__ import division
+
 from Helper import color
 from Helper import sudo
-from __future__ import division
+
 
 import random
 
