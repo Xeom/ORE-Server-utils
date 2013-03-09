@@ -190,7 +190,7 @@ def onCommandItemname(sender,args):
         return True
     
     if len(args) < 3:
-        sender.sendMessage(c
+        sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /eff [effect] [power] [duration]")
         return False
     
     for i in range(1,2):
@@ -202,7 +202,7 @@ def onCommandItemname(sender,args):
     args[0] = args[0].replace(" ","")
     args[0] = args[0].replace(".","")
     
-    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), int(args[1])))
+    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), int(args[1])-1))
     
     return True
     
