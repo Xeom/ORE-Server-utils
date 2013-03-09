@@ -267,7 +267,7 @@ def onCommandBrohug(sender, args):
         return True
     
     if Bukkit.getPlayer(args[0]) != "null":
-        sender.sendMessage(color("2")"You brohugged "+args[0])
+        sender.sendMessage(color("2")+"You brohugged "+args[0])
         Bukkit.getPlayer(args[0]).sendMessage(color("2")+sender.getName()+" brohugged you!")
         return True
     
