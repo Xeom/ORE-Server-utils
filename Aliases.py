@@ -138,7 +138,7 @@ def onCommandRandom(sender,args):
         return True
     
     if len(args) == 3 and args[0].isdigit() == True and args[1].isdigit() == True and args[2].isdigit() == True:
-        sender.sendMessage(str(random.randint(int(args[2])*int(args[0]),int(args[2])*int(args[1]))/(10*int(args[2]))))
+        sender.sendMessage(str(random.randint((10*int(args[2]))*int(args[0]),(10*int(args[2]))*int(args[1]))/(10*int(args[2]))))
         return True
     
     if len(args) == 0:
@@ -204,7 +204,7 @@ def onCommandItemname(sender,args):
     args[0] = args[0].replace(" ","")
     args[0] = args[0].replace(".","")
     
-    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), int(args[1])-1))
+    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), (int(args[1])-1)))
     
     return True
     
@@ -251,9 +251,9 @@ def onCommandHug(sender, args):
         sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /hug [player]")
         return False
     
-    if Bukkit.getPlayer(args[0]) != "null":
+    if bukkit.Bukkit.getPlayer(args[0]) != "null":
         sender.sendMessage(color("d")+"You hugged "+args[0])
-        Bukkit.getPlayer(args[0]).sendMessage(color("d")+sender.getName()+" hugged you!")
+        bukkit.Bukkit.getPlayer(args[0]).sendMessage(color("d")+sender.getName()+" hugged you!")
         return True
     
     else:
@@ -261,7 +261,7 @@ def onCommandHug(sender, args):
         return False
         
 #brohug
-@hook.command("hug")
+@hook.command("brohug")
 def onCommandBrohug(sender, args):
     
     if len(args) == 0:
@@ -270,7 +270,7 @@ def onCommandBrohug(sender, args):
     
     if Bukkit.getPlayer(args[0]) != "null":
         sender.sendMessage(color("2")+"You brohugged "+args[0])
-        Bukkit.getPlayer(args[0]).sendMessage(color("2")+sender.getName()+" brohugged you!")
+        bukkit.Bukkit.getPlayer(args[0]).sendMessage(color("2")+sender.getName()+" brohugged you!")
         return True
     
     else:
