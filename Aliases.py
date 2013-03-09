@@ -184,9 +184,16 @@ def onCommandItemname(sender,args):
     if args[0] == "rem":
         for effect in sender.getActivePotionEffects():
             sender.removePotionEffect(effect.getType())
+            return True
             
     if args[0] == "list":
-        bukkit.Bukkit.dispatchCommand(sender,"e "+int(args[1]))
+        
+        if len(args) < 2:
+            bukkit.Bukkit.dispatchCommand(sender,"e")
+        
+        else:
+            bukkit.Bukkit.dispatchCommand(sender,"e "+args[1])
+        return True
     
     if len(args) < 3:
         sender.sendMessage(color("c")+"You must have the correct arguments -"+color("6")+" /eff [Effect] [Power] [Duration]")
@@ -212,7 +219,15 @@ def onCommandFast(sender, args):
     sender.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50000, 50, True))
     sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 9, True))
     sender.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 30, 2, True))
-    sender.sendMessage(color("6")+color("l")+"SUPER"+color("6")+" speed! :D")
+    sender.sendMessage(color("5")+color("l")+"SUPER"+color("6")+" speed! :D")
     
     return True
         
+@hook.command("love")
+def onCommandLove(sender, args):
+    
+    sender.sendMessage(color("d")+color("l")+sender)
+    sender.sendMessage(color("4")+color("l")+"<3")
+    sender.sendMessage(color("d")+color("l")+"RSW")
+    
+    return True
