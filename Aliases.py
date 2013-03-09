@@ -43,7 +43,7 @@ def onCommandFixLag(sender, args):
 
     sudo("save-all")
 
-    sender.sendMessage("T3h lagz, they be gone!")
+    sender.sendMessage(color("5")+"T3h lagz, they be gone!")
     return True
     
 # Effects
@@ -138,7 +138,7 @@ def onCommandRandom(sender,args):
         return True
     
     if len(args) == 3 and args[0].isdigit() == True and args[1].isdigit() == True and args[2].isdigit() == True:
-        args[2] = 10%args[2]
+        args[2] = 10%int(args[2])
         sender.sendMessage(str(random.randint(int(args[2])*int(args[0]),int(args[2])*int(args[1]))/int(args[2])))
         return True
     
@@ -180,11 +180,12 @@ def onCommandItemname(sender,args):
     
     if len(args) == 0:
         sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /eff [effect] [power] [duration]"+color("c")+" you can also use 'rem' and 'list' as effects, for special functions")
-        
+        return False
+    
     if args[0] == "rem" and len(args) > 0:
         for effect in sender.getActivePotionEffects():
             sender.removePotionEffect(effect.getType())
-            return True
+        return True
             
     if args[0] == "list" and len(args) > 0:
         
@@ -241,7 +242,7 @@ def onCommandLove(sender, args):
 def onCommandHate(sender, args):
     
     if len(args) == 0:
-        bukkit.Bukkit.broadcastMessage(color("a")+sender.getName()+color("2")+color("l")+" hates "+color("a")+"chavs")
+        bukkit.Bukkit.broadcastMessage(color("a")+sender.getName()+color("2")+color("l")+" hates "+color("a")+"redgame")
         return True
     
     else:
@@ -258,7 +259,7 @@ def onCommandHug(sender, args):
     
     if bukkit.Bukkit.getPlayer(args[0]) != "null":
         sender.sendMessage(color("d")+"You hugged "+args[0])
-        bukkit.Bukkit.broadcastMessage(color("hex(randint(1,15)[2]")+color("hex(randint(1,15)[2]")+sender.getName()+color("hex(randint(1,15)[2]")+" hugged "+color("a")+args[0])
+        bukkit.Bukkit.broadcastMessage(color(hex(randint(1,15)[2])+color(hex(randint(1,15)[2])+sender.getName()+color(hex(randint(1,15)[2])+" hugged "+color("a")+args[0])
         return True
     
     else:
