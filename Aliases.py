@@ -248,7 +248,21 @@ def onCommandHug(sender, args):
         sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /hug [player]")
         return False
     if Bukkit.getPlayer(args[0]) != "null":
-        sender.sendMessage("You hugged "+args[0])
+        sender.sendMessage(color("d")+"You hugged "+args[0])
         Bukkit.getPlayer(args[0]).sendMessage(color("d")+sender.getName()+" hugged you!")
         return True
-    return False
+    else:
+        return False
+        
+#brohug
+@hook.command("hug")
+def onCommandBrohug(sender, args):
+    if len(args) == 0:
+        sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /brohug [player]")
+        return False
+    if Bukkit.getPlayer(args[0]) != "null":
+        sender.sendMessage(color("2")"You brohugged "+args[0])
+        Bukkit.getPlayer(args[0]).sendMessage(color("2")+sender.getName()+" brohugged you!")
+        return True
+    else:
+        return False
