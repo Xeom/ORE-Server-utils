@@ -1,8 +1,8 @@
 from Helper import color
 from Helper import sudo
+from __future__ import division
 
 import random
-import re
 
 import org.bukkit as bukkit
 
@@ -10,13 +10,6 @@ from org.bukkit.potion import PotionEffectType
 from org.bukkit.potion import PotionEffect
 
 itemnamewhitelist = "1234567890abcdeflmnok"
-
-# /fast
-# /fixme
-    
-def isinvalid(string):
-    return re.match(r'^[a-z_][a-z0-9_]*$', string, re.I) is not None
-
 
 # Time Commands
 @hook.command("day", description="Set your time to day.")
@@ -142,8 +135,9 @@ def onCommandRandom(sender,args):
         sender.sendMessage(str(random.randint(int(args[0]),int(args[1]))))
         return True
     
-    if len(args) == 3:
-        sender.sendMessage(str(random.randint(int(args[2])*int(args[0]),int(args[2])*int(args[1]))/int(args[2])))
+    if len(args) == 3 and args[0].isdigit() == True and args[1].isdigit() == True and args[2].isdigit() == True:
+        sender.sendMessage(str(random.randint(int(args[2])*int(args[0]),int(args[2])*int(args[1]))/(10*int(args[2]))))
+        return True
     
     if len(args) == 0:
         sender.sendMessage(str(random.randint(0,10)))
@@ -196,7 +190,7 @@ def onCommandItemname(sender,args):
         return True
     
     if len(args) < 3:
-        sender.sendMessage(color("c")+"You must have the correct arguments -"+color("6")+" /eff [Effect] [Power] [Duration]")
+        sender.sendMessage(c
         return False
     
     for i in range(1,2):
@@ -223,11 +217,38 @@ def onCommandFast(sender, args):
     
     return True
         
+#love
 @hook.command("love")
 def onCommandLove(sender, args):
     
-    sender.sendMessage(color("d")+color("l")+sender)
-    sender.sendMessage(color("4")+color("l")+"<3")
-    sender.sendMessage(color("d")+color("l")+"RSW")
+    if len(args) == 0:
+        bukkit.Bukkit.broadcastMessage(color("d")+sender.getName()+color("4")+color("l")+" <3 "+color("d")+"RSW")
+        return True
     
-    return True
+    else:
+        bukkit.Bukkit.broadcastMessage(color("d")+sender.getName()+color("4")+color("l")+" <3 "+color("d")+args[0])
+        return True
+        
+#hate
+@hook.command("hate")
+def onCommandLove(sender, args):
+    
+    if len(args) == 0:
+        bukkit.Bukkit.broadcastMessage(color("a")+sender.getName()+color("2")+color("l")+" hates "+color("a")+"chavs")
+        return True
+    
+    else:
+        bukkit.Bukkit.broadcastMessage(color("a")+sender.getName()+color("2")+color("l")+" hates "+color("a")+args[0])
+        return True
+
+#hug
+@hook.command("hug")
+def onCommandHug(sender, args):
+    if len(args) == 0:
+        sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /hug [player]")
+        return False
+    if Bukkit.getPlayer(args[0]) != "null":
+        sender.sendMessage("You hugged "+args[0])
+        Bukkit.getPlayer(args[0]).sendMessage(color("d")+sender.getName()+" hugged you!")
+        return True
+    return False
