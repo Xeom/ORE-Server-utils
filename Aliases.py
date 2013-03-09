@@ -259,7 +259,7 @@ def onCommandHug(sender, args):
     
     if bukkit.Bukkit.getPlayer(args[0]) != "null":
         sender.sendMessage(color("d")+"You hugged "+args[0])
-        bukkit.Bukkit.broadcastMessage(color(hex(randint(1,15)[2])+color(hex(randint(1,15)[2])+sender.getName()+color(hex(randint(1,15)[2])+" hugged "+color("a")+args[0])
+        bukkit.Bukkit.broadcastMessage(color(hex(randint(1,15)[2])+color(hex(randint(1,15)[2])+sender.getName()+color(hex(randint(1,15)[2])+" hugged "+color("a")+args[0]))))
         return True
     
     else:
