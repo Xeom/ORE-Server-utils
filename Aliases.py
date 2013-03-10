@@ -59,7 +59,7 @@ def onCommandE(sender,args):
         sender.sendMessage(color("6")+"Page "+color("c")+"1 "+color("6")+"of "+color("c")+"4")
         return True
     
-    if args[0] == "2":
+    elif args[0] == "2":
         sender.sendMessage("06 - "+color("4")+"Heal")
         sender.sendMessage("07 - "+color("8")+"Harm")
         sender.sendMessage("08 - "+color("3")+"Jump")
@@ -68,7 +68,7 @@ def onCommandE(sender,args):
         sender.sendMessage(color("6")+"Page "+color("c")+"2 "+color("6")+"of "+color("c")+"4")
         return True
     
-    if args[0] == "3":
+    elif args[0] == "3":
         sender.sendMessage("11 - "+color("5")+"Damage_Resistance")
         sender.sendMessage("12 - "+color("6")+"Fire_Resistance")
         sender.sendMessage("13 - "+color("3")+"Water_Breathing")
@@ -77,7 +77,7 @@ def onCommandE(sender,args):
         sender.sendMessage(color("6")+"Page "+color("c")+"3 "+color("6")+"of "+color("c")+"4")
         return True
     
-    if args[0] == "4":
+    elif args[0] == "4":
         sender.sendMessage("16 - "+color("1")+"Night_Vision")
         sender.sendMessage("17 - "+color("a")+"Hunger")
         sender.sendMessage("18 - "+color("8")+"Weakness")
@@ -139,7 +139,7 @@ def onCommandRandom(sender,args):
     
     if len(args) == 3 and args[0].isdigit() == True and args[1].isdigit() == True and args[2].isdigit() == True:
         args[2] = str(10 % int(args[2]))
-        sender.sendMessage(str(random.randint(int(args[2])*int(args[0]),int(args[2])*int(args[1]))/int(args[2])))
+        sender.sendMessage(str(random.randint(int(args[2])*int(args[0]),int(args[2])*int(args[1])))/int(args[2]))
         return True
     
     if len(args) == 0:
@@ -183,7 +183,7 @@ def onCommandItemname(sender,args):
         return False
     
     if args[0] == "rem":
-        if len(args) == 1:
+        if len(args) < 2:
             for effect in sender.getActivePotionEffects():
                 sender.removePotionEffect(effect.getType())
             return True
@@ -193,10 +193,11 @@ def onCommandItemname(sender,args):
                 if args[i].isdigit() == False:
                     sender.sendMessage(color("c")+"Your potions to remove must be integers -"+color("6")+" /eff [Rem] [Potion1] [Potion2]")
                     return False
-            
+                effect = args[i]
                 if len(sender.getActivePotionEffects()) < args[i]:
-                    sender.removePotionEffect(args[i].getType())
+                    sender.removePotionEffect(effect.getType())
                 return True
+
     if args[0] == "list" and len(args) > 0:
         
         if len(args) < 2:
@@ -226,6 +227,8 @@ def onCommandItemname(sender,args):
 #fast
 @hook.command("fast", description="Cheat at races! :D")	
 def onCommandFast(sender, args):
+
+    bukkit.Bukkit.dispatchCommand(sender,"eff rem")
     
     sender.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50000, 50, True))
     sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 9, True))
@@ -268,10 +271,9 @@ def onCommandHug(sender, args):
         return False
     
     sender.sendMessage(color("d")+"You hugged "+args[0])
-    bukkit.Bukkit.broadcastMessage(color(hex(random.randint(1,15)[2])+color(hex(random.randint(1,15)[2])+sender.getName()+color(hex(randint(1,15)[2])+" hugged "+color("a")+args[0]))))
+    bukkit.Bukkit.broadcastMessage(color(str(hex(random.randint(1,15)[2])))+color(str(hex(random.randint(1,15)[2])))+sender.getName()+(str(hex(random.randint(1,15)[2])))+" hugged "+color("a")+args[0])
     
     return True
-
 
 #fixme
 @hook.command("fixme", description="removes potion effects")
@@ -287,7 +289,19 @@ def onCommandFixme(sender, args):
 def onCommandMushroom(sender, args):
     
     sender.sendMessage("You find some mushrooms on the floor ... mmm tasty")
-    sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSIOIN, 200, 2, True))    
+    sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 200, 2, True))    
 
-
+    return True
     
+#special effects
+@hook.command("special")
+def onCommandSpecial(sender, args):
+
+    bukkit.Bukkit.dispatchCommand(sender,"eff rem")
+    
+    sender.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50000, 3, True))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 4, True))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.NIGHT_VISION, 50000, 2, True))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.INCREASE_DAMAGE, 50000, 2, True))
+
+    return True
