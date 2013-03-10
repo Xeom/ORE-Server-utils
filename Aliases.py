@@ -138,7 +138,7 @@ def onCommandRandom(sender,args):
         return True
     
     if len(args) == 3 and args[0].isdigit() == True and args[1].isdigit() == True and args[2].isdigit() == True:
-        args[2] = 10%int(args[2])
+        args[2] = str(10 % int(args[2]))
         sender.sendMessage(str(random.randint(int(args[2])*int(args[0]),int(args[2])*int(args[1]))/int(args[2])))
         return True
     
@@ -182,11 +182,21 @@ def onCommandItemname(sender,args):
         sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /eff [effect] [power] [duration]"+color("c")+" you can also use 'rem' and 'list' as effects, for special functions")
         return False
     
-    if args[0] == "rem" and len(args) > 0:
-        for effect in sender.getActivePotionEffects():
-            sender.removePotionEffect(effect.getType())
-        return True
+    if args[0] == "rem":
+        if len(args) == 1:
+            for effect in sender.getActivePotionEffects():
+                sender.removePotionEffect(effect.getType())
+            return True
+        else:
+            for i in range(1,len(args)):
             
+                if args[i].isdigit() == False:
+                    sender.sendMessage(color("c")+"Your potions to remove must be integers -"+color("6")+" /eff [Rem] [Potion1] [Potion2]")
+                    return False
+            
+                if len(sender.getActivePotionEffects()) < args[i]:
+                    sender.removePotionEffect(args[i].getType())
+                return True
     if args[0] == "list" and len(args) > 0:
         
         if len(args) < 2:
@@ -257,14 +267,11 @@ def onCommandHug(sender, args):
         sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /hug [thing]")
         return False
     
-    if bukkit.Bukkit.getPlayer(args[0]) != "null":
-        sender.sendMessage(color("d")+"You hugged "+args[0])
-        bukkit.Bukkit.broadcastMessage(color(hex(randint(1,15)[2])+color(hex(randint(1,15)[2])+sender.getName()+color(hex(randint(1,15)[2])+" hugged "+color("a")+args[0]))))
-        return True
+    sender.sendMessage(color("d")+"You hugged "+args[0])
+    bukkit.Bukkit.broadcastMessage(color(hex(random.randint(1,15)[2])+color(hex(random.randint(1,15)[2])+sender.getName()+color(hex(randint(1,15)[2])+" hugged "+color("a")+args[0]))))
     
-    else:
-        
-        return False
+    return True
+
 
 #fixme
 @hook.command("fixme", description="removes potion effects")
@@ -275,6 +282,12 @@ def onCommandFixme(sender, args):
 
     return True
 
+#mushroom
+@hook.command("mushroom", description="???")
+def onCommandMushroom(sender, args):
+    
+    sender.sendMessage("You find some mushrooms on the floor ... mmm tasty")
+    sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSIOIN, 200, 2, True))    
 
 
     
