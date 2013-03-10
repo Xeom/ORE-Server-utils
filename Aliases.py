@@ -139,7 +139,7 @@ def onCommandRandom(sender,args):
     
     if len(args) == 3 and args[0].isdigit() == True and args[1].isdigit() == True and args[2].isdigit() == True:
         args[2] = str(10 % int(args[2]))
-        sender.sendMessage(str(random.randint(int(args[2])*int(args[0]),int(args[2])*int(args[1])))/int(args[2]))
+        sender.sendMessage(str(random.randint((int(args[2])*int(args[0]),int(args[2])*int(args[1]))/int(args[2]))))
         return True
     
     if len(args) == 0:
@@ -188,16 +188,9 @@ def onCommandItemname(sender,args):
                 sender.removePotionEffect(effect.getType())
             return True
         else:
-            for i in range(1,len(args)):
-            
-                if args[i].isdigit() == False:
-                    sender.sendMessage(color("c")+"Your potions to remove must be integers -"+color("6")+" /eff [Rem] [Potion1] [Potion2]")
-                    return False
-                effect = args[i]
-                if len(sender.getActivePotionEffects()) < args[i]:
-                    sender.removePotionEffect(effect.getType())
-                return True
-
+            effect = int(args[1])
+            sender.removePotionEffect(effect.getType())
+            return True
     if args[0] == "list" and len(args) > 0:
         
         if len(args) < 2:
@@ -271,7 +264,7 @@ def onCommandHug(sender, args):
         return False
     
     sender.sendMessage(color("d")+"You hugged "+args[0])
-    bukkit.Bukkit.broadcastMessage(color(str(hex(random.randint(1,15)[2])))+color(str(hex(random.randint(1,15)[2])))+sender.getName()+(str(hex(random.randint(1,15)[2])))+" hugged "+color("a")+args[0])
+    bukkit.Bukkit.broadcastMessage(color(str(hex(random.randint(1,15)[2])))+color(str(hex(random.randint(1,15)[2])))+sender.getName()+color(str(hex(random.randint(1,15)[2])))+" hugged "+color(str(hex(random.randint(1,15)[2])))+args[0])
     
     return True
 
@@ -289,7 +282,7 @@ def onCommandFixme(sender, args):
 def onCommandMushroom(sender, args):
     
     sender.sendMessage("You find some mushrooms on the floor ... mmm tasty")
-    sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 200, 2, True))    
+    sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 30, 3, True))    
 
     return True
     
@@ -300,7 +293,7 @@ def onCommandSpecial(sender, args):
     bukkit.Bukkit.dispatchCommand(sender,"eff rem")
     
     sender.addPotionEffect(PotionEffect(PotionEffectType.SPEED, 50000, 3, True))
-    sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 4, True))
+    sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 2, True))
     sender.addPotionEffect(PotionEffect(PotionEffectType.NIGHT_VISION, 50000, 2, True))
     sender.addPotionEffect(PotionEffect(PotionEffectType.INCREASE_DAMAGE, 50000, 2, True))
 
