@@ -12,6 +12,10 @@ from org.bukkit.potion import PotionEffectType
 from org.bukkit.potion import PotionEffect
 
 itemnamewhitelist = "1234567890abcdeflmnok"
+mushroomeffects = ["SLOW", "CONFUSION", "BLINDNESS"]
+mushroomsayings = ["You feel a tad off", "Melons...Oh god melons!", "Hmm..  needs more salt", "You don't feel your best", "You shouldn't be that color...", "You feel dizzy..."]
+cakeeffects = ["FAST", "JUMP", "NIGHT_VISION"]
+cakesayings = ["So nommy!", "You want another!", "Mmmmmmmmmm"]
 
 # Time Commands
 @hook.command("day", description="Set your time to day.")
@@ -139,7 +143,7 @@ def onCommandRandom(sender,args):
     
     if len(args) == 3 and args[0].isdigit() == True and args[1].isdigit() == True and args[2].isdigit() == True:
         args[2] = str(10 % int(args[2]))
-        sender.sendMessage(str(random.randint((int(args[2])*int(args[0]),int(args[2])*int(args[1]))/int(args[2]))))
+        sender.sendMessage(str((random.randint((int(args[2])*int(args[0])),(int(args[2])*int(args[1]))))/(int(args[2]))))
         return True
     
     if len(args) == 0:
@@ -188,8 +192,8 @@ def onCommandItemname(sender,args):
                 sender.removePotionEffect(effect.getType())
             return True
         else:
-            effect = int(args[1])
-            sender.removePotionEffect(effect.getType())
+            effect = sender.getActivePotionEffects()[int(args[1])]
+            sender.removePotionEffect(effects.getType())
             return True
     if args[0] == "list" and len(args) > 0:
         
@@ -264,7 +268,7 @@ def onCommandHug(sender, args):
         return False
     
     sender.sendMessage(color("d")+"You hugged "+args[0])
-    bukkit.Bukkit.broadcastMessage(color(str(hex(random.randint(1,15)[2])))+color(str(hex(random.randint(1,15)[2])))+sender.getName()+color(str(hex(random.randint(1,15)[2])))+" hugged "+color(str(hex(random.randint(1,15)[2])))+args[0])
+    bukkit.Bukkit.broadcastMessage(color(str(hex(random.randint(1,15)))[2])+color(str(hex(random.randint(1,15)))[2])+sender.getName()+color(str(hex(random.randint(1,15)))[2])+" hugged "+color(str(hex(random.randint(1,15)))[2])+args[0])
     
     return True
 
@@ -280,15 +284,30 @@ def onCommandFixme(sender, args):
 #mushroom
 @hook.command("mushroom", description="???")
 def onCommandMushroom(sender, args):
+
+    bukkit.Bukkit.dispatchCommand(sender,"eff rem")
     
-    sender.sendMessage("You find some mushrooms on the floor ... mmm tasty")
-    sender.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 30, 3, True))    
+    sender.sendMessage(color("a")+"You find some mushrooms on the floor ... mmm"+color("2")+" tasty")
+    sender.sendMessage(color(str(random.randint(1,3)))+random.choice(mushroomsayings))
+    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+random.choice(mushroomeffects)), 30, 3, True))
+
+    return True
+
+#cake
+@hook.command("cake", description="A tasty treat!")
+def onCommandCake(sender, args):
+
+    bukkit.Bukkit.dispatchCommand(sender,"eff rem")
+    
+    sender.sendMessage(color("a")+"You take a slice of cake - it looks so"+color("2")+" soft and moist")
+    sender.sendMessage(color(str(random.randint(4,6)))+random.choice(cakesayings))
+    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+random.choice(cakeeffects)), 30, 3, True))
 
     return True
     
-#special effects
-@hook.command("special")
-def onCommandSpecial(sender, args):
+#quick
+@hook.command("quick",description="A version of /fast, made for buliding")
+def onCommandQuick(sender, args):
 
     bukkit.Bukkit.dispatchCommand(sender,"eff rem")
     
@@ -297,4 +316,8 @@ def onCommandSpecial(sender, args):
     sender.addPotionEffect(PotionEffect(PotionEffectType.NIGHT_VISION, 50000, 2, True))
     sender.addPotionEffect(PotionEffect(PotionEffectType.INCREASE_DAMAGE, 50000, 2, True))
 
+    sender.sendMessage(color("9")+"Super powers!")
+
     return True
+
+

@@ -1,6 +1,8 @@
 from Helper import color
 from Helper import sudo
 
+import org.bukkit as bukkit
+
 @hook.command("nameformat", description="Nameformatting. Try: /nameformat d l")
 def onCommandNameformat(sender, args):
     SName=sender.getName()
@@ -17,7 +19,7 @@ def onCommandNameformat(sender, args):
             sender.sendMessage(''.join([color("e"),'You changed ',p.getName(),"'s name formatting."]))
         else:
             if args[0]=='multi':
-    		Colours=''
+                Colours=''
 		ResultName=''
 		for i in range(1,len(args)):
 			if ColourWhitelist.find(args[i][0:1])!=-1:
@@ -83,7 +85,7 @@ def onCommandNameformat(sender, args):
 def onCommandTags(sender, args):
     sender.sendMessage(''.join([color("c"), "Mod", color("f"), " - Moderator"]))
     sender.sendMessage(''.join([color("4"), "A", color("f"), " - Admin"]))
-    sender.sendMessage(''.join([color("5"), "C", color("f"), " - Founder"]))
+    sender.sendMessage(''.join([color("5"), "C", color("f"), " - Coder"]))
     return True
 
 @hook.command("tag",description="Change a user's tags")
@@ -98,13 +100,31 @@ def onCommandTag(sender, args):
 
 @hook.command("skillup", description="Promote a user.")
 def onCommandSkillup(sender, args):
-    bukkit.Bukkit.dispatchCommand(sender,"pex promote "+args[0])
-    return True
-        
+    if len(args) == 1:
+        bukkit.Bukkit.dispatchCommand(sender,"pex promote "+args[0])
+        return True
+    return False
+    
 @hook.command("skilldown", description="Demote a user.")
 def onCommandSkilldown(sender,args):
-    bukkit.Bukkit.dispatchCommand(sender,"pex demote "+args[0])
-    return True
+    if len(args) == 1:
+        bukkit.Bukkit.dispatchCommand(sender,"pex demote "+args[0])
+        return True
+    return False
+
+@hook.command("tagadd", description="Give a user a tag.")
+def onCommandTagadd(sender,args):
+    if len(args) == 2:
+        bukkit.Bukkit.dispatchCommand(sender,"pex group "+args[0]+" user add "+args[1])
+        return True
+    return False
+
+@hook.command("tagremove", description="Give a user a tag.")
+def onCommandTagremove(sender,args):
+    if len(args) == 2:
+        bukkit.Bukkit.dispatchCommand(sender,"pex group "+args[0]+" user remoce "+args[1])
+        return True
+    return False
 
 @hook.command("fixname")
 def onCommandFixname(sender, args):
