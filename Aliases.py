@@ -14,7 +14,7 @@ from org.bukkit.potion import PotionEffect
 itemnamewhitelist = "1234567890abcdeflmnok"
 mushroomeffects = ["SLOW", "CONFUSION", "BLINDNESS"]
 mushroomsayings = ["You feel a tad off", "Melons...Oh god melons!", "Hmm..  needs more salt", "You don't feel your best", "You shouldn't be that color...", "You feel dizzy..."]
-cakeeffects = ["FAST", "JUMP", "NIGHT_VISION"]
+cakeeffects = ["SPEED", "JUMP", "NIGHT_VISION"]
 cakesayings = ["So nommy!", "You want another!", "Mmmmmmmmmm"]
 
 # Time Commands
@@ -142,8 +142,8 @@ def onCommandRandom(sender,args):
         return True
     
     if len(args) == 3 and args[0].isdigit() == True and args[1].isdigit() == True and args[2].isdigit() == True:
-        args[2] = str(10 % int(args[2]))
-        sender.sendMessage(str((random.randint((int(args[2])*int(args[0])),(int(args[2])*int(args[1]))))/(int(args[2]))))
+        precision = 10 % int(args[2])
+        sender.sendMessage(str((random.randint(precision*int(args[0]),precision*int(args[1])))/precision))
         return True
     
     if len(args) == 0:
@@ -191,9 +191,9 @@ def onCommandItemname(sender,args):
             for effect in sender.getActivePotionEffects():
                 sender.removePotionEffect(effect.getType())
             return True
-        else:
+        elif int(arg[1]) < sender.getActivePotionEffects():
             effect = sender.getActivePotionEffects()[int(args[1])]
-            sender.removePotionEffect(effects.getType())
+            sender.removePotionEffect(effect.getType())
             return True
     if args[0] == "list" and len(args) > 0:
         
@@ -289,7 +289,7 @@ def onCommandMushroom(sender, args):
     
     sender.sendMessage(color("a")+"You find some mushrooms on the floor ... mmm"+color("2")+" tasty")
     sender.sendMessage(color(str(random.randint(1,3)))+random.choice(mushroomsayings))
-    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+random.choice(mushroomeffects)), 30, 3, True))
+    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+random.choice(mushroomeffects)), 300, 3, True))
 
     return True
 
@@ -299,9 +299,9 @@ def onCommandCake(sender, args):
 
     bukkit.Bukkit.dispatchCommand(sender,"eff rem")
     
-    sender.sendMessage(color("a")+"You take a slice of cake - it looks so"+color("2")+" soft and moist")
+    sender.sendMessage(color("9")+"You take a slice of cake - it looks so"+color("6")+" soft and moist")
     sender.sendMessage(color(str(random.randint(4,6)))+random.choice(cakesayings))
-    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+random.choice(cakeeffects)), 30, 3, True))
+    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+random.choice(cakeeffects)), 300, 3, True))
 
     return True
     
