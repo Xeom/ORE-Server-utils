@@ -28,8 +28,8 @@ def onCommandFoodfight(sender,args):
         sender.sendMessage(color("c")+"You must specify who you are to throw food at.")
         return False
 
-    food = random.randint(1,len(foodlistitem)-1)
-    receiver=bukkit.Bukkit.getPlayer(args[0])
+    food = random.randint(1,(len(foodlistitem)-1))
+    receiver = bukkit.Bukkit.getPlayer(args[0])
 
     if receiver == None:
         sender.sendMessage(color('c')+'No such player.')
@@ -38,10 +38,10 @@ def onCommandFoodfight(sender,args):
     sudo("give "+args[0]+foodlistitem[food]+" 1")
 
     if food == 1:
-        bukkit.Bukkit.broadcastMessage(color("5")+sender.getName()+color("c")+" threw an "+color("6")+"apple"+color("c")+" at "+color("5")+receiver.getName())
+        bukkit.Bukkit.broadcastMessage(''.join([color("5"),sender.getName(),color("c")," threw an ",color("6"),"apple",color("c")," at ",color("5"),receiver.getName()]))
 
     else:
-        bukkit.Bukkit.broadcastMessage(color("5")+sender.getName()+color("c")+" threw a "+color("6")+foodlistname[food]+color("c")+" at "+color("5")+receiver.getName)
+        bukkit.Bukkit.broadcastMessage(''.join([color("5"),sender.getName(),color("c")," threw a ",color("6"),foodlistname[food],color("c")," at ",color("5"),receiver.getName]))
 
     if random.randint(1,5) == 1:
         receiver.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 40, 1, True))
@@ -100,7 +100,7 @@ def onCommandItemname(sender,args):
             else:
                 sender.sendMessage(color("c")+"Sorry, the format "+color("6")+(args[x])[i],color("c")+"is not availible.")
     
-    sender.sendMessage(str(namestring))
+    sender.sendMessage(''.join(namestring))
     
     return True
 
@@ -136,7 +136,7 @@ def onCommandItemname(sender,args):
     
     for i in range(1,2):
         if args[i].isdigit() == False:
-            sender.sendMessage
+            sender.sendMessage(color("c")+"Your power and duration must be integers -"+color("6")+" /eff [effect] [power] [duration]")
             return False
 
     args[0] = args[0].upper()
@@ -144,7 +144,7 @@ def onCommandItemname(sender,args):
     args[0] = args[0].replace(".","")
 
     if len(args) == 4:
-        receiver = bukkit.Bukkit.getPlayer(args[0])
+        receiver = bukkit.Bukkit.getPlayer(args[3])
         if receiver == None:
             sender.sendMessage(color("c")+"Invalid player")
             return False
@@ -216,9 +216,13 @@ def onCommandHug(sender, args):
 @hook.command("fixme", description="removes potion effects")
 def onCommandFixme(sender, args):
 
-    bukkit.Bukkit.dispatchCommand(sender,"eff rem")
-    sender.sendMessage("Removed potion effects")
-
+    if len(args) == 1:
+        receiver = bukkit.Bukkit.getPlayer(args[0])
+    else:
+        receiver = sender
+    bukkit.Bukkit.dispatchCommand(receiver,"eff rem")
+    receiver.sendMessage("Removed potion effects")
+        
     return True
 
 #mushroom
