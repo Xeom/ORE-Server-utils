@@ -38,10 +38,10 @@ def onCommandFoodfight(sender,args):
     sudo("give "+args[0]+foodlistitem[food]+" 1")
 
     if food == 1:
-        bukkit.Bukkit.broadcastMessage(''.join([color("5"),sender.getName(),color("c")," threw an ",color("6"),"apple",color("c")," at ",color("5"),receiver.getName()]))
+        bukkit.Bukkit.broadcastMessage(color("5")+sender.getName()+color("c")+" threw an "+color("6")+"apple"+color("c")+" at "+color("5")+receiver.getName())
 
     else:
-        bukkit.Bukkit.broadcastMessage(''.join([color("5"),sender.getName(),color("c")," threw a ",color("6"),foodlistname[food],color("c")," at ",color("5"),receiver.getName]))
+        bukkit.Bukkit.broadcastMessage(color("5")+sender.getName()+color("c")+" threw a "+color("6")+foodlistname[food]+color("c")+" at "+color("5")+receiver.getName())
 
     if random.randint(1,5) == 1:
         receiver.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 40, 1, True))
@@ -166,6 +166,15 @@ def onCommandFast(sender, args):
     sender.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 30, 2, True))
 
     sender.sendMessage(color("5")+color("l")+"SUPER"+color("6")+" speed! :D")
+    
+    return True
+
+
+#cp
+@hook.command("cp", description="...")	
+def onCommandCp(sender, args):
+
+    sender.sendMessage("OMG, Lag!")
     
     return True
         
