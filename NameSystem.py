@@ -98,13 +98,15 @@ def onCommandTag(sender, args):
     sudo(''.join(["/pex user ", args[2], " group ", args[0], args[1]]))
     return True
 
+#skillup
 @hook.command("skillup", description="Promote a user.")
 def onCommandSkillup(sender, args):
     if len(args) == 1:
         bukkit.Bukkit.dispatchCommand(sender,"pex promote "+args[0])
         return True
     return False
-    
+
+#skilldown
 @hook.command("skilldown", description="Demote a user.")
 def onCommandSkilldown(sender,args):
     if len(args) == 1:
@@ -112,17 +114,19 @@ def onCommandSkilldown(sender,args):
         return True
     return False
 
-@hook.command("tagadd", description="Give a user a tag.")
+#tagadd
+@hook.command("tagadd", description="Add a user to a group.")
 def onCommandTagadd(sender,args):
     if len(args) == 2:
         bukkit.Bukkit.dispatchCommand(sender,"pex group "+args[0]+" user add "+args[1])
         return True
     return False
 
-@hook.command("tagremove", description="Give a user a tag.")
+#tagremove
+@hook.command("tagremove", description="Removea user from a group.")
 def onCommandTagremove(sender,args):
     if len(args) == 2:
-        bukkit.Bukkit.dispatchCommand(sender,"pex group "+args[0]+" user remoce "+args[1])
+        bukkit.Bukkit.dispatchCommand(sender,"pex group "+args[0]+" user remove "+args[1])
         return True
     return False
 
