@@ -23,22 +23,30 @@ foodlistname = ['apple','bowl of soup','loaf of bread','porkchop','fish','cake',
 #food fight
 @hook.command("foodfight", description="A polite mealtime activity")
 def onCommandFoodfight(sender,args):
+
     if len(args) == 0:
-        sender.sendMessage("You must specify who you are to throw food at")
+        sender.sendMessage(color("c")+"You must specify who you are to throw food at.")
         return False
-    food = random.randint(1,len(foodlistitem))
+
+    food = random.randint(1,len(foodlistitem)-1)
     receiver=bukkit.Bukkit.getPlayer(args[0])
-    if receiver == 'null':
+
+    if receiver == None:
         sender.sendMessage(color('c')+'No such player.')
         return False
+
     sudo("give "+args[0]+foodlistitem[food]+" 1")
+
     if food == 1:
-        bukkit.Bukkit.broadcastMessage(color("6")+sender.getName()+color("c")+" threw an"+color("6")+" apple"+color("c")+" at"+color("6")+args[0])
+        bukkit.Bukkit.broadcastMessage(color("5")+sender.getName()+color("c")+" threw an "+color("6")+"apple"+color("c")+" at "+color("5")+receiver.getName())
+
     else:
-        bukkit.Bukkit.broadcastMessage(color("6")+sender.getName()+color("c")+" threw a"+color("6")+foodlistname[food]+color("c")+" at"+color("6")+args[0])
+        bukkit.Bukkit.broadcastMessage(color("5")+sender.getName()+color("c")+" threw a "+color("6")+foodlistname[food]+color("c")+" at "+color("5")+receiver.getName)
+
     if random.randint(1,5) == 1:
-        receiver.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 30, 2, True))
+        receiver.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 40, 1, True))
         bukkit.Bukkit.broadcastMessage(color("5")+"Headshot!")
+
     return True
         
     
@@ -128,14 +136,22 @@ def onCommandItemname(sender,args):
     
     for i in range(1,2):
         if args[i].isdigit() == False:
-            sender.sendMessage(color("c")+"Your potion duration and power must be integers -"+color("6")+" /eff [Effect] [Power] [Duration]")
+            sender.sendMessage
             return False
 
     args[0] = args[0].upper()
     args[0] = args[0].replace(" ","")
     args[0] = args[0].replace(".","")
-    
-    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), (int(args[1])-1)))
+
+    if len(args) == 4:
+        receiver = bukkit.Bukkit.getPlayer(args[0])
+        if receiver == None:
+            sender.sendMessage(color("c")+"Invalid player")
+            return False
+    else:
+        receiver = sender
+
+    receiver.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), (int(args[1])-1)))
     
     return True
 
