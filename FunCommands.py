@@ -21,7 +21,7 @@ foodlistname = ['apple','bowl of soup','loaf of bread','porkchop','fish','cake',
 
 
 #food fight
-@hook.command("fooffight", description="A polite mealtime activity")
+@hook.command("foodfight", description="A polite mealtime activity")
 def onCommandFoodfight(sender,args):
     if len(args) == 0:
         sender.sendMessage("You must specify who you are to throw food at")

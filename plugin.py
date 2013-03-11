@@ -2,6 +2,7 @@ from Helper import color
 
 import FunAliases
 import Aliases
+import FunCommands
 
 import Derps
 
