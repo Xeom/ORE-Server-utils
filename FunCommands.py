@@ -33,9 +33,9 @@ def onCommandFoodfight(sender,args):
         return False
     sudo("give "+args[0]+foodlistitem[food]+" 1")
     if food == 1:
-        bukkit.Bukkit.broadcastMessage(color("6")+sender+color("c")+" threw an"+color("6")+" apple"+color("c")+" at"+color("6")+args[0])
+        bukkit.Bukkit.broadcastMessage(color("6")+sender.getName()+color("c")+" threw an"+color("6")+" apple"+color("c")+" at"+color("6")+args[0])
     else:
-        bukkit.Bukkit.broadcastMessage(color("6")+sender+color("c")+" threw a"+color("6")+foodlistname[food]+color("c")+" at"+color("6")+args[0])
+        bukkit.Bukkit.broadcastMessage(color("6")+sender.getName()+color("c")+" threw a"+color("6")+foodlistname[food]+color("c")+" at"+color("6")+args[0])
     if random.randint(1,5) == 1:
         receiver.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 30, 2, True))
         bukkit.Bukkit.broadcastMessage(color("5")+"Headshot!")
@@ -156,26 +156,32 @@ def onCommandFast(sender, args):
 #love
 @hook.command("love", description="<3")
 def onCommandLove(sender, args):
-    
-    if len(args) == 0:
-        bukkit.Bukkit.broadcastMessage(color("d")+sender.getName()+color("4")+color("l")+" <3 "+color("d")+"RSW")
-        return True
-    
-    else:
-        bukkit.Bukkit.broadcastMessage(color("d")+sender.getName()+color("4")+color("l")+" <3 "+color("d")+args[0])
-        return True
+
+    loves = "RSW"
+
+    if len(args) > 0:
+        loves = ""
+        for i in args:
+            loves = loves+" "+i
+
+    bukkit.Bukkit.broadcastMessage(color("d")+sender.getName()+color("4")+color("l")+" <3"+color("d")+loves)
+
+    return True
         
 #hate
 @hook.command("hate", description="D:")
 def onCommandHate(sender, args):
-    
-    if len(args) == 0:
-        bukkit.Bukkit.broadcastMessage(color("a")+sender.getName()+color("2")+color("l")+" hates "+color("a")+"redgame")
-        return True
-    
-    else:
-        bukkit.Bukkit.broadcastMessage(color("a")+sender.getName()+color("2")+color("l")+" hates "+color("a")+args[0])
-        return True
+
+    hates = "Redgame"
+
+    if len(args) > 0:
+        hates = ""
+        for i in args:
+            hates = hates+" "+i
+
+    bukkit.Bukkit.broadcastMessage(color("a")+sender.getName()+color("2")+color("l")+" hates "+color("a")+hates)
+
+    return True
 
 #hug
 @hook.command("hug", description="A special command for someone you love")
