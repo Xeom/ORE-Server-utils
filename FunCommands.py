@@ -211,8 +211,8 @@ def onCommandHug(sender, args):
         sender.sendMessage(''.join([color("c"),"You must have an argument -",color("6")," /hug [thing]"]))
         return False
 
-    if args[0].getPlayer() != None:
-        receiverPlayer = args[0].getPlayer()
+    if bukkit.Bukkit.getPlayer(args[0]) != None:
+        receiverPlayer = bukkit.Bukkit.getPlayer(args[0])
         receiverPlayer.sendMessage(''.join([color("d"),"You were hugged by ",sender.getName()]))
         receiver = receicerPlayer.getName()
         sender.sendMessage(''.join([color("d"),"You hugged ",Receiver]))
@@ -259,7 +259,7 @@ def onCommandCake(sender, args):
     
     sender.sendMessage(''.join([color("9"),"You take a slice of cake - it looks so",color("6")," soft and moist"]))
     sender.sendMessage(''.join([color(str(random.randint(4,6))),random.choice(cakesayings)]))
-    sender.addPotionEffect(PotionEffect(eval("PotionEffectType.",random.choice(cakeeffects)), 300, 3, True))
+    sender.addPotionEffect(PotionEffect(eval(''.join(["PotionEffectType.",random.choice(cakeeffects)])), 300, 3, True))
 
     return True
     
