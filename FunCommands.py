@@ -25,27 +25,27 @@ foodlistname = ['apple','bowl of soup','loaf of bread','porkchop','fish','cake',
 def onCommandFoodfight(sender,args):
 
     if len(args) == 0:
-        sender.sendMessage(color("c")+"You must specify who you are to throw food at.")
+        sender.sendMessage(''.join([color("c"),"You must specify who you are to throw food at."]))
         return False
 
     food = random.randint(1,(len(foodlistitem)-1))
     receiver = bukkit.Bukkit.getPlayer(args[0])
 
     if receiver == None:
-        sender.sendMessage(color('c')+'No such player.')
+        sender.sendMessage(''.join([color('c'),'No such player.']))
         return False
 
-    sudo("give "+args[0]+foodlistitem[food]+" 1")
+    sudo(''.join(["give ",args[0],foodlistitem[food]," 1"]))
 
     if food == 1:
-        bukkit.Bukkit.broadcastMessage(color("5")+sender.getName()+color("c")+" threw an "+color("6")+"apple"+color("c")+" at "+color("5")+receiver.getName())
+        bukkit.Bukkit.broadcastMessage(''.join([color("5"),sender.getName(),color("c")," threw an ",color("6"),"apple",color("c")," at ",color("5"),receiver.getName()]))
 
     else:
-        bukkit.Bukkit.broadcastMessage(color("5")+sender.getName()+color("c")+" threw a "+color("6")+foodlistname[food]+color("c")+" at "+color("5")+receiver.getName())
+        bukkit.Bukkit.broadcastMessage(''.join([color("5"),sender.getName(),color("c")," threw a ",color("6"),foodlistname[food],color("c")," at ",color("5"),receiver.getName()]))
 
     if random.randint(1,5) == 1:
         receiver.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 40, 1, True))
-        bukkit.Bukkit.broadcastMessage(color("5")+"Headshot!")
+        bukkit.Bukkit.broadcastMessage(''.join([color("5"),"Headshot!"]))
 
     return True
         
@@ -77,7 +77,7 @@ def onCommandRandom(sender,args):
         sender.sendMessage(str(random.randint(0,10)))
         return True
     
-    sender.sendMessage(color("c")+"Use the syntax "+color("6")+"/random [a] [b]")
+    sender.sendMessage(''.join([color("c"),"Use the syntax ",color("6"),"/random [a] [b]"]))
     return False
 
 # Item Renaming
@@ -85,7 +85,7 @@ def onCommandRandom(sender,args):
 def onCommandItemname(sender,args):
     
     if len(args) == 0:
-        sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /itemname [name] [format1] [format2] etc.")
+        sender.sendMessage(''.join([color("c"),"You must have an argument -",color("6")," /itemname [name] [format1] [format2] etc."]))
     addpos = 0
     namestring = list(args[0])
     
@@ -98,7 +98,7 @@ def onCommandItemname(sender,args):
                 addpos = addpos + 2
             
             else:
-                sender.sendMessage(color("c")+"Sorry, the format "+color("6")+(args[x])[i],color("c")+"is not availible.")
+                sender.sendMessage(''.join([color("c"),"Sorry, the format ",color("6"),(args[x])[i],' ',color("c"),"is not availible."]))
     
     sender.sendMessage(''.join(namestring))
     
@@ -109,7 +109,7 @@ def onCommandItemname(sender,args):
 def onCommandItemname(sender,args):
     
     if len(args) == 0:
-        sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /eff [effect] [power] [duration]"+color("c")+" you can also use 'rem' and 'list' as effects, for special functions")
+        sender.sendMessage(''.join([color("c"),"You must have an argument -",color("6")," /eff [effect] [power] [duration]",color("c")," you can also use 'rem' and 'list' as effects, for special functions"]))
         return False
     
     if args[0] == "rem":
@@ -127,16 +127,16 @@ def onCommandItemname(sender,args):
             bukkit.Bukkit.dispatchCommand(sender,"e")
         
         else:
-            bukkit.Bukkit.dispatchCommand(sender,"e "+args[1])
+            bukkit.Bukkit.dispatchCommand(sender,''.join(["e ",args[1]]))
         return True
     
     if len(args) < 3:
-        sender.sendMessage(color("c")+"You must have the correct amount of arguments -"+color("6")+" /eff [effect] [power] [duration]")
+        sender.sendMessage(''.join([color("c"),"You must have the correct amount of arguments -",color("6")," /eff [effect] [power] [duration]"]))
         return False
     
     for i in range(1,2):
         if args[i].isdigit() == False:
-            sender.sendMessage(color("c")+"Your power and duration must be integers -"+color("6")+" /eff [effect] [power] [duration]")
+            sender.sendMessage(''.join([color("c"),"Your power and duration must be integers -",color("6")," /eff [effect] [power] [duration]"]))
             return False
 
     args[0] = args[0].upper()
@@ -146,12 +146,12 @@ def onCommandItemname(sender,args):
     if len(args) == 4:
         receiver = bukkit.Bukkit.getPlayer(args[3])
         if receiver == None:
-            sender.sendMessage(color("c")+"Invalid player")
+            sender.sendMessage(''.join([color("c"),"Invalid player"]))
             return False
     else:
         receiver = sender
 
-    receiver.addPotionEffect(PotionEffect(eval("PotionEffectType."+args[0]), int(args[2]), (int(args[1])-1)))
+    receiver.addPotionEffect(PotionEffect(eval(''.join(["PotionEffectType.",args[0]])), int(args[2]), (int(args[1])-1)))
     
     return True
 
@@ -165,8 +165,7 @@ def onCommandFast(sender, args):
     sender.addPotionEffect(PotionEffect(PotionEffectType.JUMP, 50000, 9, True))
     sender.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 30, 2, True))
 
-    sender.sendMessage(color("5")+color("l")+"SUPER"+color("6")+" speed! :D")
-    
+    sender.sendMessage(''.join([color("5"),color("l"),"SUPER",color("6")," speed! :D"]))
     return True
 
 
@@ -185,11 +184,9 @@ def onCommandLove(sender, args):
     loves = "RSW"
 
     if len(args) > 0:
-        loves = ""
-        for i in args:
-            loves = loves+" "+i
+        loves = ' '.join(args)
 
-    bukkit.Bukkit.broadcastMessage(color("d")+sender.getName()+color("4")+color("l")+" <3"+color("d")+loves)
+    bukkit.Bukkit.broadcastMessage(''.join([color("d"),sender.getName(),color("4"),color("l")," <3",color("d"),loves]))
 
     return True
         
@@ -200,11 +197,9 @@ def onCommandHate(sender, args):
     hates = "Redgame"
 
     if len(args) > 0:
-        hates = ""
-        for i in args:
-            hates = hates+" "+i
+        hates = ' '.join(args)
 
-    bukkit.Bukkit.broadcastMessage(color("a")+sender.getName()+color("2")+color("l")+" hates "+color("a")+hates)
+    bukkit.Bukkit.broadcastMessage(''.join([color("a"),sender.getName(),color("2"),color("l")," hates ",color("a"),hates]))
 
     return True
 
@@ -213,11 +208,11 @@ def onCommandHate(sender, args):
 def onCommandHug(sender, args):
     
     if len(args) == 0:
-        sender.sendMessage(color("c")+"You must have an argument -"+color("6")+" /hug [thing]")
+        sender.sendMessage(''.join([color("c"),"You must have an argument -",color("6")," /hug [thing]"]))
         return False
     
-    sender.sendMessage(color("d")+"You hugged "+args[0])
-    bukkit.Bukkit.broadcastMessage(color(str(hex(random.randint(1,15)))[2])+color(str(hex(random.randint(1,15)))[2])+sender.getName()+color(str(hex(random.randint(1,15)))[2])+" hugged "+color(str(hex(random.randint(1,15)))[2])+args[0])
+    sender.sendMessage(''.join([color("d"),"You hugged ",args[0]]))
+    bukkit.Bukkit.broadcastMessage(''.join([color(str(hex(random.randint(1,15)))[2]),color(str(hex(random.randint(1,15)))[2]),sender.getName(),color(str(hex(random.randint(1,15)))[2])," hugged ",color(str(hex(random.randint(1,15)))[2]),args[0]]))
     
     return True
 
@@ -240,9 +235,9 @@ def onCommandMushroom(sender, args):
 
     bukkit.Bukkit.dispatchCommand(sender,"eff rem")
     
-    sender.sendMessage(color("a")+"You find some mushrooms on the floor ... mmm"+color("2")+" tasty")
-    sender.sendMessage(color(str(random.randint(1,3)))+random.choice(mushroomsayings))
-    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+random.choice(mushroomeffects)), 300, 3, True))
+    sender.sendMessage(''.join([color("a"),"You find some mushrooms on the floor ... mmm",color("2")," tasty"]))
+    sender.sendMessage(''.join([color(str(random.randint(1,3))),random.choice(mushroomsayings)]))
+    sender.addPotionEffect(PotionEffect(eval(''.join(["PotionEffectType.",random.choice(mushroomeffects)])), 300, 3, True))
 
     return True
 
@@ -252,9 +247,9 @@ def onCommandCake(sender, args):
 
     bukkit.Bukkit.dispatchCommand(sender,"eff rem")
     
-    sender.sendMessage(color("9")+"You take a slice of cake - it looks so"+color("6")+" soft and moist")
-    sender.sendMessage(color(str(random.randint(4,6)))+random.choice(cakesayings))
-    sender.addPotionEffect(PotionEffect(eval("PotionEffectType."+random.choice(cakeeffects)), 300, 3, True))
+    sender.sendMessage(''.join([color("9"),"You take a slice of cake - it looks so",color("6")," soft and moist"]))
+    sender.sendMessage(color(str(random.randint(4,6))),random.choice(cakesayings))
+    sender.addPotionEffect(PotionEffect(eval("PotionEffectType.",random.choice(cakeeffects)), 300, 3, True))
 
     return True
     
@@ -269,7 +264,7 @@ def onCommandQuick(sender, args):
     sender.addPotionEffect(PotionEffect(PotionEffectType.NIGHT_VISION, 50000, 2, True))
     sender.addPotionEffect(PotionEffect(PotionEffectType.INCREASE_DAMAGE, 50000, 2, True))
 
-    sender.sendMessage(color("9")+"Super powers!")
+    sender.sendMessage(''.join([color("9"),"Super powers!"]))
 
     return True
     
