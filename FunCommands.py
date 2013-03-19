@@ -214,7 +214,7 @@ def onCommandHug(sender, args):
     if bukkit.Bukkit.getPlayer(args[0]) != None:
         receiverPlayer = bukkit.Bukkit.getPlayer(args[0])
         receiverPlayer.sendMessage(''.join([color("d"),"You were hugged by ",sender.getName()]))
-        receiver = receicerPlayer.getName()
+        receiver = receiverPlayer.getName()
         sender.sendMessage(''.join([color("d"),"You hugged ",receiver]))
 
     else:
