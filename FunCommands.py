@@ -215,10 +215,10 @@ def onCommandHug(sender, args):
         receiverPlayer = bukkit.Bukkit.getPlayer(args[0])
         receiverPlayer.sendMessage(''.join([color("d"),"You were hugged by ",sender.getName()]))
         receiver = receicerPlayer.getName()
-        sender.sendMessage(''.join([color("d"),"You hugged ",Receiver]))
+        sender.sendMessage(''.join([color("d"),"You hugged ",receiver]))
 
     else:
-        receicer = args[0]
+        receiver = args[0]
 
     bukkit.Bukkit.broadcastMessage(''.join([color(str(hex(random.randint(1,15)))[2]),color(str(hex(random.randint(1,15)))[2]),sender.getName(),color(str(hex(random.randint(1,15)))[2])," hugged ",color(str(hex(random.randint(1,15)))[2]),receiver]))
     
@@ -278,4 +278,3 @@ def onCommandQuick(sender, args):
 
     return True
     
-
