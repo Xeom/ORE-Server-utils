@@ -8,14 +8,14 @@ WritingLines = []
 
 @hook.command('mb')
 def onCommandMb(sender,args):
-    ops = open('plugins/ThunderUtils.py.dir/ops.txt')
+    ops = open('plugins/ThunderUtils.py.dir/RandomFiles/ops.txt')
     if ops.readlines().count(''.join([sender.getName,'\n'])) == 0:
         ops.close()
         sender.sendMessage(''.join([color('c'),'You are not an op.']))
         return False
     ops.close()
     if args[0] == 'list':
-        b = open('plugins/ThunderUtils.py.dir/Binds.py',"r")
+        b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py',"r")
         for i in b.readlines():
             if i[0] == '#':
                 sender.sendMessage(i[1:len(i)-2])
@@ -28,8 +28,8 @@ def onCommandMb(sender,args):
         return False
     if args[0] == 'confirmdelete':
         if ResetAllPending.count(sender.getName()) == 1:
-            b = open('plugins/ThunderUtils.py.dir/Binds.py','w')
-            c = open('plugins/ThunderUtils.py.dir/Template.txt')
+            b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','w')
+            c = open('plugins/ThunderUtils.py.dir/RandomFiles/Template.txt')
             b.writelines(c.readlines())
             c.close()
             b.close()
@@ -80,7 +80,7 @@ def onCommandMb(sender,args):
         sender.sendMessage(''.join([color('c'),'Nothing to cancel']))
         return False
     if args[0] == 'delete':
-        b = open('plugins/ThunderUtils.py.dir/Binds.py')
+        b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py')
         if b.readlines().count(''.join(['#',args[0],'\n'])) != 0:
             delPos = b.readlines().index(''.join(['#',args[0],'\n']))
             delList = b.readlines()
@@ -114,7 +114,7 @@ def complie(sender,args):
     global FullString
     FullString = []
     CommandName = args.pop(0)
-    b = open('plugins/ThunderUtils.py.dir/Binds.py','r')
+    b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','r')
     if b.readlines().count(''.join(['#',CommandName,'\n'])) != 0:
         sender.sendMessage(''.join([color('c'),'That name is already in use'])) #Checks if command name is free
         b.close()
@@ -131,7 +131,7 @@ def complie(sender,args):
             sender.sendMessage(''.join([color('c'),'You cannot bind a command to an MB'])) 
     CommandName = CommandName.replace('"',"") #Replace invalid characters in the name
     a = []
-    b = open('plugins/ThunderUtils.py.dir/Binds.py','a')
+    b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
     b.write('#{}\n'.format(CommandName))
     b.write('@hook.command("{0}",description="{0}, by {1}")\n'.format(CommandName,sender))
     b.write('def onCommand{}(sender,args):\n'.format(CommandName)) #Write 'introduction'
@@ -211,7 +211,7 @@ def complie(sender,args):
             a.append(''.join([i.format(tab='\u0009'),'\n']))
     a.append('\u0009return True\n')
     a.append('\n')
-    b = open('plugins/ThunderUtils.py.dir/Binds.py','a')
+    b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
     if argsNum != 0:
         b.write(''.join(['\u0009if len(args) != ',str(argsNum),':\n']))
         b.write(''.join(['\u0009\u0009sender.sendMessage("You must have ',str(argsNum),' arguments")\n']))#Writes if statement for amount of arguments
