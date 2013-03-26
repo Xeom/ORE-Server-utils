@@ -7,6 +7,7 @@ import FunCommands
 import Light
 
 import Derps
+import BindCommand
 
 import NameSystem
 import OnlinePlayers
