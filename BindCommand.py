@@ -1,12 +1,12 @@
-#import colorz
-#import bukkitz
+from Helper import color
+import org.bukkit as bukkit
 
 FullString = ['soup']
 ResetAllPending = []
 WritingNames = []
 WritingLines = []
 
-#@hook.command('mb')
+@hook.command('mb')
 def onCommandMb(sender,args):
     ops = open('RandomFiles\ops.txt')
     if ops.readlines().count(''.join([sender.getName,'\n'])) == 0:
