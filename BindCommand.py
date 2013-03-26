@@ -9,7 +9,7 @@ WritingLines = []
 @hook.command('mb')
 def onCommandMb(sender,args):
     ops = open('plugins/ThunderUtils.py.dir/RandomFiles/ops.txt')
-    if ops.readlines().count(''.join([sender.getName,'\n'])) == 0:
+    if ops.readlines().count(''.join([sender.getName(),'\n'])) == 0:
         ops.close()
         sender.sendMessage(''.join([color('c'),'You are not an op.']))
         return False
