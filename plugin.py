@@ -4,6 +4,8 @@ import FunAliases
 import Aliases
 import FunCommands
 
+import Light
+
 import Derps
 
 import NameSystem
