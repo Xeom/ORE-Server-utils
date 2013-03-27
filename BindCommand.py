@@ -133,8 +133,8 @@ def complie(sender,args):
     a = []
     b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
     b.write(''.join(['#',CommandName,'\n']))
-    b.write(''.join(['@hook.command("'CommandName'",description="',CommandName,', by ',sender.getName,'")\n'
-    b.write(''.join(['def onCommand',CommandName,'(sender,args):\n']) #Write 'introduction'
+    b.write(''.join(['@hook.command("',CommandName,'",description="',CommandName,', by ',sender.getName,'")\n']))
+    b.write(''.join(['def onCommand',CommandName,'(sender,args):\n'])) #Write 'introduction'
     b.close()
     argsNum = 0
     for i in FullString:
