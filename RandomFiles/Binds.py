@@ -9,3 +9,41 @@ def onCommandTestMagic(sender,args):
 	sudo("".join(["/set 103"]))
 	return True
 
+#Test
+@hook.command("Test",description="Test, by Xeo")
+def onCommandTest(sender,args):
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        sender.sendMessage('LONG')
+        return True
+
+#Moo
+@hook.command HELP ME ARGH A SEAL

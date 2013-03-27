@@ -13,7 +13,7 @@ def onCommandMb(sender,args):
         ops.close()
         sender.sendMessage(''.join([color('c'),'You are not an op.']))
         return False
-    if len(args) < 2:
+    if len(args) < 2 and args[0] != 'list':
         helpMessage(sender)
         return True
     ops.close()
@@ -24,21 +24,20 @@ def onCommandMb(sender,args):
         s = ''
         sender.sendMessage(''.join([color('9'),'List of commands:']))
         for i in b.readlines():
-            nLocal = nLocal + 1
             if i[0] == '#':
                 if s != '':
-                    if nLocal/5 > 4:
-                        sender.sendMessage(''.join([color('4'),s,' (',str(nLocal),')']))
-                    else:
-                        sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,' (',str(nLocal),')']))
                 s = i[1:len(i)-1]
                 n = n + 1
                 nLocal = -1
-        if nLocal/5 > 4:
-            sender.sendMessage(''.join([color('4'),s,' (',str(nLocal),')']))
-        else:
-            sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,' (',str(nLocal),')']))
-        sender.sendMessage(''.join([color('a'),'A total of ',str(n),' commands']))
+            if i[0].replace('\n','') == '':
+                if nLocal/5 > 4:
+                    sender.sendMessage(''.join([color('4'),s,' (',str(nLocal),')']))
+                else:
+                    sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,' (',str(nLocal),')']))
+            else:
+                nLocal = nLocal + 1
+            if i[0] == '#':
+        sender.sendMessage(''.join([color('9'),'A total of ',str(n),' commands']))
         return True
     if args[0] == 'deleteall': #Reset
         sender.sendMessage(''.join([color('4'),'Are you CERTAIN you want to delete ALL MB commands?']))
@@ -128,7 +127,7 @@ def onCommandMb(sender,args):
             if i[0] == '#':
                 if i == ''.join(['#',args[1],'\n']):
                     sender.sendMessage(''.join([color('2'),i[1:len(i)-1]]))
-                elif i.find(name) != -1:
+                elif i.find(args[1]) != -1:
                     sender.sendMessage(''.join([color('a'),i[1:len(i)-1]]))
         return True
     helpMessage(sender)
