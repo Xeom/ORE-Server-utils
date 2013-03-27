@@ -109,7 +109,7 @@ def onCommandMb(sender,args):
         b.close()
         sender.sendMessage(''.join([color('c'),'No such command']))
         return False
-    if args[0] == 'view':
+    if args[0] == 'view': #view
         b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py')
         l = b.readlines()
         n = 0
@@ -135,12 +135,12 @@ def onCommandMb(sender,args):
                 if i.lower() == ''.join(['#',args[1].lower(),'\n']):
                     sender.sendMessage(''.join([color('2'),i[1:len(i)-1]]))
                     n2 = n2 + 1
-                elif i.find(args[1]) != -1:
+                elif i.lower().find(args[1].lower()) != -1:
                     sender.sendMessage(''.join([color('a'),i[1:len(i)-1]]))
                     n = n + 1
         b.close()
-        sender.sendMessage(''.join([color('9'),'Found ',n,' partial matche(s), and ',n2,' full matche(s)']))
-        return True
+        sender.sendMessage(''.join([color('9'),'Found ',str(n),' partial matche(s), and ',n2,' full matche(s)']))
+        return True 
     helpMessage(sender)
     return True
 
@@ -162,11 +162,13 @@ def delete(Name):
 def helpMessage(sender):
     sender.sendMessage(''.join([color('6'),'Arguments:']))
     sender.sendMessage(''.join([color('a'),'List - lists all finished commands']))
+    sender.sendMessage(''.join([color('a'),'Find [Search] - Searches for a command']))
+    sender.sendMessage(''.join([color('a'),'']))
     sender.sendMessage(''.join([color('a'),'ResetAll - Resets all commands (Leave it alone)']))
-    sender.sendMessage(''.join([color('a'),'Write - Write a new command - This command will allow you to write more to any pending command']))
+    sender.sendMessage(''.join([color('a'),'Write [Name] [Command] - Write a new command - This command will allow you to write more to any pending command']))
     sender.sendMessage(''.join([color('a'),'Done - Comfirm that the current "/mb write" command is done, and can be turned into code']))
-    sender.sendMessage(''.join([color('a'),'New - Writes and creates a command in one command']))
-    sender.sendMessage(''.join([color('a'),'View - View the code for a command']))
+    sender.sendMessage(''.join([color('a'),'New [Name] [Command] - Writes and creates a command in one command']))
+    sender.sendMessage(''.join([color('a'),'View [Command Name] - View the code for a command']))
     sender.sendMessage(''.join([color('a'),'Cancel - Cancels the writing of the current "/mb write" command']))
     sender.sendMessage(''.join([color('6'),'The following are flags, to be used when creating a command']))
     sender.sendMessage(''.join([color('a'),'/ - Start of a new line']))
