@@ -16,7 +16,7 @@ def onCommandMb(sender,args):
     ops.close()
     if len(args) == 0:
         helpMessage(sender)
-
+        return True
     if args[0] == 'list': #List
         b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py',"r")
         n = 0
@@ -28,7 +28,7 @@ def onCommandMb(sender,args):
             if i[0] == '#':
                 s = i[1:len(i)-1]
                 n = n + 1
-                nLocal = -1
+                nLocal = 0
                 doStuff = True
             if i[0].replace('\n','') == '' and doStuff:
                 if nLocal / 5 > 4:
@@ -38,9 +38,8 @@ def onCommandMb(sender,args):
                     doStuff = False
             else:
                 nLocal = nLocal + 1
-        sender.sendMessage(''.join([color('9'),'A total of ',str(n-1),' commands']))
+        sender.sendMessage(''.join([color('9'),'A total of ',str(n),' commands']))
         return True
-
     if args[0] == 'deleteall': #Reset
         sender.sendMessage(''.join([color('4'),'Are you CERTAIN you want to delete ALL MB commands?']))
         sender.sendMessage(''.join([color('4'),'Respond with /mb confirmdelete or /mb declinedelete']))
@@ -121,20 +120,26 @@ def onCommandMb(sender,args):
                     b.close
                     break
                 n = n + 1
-                sender.sendMessage(''.join([str(n),': ',l.pop(seek).replace('\u0009','    ')]))
+                sender.sendMessage(''.join([str(n),': ',l.pop(seek).replace('\u0009','  ')]))
             return True
         sender.sendMessage(''.join([color('c'),'No such command']))
         b.close()
         return False
     if args[0] == 'find':
+        sender.sendMessage(''.join([color('9'),'Searching for "',args[1],'"']))
+        n = 0
+        n2 = 0
         b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py')
         for i in b.readlines():
             if i[0] == '#':
                 if i.lower() == ''.join(['#',args[1].lower(),'\n']):
                     sender.sendMessage(''.join([color('2'),i[1:len(i)-1]]))
+                    n2 = n2 + 1
                 elif i.find(args[1]) != -1:
                     sender.sendMessage(''.join([color('a'),i[1:len(i)-1]]))
+                    n = n + 1
         b.close()
+        sender.sendMessage(''.join([color('9'),'Found ',n,' partial matche(s), and ',n2,' full matche(s)']))
         return True
     helpMessage(sender)
     return True
@@ -153,6 +158,7 @@ def delete(Name):
         return True
     b.close()
     return False
+
 def helpMessage(sender):
     sender.sendMessage(''.join([color('6'),'Arguments:']))
     sender.sendMessage(''.join([color('a'),'List - lists all finished commands']))
@@ -164,15 +170,15 @@ def helpMessage(sender):
     sender.sendMessage(''.join([color('a'),'Cancel - Cancels the writing of the current "/mb write" command']))
     sender.sendMessage(''.join([color('6'),'The following are flags, to be used when creating a command']))
     sender.sendMessage(''.join([color('a'),'/ - Start of a new line']))
-    sender.sendMessage(''.join([color('a'),'#s Excecutes the current line as a comsole command']))
-    sender.sendMessage(''.join([color('a'),'#c Writes the current line as a custom line of code']))
-    sender.sendMessage(''.join([color('a'),'#b Broadcasts the current line to the server']))
+    sender.sendMessage(''.join([color('a'),'#s - Excecutes the current line as a comsole command']))
+    sender.sendMessage(''.join([color('a'),'#c - Writes the current line as a custom line of code']))
+    sender.sendMessage(''.join([color('a'),'#b - Broadcasts the current line to the server']))
     sender.sendMessage(''.join([color('6'),'The default setting is to exceute the line as a command by the sender']))
-    sender.sendMessage(''.join([color('a'),'#t (only used woth #c) creates a tab']))
-    sender.sendMessage(''.join([color('a'),'#p Name of the excecuter of the command']))
-    sender.sendMessage(''.join([color('a'),'#n AutoCompleted name in the first argument']))
-    sender.sendMessage(''.join([color('a'),'#f[hex value] A colour or format']))
-    sender.sendMessage(''.join([color('a'),'#[number] An argument of the player']))
+    sender.sendMessage(''.join([color('a'),'#t - (only used woth #c) creates a tab']))
+    sender.sendMessage(''.join([color('a'),'#p - Name of the excecuter of the command']))
+    sender.sendMessage(''.join([color('a'),'#n - AutoCompleted name in the first argument']))
+    sender.sendMessage(''.join([color('a'),'#f[hex value] - A colour or format']))
+    sender.sendMessage(''.join([color('a'),'#[number] - An argument of the player']))
     return True
 
 
