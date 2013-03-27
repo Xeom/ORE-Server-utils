@@ -18,7 +18,8 @@ def onCommandMb(sender,args):
         b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py',"r")
         for i in b.readlines():
             if i[0] == '#':
-                sender.sendMessage(i[1:len(i)-2])
+                sender.sendMessage(i[1:len(i)-1])
+                return True
     if args[0] == 'deleteall':
         sender.sendMessage(''.join([color('4'),'Are you CERTAIN you want to delete ALL MB commands?']))
         sender.sendMessage(''.join([color('4'),'Respond with /mb confirmdelete or /mb declinedelete']))
@@ -80,29 +81,48 @@ def onCommandMb(sender,args):
         sender.sendMessage(''.join([color('c'),'Nothing to cancel']))
         return False
     if args[0] == 'delete':
-        b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py')
-        if b.readlines().count(''.join(['#',args[0],'\n'])) != 0:
+        b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','r+')
+        if b.readlines().count(''.join(['#',args[1],'\n'])) != 0:
             delPos = b.readlines().index(''.join(['#',args[0],'\n']))
             delList = b.readlines()
             while True:
                 if delList[delPos].replace('\n','') == '':
+                    b.write(delList)
+                    b.close()
                     break
                 delList.pop(delPos)
             return True
-        sender.sendMessage('No such command')
+        b.close()
+        sender.sendMessage(''.join([color('c'),'No such command']))
         return False
+    if args[0] == 'view':
+        b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py')
+        l = b.readlines()
+        if l.count(''.join(['#',args[1],'\n'])) != 0:
+            seek = l.index(''.join(['#',args[0],'\n']))
+            while True:
+                if l[seek].replace('\n','') == '':
+                    b.close
+                    break
+                sender.sendMessage(l.pop(seek))
+            return True
+        sender.sendMessage(''.join([color('c'),'No such command']))
+        b.close()
+        return False
+            
+    sender.sendMessage(''.join([color('6'),'Arguments:']))
     sender.sendMessage(''.join([color('a'),'List - lists all finished commands']))
     sender.sendMessage(''.join([color('a'),'ResetAll - Resets all commands (Leave it alone)']))
     sender.sendMessage(''.join([color('a'),'Write - Write a new command - This command will allow you to write more to any pending command']))
     sender.sendMessage(''.join([color('a'),'Done - Comfirm that the current "/mb write" command is done, and can be turned into code']))
     sender.sendMessage(''.join([color('a'),'New - Writes and creates a command in one command']))
     sender.sendMessage(''.join([color('a'),'Cancel - Cancels the writing of the current "/mb write" command']))
-    sender.sendMessage(''.join([color('a'),'The following are flags, to be used when creating a command']))
+    sender.sendMessage(''.join([color('6'),'The following are flags, to be used when creating a command']))
     sender.sendMessage(''.join([color('a'),'/ - Start of a new line']))
     sender.sendMessage(''.join([color('a'),'#s Excecutes the current line as a comsole command']))
     sender.sendMessage(''.join([color('a'),'#c Writes the current line as a custom line of code']))
     sender.sendMessage(''.join([color('a'),'#b Broadcasts the current line to the server']))
-    sender.sendMessage(''.join([color('a'),'The default setting is to exceute the line as a command by the sender']))
+    sender.sendMessage(''.join([color('6'),'The default setting is to exceute the line as a command by the sender']))
     sender.sendMessage(''.join([color('a'),'#t (only used woth #c) creates a tab']))
     sender.sendMessage(''.join([color('a'),'#p Name of the excecuter of the command']))
     sender.sendMessage(''.join([color('a'),'#n AutoCompleted name in the first argument']))
@@ -117,7 +137,7 @@ def complie(sender,args):
     if len(args) < 2:
         sender.sendMessage(''.join([color('c'),'You must have at least three arguments']))#Argument checking
         return False
-    if (args[0])[0] != '/':
+    if (args[1])[0] != '/':
         sender.sendMessage(''.join([color('c'),'Your third argument must be a / or //']))
         return False
     for i in args:
