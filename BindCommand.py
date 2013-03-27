@@ -13,9 +13,6 @@ def onCommandMb(sender,args):
         ops.close()
         sender.sendMessage(''.join([color('c'),'You are not an op.']))
         return False
-    if len(args) < 2 and args[0] != 'list':
-        helpMessage(sender)
-        return True
     ops.close()
     if args[0] == 'list': #List
         b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py',"r")
@@ -30,12 +27,12 @@ def onCommandMb(sender,args):
                 nLocal = -1
             if i[0].replace('\n','') == '':
                 if nLocal/5 > 4:
-                    sender.sendMessage(''.join([color('4'),s,' (',str(nLocal),')']))
+                    sender.sendMessage(''.join([color('4'),s,color('f'),' (',str(nLocal),')']))
                 else:
-                    sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,' (',str(nLocal),')']))
+                    sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,color('f'),' (',str(nLocal),')']))
             else:
                 nLocal = nLocal + 1
-        sender.sendMessage(''.join([color('9'),'A total of ',str(n),' commands']))
+        sender.sendMessage(''.join([color('9'),'A total of ',str(n-1),' commands']))
         return True
     if args[0] == 'deleteall': #Reset
         sender.sendMessage(''.join([color('4'),'Are you CERTAIN you want to delete ALL MB commands?']))
@@ -61,7 +58,10 @@ def onCommandMb(sender,args):
             sender.sendMesage(''.join([color('a'),'Not deleted']))
             return True
         sender.sendMesage(''.join([color('c'),'You have no pending deletion requests']))
-        return False
+        return False ### Commands before here must need no args
+    if len(args) < 2:
+        helpMessage(sender)
+        return True  ### Commands after here must need args
     if args[0] == 'write': #Start new multi thing command 
         args.pop(0)
         if WritingNames.count(sender.getName()) == 0:
@@ -121,12 +121,15 @@ def onCommandMb(sender,args):
         return False
     if args[0] == 'find':
         b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py')
+        args[1] == args[1].lower()
         for i in b.readlines():
+            i = i.lower()
             if i[0] == '#':
                 if i == ''.join(['#',args[1],'\n']):
                     sender.sendMessage(''.join([color('2'),i[1:len(i)-1]]))
                 elif i.find(args[1]) != -1:
                     sender.sendMessage(''.join([color('a'),i[1:len(i)-1]]))
+        b.close()
         return True
     helpMessage(sender)
     return True
