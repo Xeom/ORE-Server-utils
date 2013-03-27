@@ -139,7 +139,7 @@ def onCommandMb(sender,args):
                     sender.sendMessage(''.join([color('a'),i[1:len(i)-1]]))
                     n = n + 1
         b.close()
-        sender.sendMessage(''.join([color('9'),'Found ',str(n),' partial matche(s), and ',n2,' full matche(s)']))
+        sender.sendMessage(''.join([color('9'),'Found ',str(n),' partial matche(s), and ',str(n2),' full matche(s)']))
         return True 
     helpMessage(sender)
     return True
