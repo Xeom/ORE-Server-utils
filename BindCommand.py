@@ -25,7 +25,6 @@ def onCommandMb(sender,args):
         sender.sendMessage(''.join([color('9'),'List of commands:']))
         for i in b.readlines():
             if i[0] == '#':
-                if s != '':
                 s = i[1:len(i)-1]
                 n = n + 1
                 nLocal = -1
@@ -36,7 +35,6 @@ def onCommandMb(sender,args):
                     sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,' (',str(nLocal),')']))
             else:
                 nLocal = nLocal + 1
-            if i[0] == '#':
         sender.sendMessage(''.join([color('9'),'A total of ',str(n),' commands']))
         return True
     if args[0] == 'deleteall': #Reset
