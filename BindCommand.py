@@ -13,7 +13,7 @@ def onCommandMb(sender,args):
         ops.close()
         sender.sendMessage(''.join([color('c'),'You are not an op.']))
         return False
-    if len(args) == 0:
+    if len(args) < 2:
         helpMessage(sender)
         return True
     ops.close()
@@ -21,17 +21,23 @@ def onCommandMb(sender,args):
         b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py',"r")
         n = 0
         nLocal = 0
-        s = 'List of commands:'
+        s = ''
+        sender.sendMessage(''.join([color('9'),'List of commands:']))
         for i in b.readlines():
             nLocal = nLocal + 1
             if i[0] == '#':
-                if nLocal/5 > 4:
-                    sender.sendMessage(''.join([color('4'),s,' (',str(nLocal),')']))
-                else:
-                    sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,' (',str(nLocal),')']))
+                if s != '':
+                    if nLocal/5 > 4:
+                        sender.sendMessage(''.join([color('4'),s,' (',str(nLocal),')']))
+                    else:
+                        sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,' (',str(nLocal),')']))
                 s = i[1:len(i)-1]
                 n = n + 1
-                nLocal = 0
+                nLocal = -1
+        if nLocal/5 > 4:
+            sender.sendMessage(''.join([color('4'),s,' (',str(nLocal),')']))
+        else:
+            sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,' (',str(nLocal),')']))
         sender.sendMessage(''.join([color('a'),'A total of ',str(n),' commands']))
         return True
     if args[0] == 'deleteall': #Reset
@@ -111,11 +117,20 @@ def onCommandMb(sender,args):
                     b.close
                     break
                 n = n + 1
-                sender.sendMessage(''.join([str(n),': ',l.pop(seek)]))
+                sender.sendMessage(''.join([str(n),': ',l.pop(seek).replace('\u0009','    ')]))
             return True
         sender.sendMessage(''.join([color('c'),'No such command']))
         b.close()
         return False
+    if args[0] == 'find':
+        b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py')
+        for i in b.readlines():
+            if i[0] == '#':
+                if i == ''.join(['#',args[1],'\n']):
+                    sender.sendMessage(''.join([color('2'),i[1:len(i)-1]]))
+                elif i.find(name) != -1:
+                    sender.sendMessage(''.join([color('a'),i[1:len(i)-1]]))
+        return True
     helpMessage(sender)
     return True
 
@@ -151,6 +166,7 @@ def helpMessage(sender):
     sender.sendMessage(''.join([color('a'),'#t (only used woth #c) creates a tab']))
     sender.sendMessage(''.join([color('a'),'#p Name of the excecuter of the command']))
     sender.sendMessage(''.join([color('a'),'#n AutoCompleted name in the first argument']))
+    sender.sendMessage(''.join([color('a'),'#f[hex value] A colour or format']))
     sender.sendMessage(''.join([color('a'),'#[number] An argument of the player']))
     return True
 
