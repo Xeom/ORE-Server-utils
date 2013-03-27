@@ -17,20 +17,24 @@ def onCommandMb(sender,args):
         helpMessage(sender)
         return True
     ops.close()
-    if args[0] == 'list':
+    if args[0] == 'list': #List
         b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py',"r")
         n = 0
         nLocal = 0
+        s = 'List of commands:'
         for i in b.readlines():
             nLocal = nLocal + 1
             if i[0] == '#':
-                sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,' (',str(nLocal),')']))
+                if nLocal/5 > 4:
+                    sender.sendMessage(''.join([color('4'),s,' (',str(nLocal),')']))
+                else:
+                    sender.sendMessage(''.join([color('ae6c4'[(nLocal/5)]),s,' (',str(nLocal),')']))
                 s = i[1:len(i)-1]
                 n = n + 1
                 nLocal = 0
         sender.sendMessage(''.join([color('a'),'A total of ',str(n),' commands']))
         return True
-    if args[0] == 'deleteall':
+    if args[0] == 'deleteall': #Reset
         sender.sendMessage(''.join([color('4'),'Are you CERTAIN you want to delete ALL MB commands?']))
         sender.sendMessage(''.join([color('4'),'Respond with /mb confirmdelete or /mb declinedelete']))
         if ResetAllPending.count(sender.getName()) == 0:
@@ -55,7 +59,7 @@ def onCommandMb(sender,args):
             return True
         sender.sendMesage(''.join([color('c'),'You have no pending deletion requests']))
         return False
-    if args[0] == 'write':
+    if args[0] == 'write': #Start new multi thing command 
         args.pop(0)
         if WritingNames.count(sender.getName()) == 0:
             WritingNames.append(sender.getName())
@@ -76,7 +80,7 @@ def onCommandMb(sender,args):
             return False
         sender.sendMessage(''.join([color('c'),'You do not have anything being written']))
         return False
-    if args[0] == 'new':
+    if args[0] == 'new': #New single thing command
         args.pop(0)
         if complie(sender,args):
             sender.sendMessage(''.join([color('a'),'Successfully written into a command']))
@@ -90,17 +94,8 @@ def onCommandMb(sender,args):
             return True
         sender.sendMessage(''.join([color('c'),'Nothing to cancel']))
         return False
-    if args[0] == 'delete':
-        b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','r+')
-        if b.readlines().count(''.join(['#',args[1],'\n'])) != 0:
-            delPos = b.readlines().index(''.join(['#',args[1],'\n']))
-            delList = b.readlines()
-            while True:
-                if delList[delPos].replace('\n','') == '':
-                    b.write(delList)
-                    b.close()
-                    break
-                delList.pop(delPos)
+    if args[0] == 'delete': #delete
+        if delete(args[1]):
             return True
         b.close()
         sender.sendMessage(''.join([color('c'),'No such command']))
@@ -124,6 +119,20 @@ def onCommandMb(sender,args):
     helpMessage(sender)
     return True
 
+def delete(Name):
+    b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','r+')
+    if b.readlines().count(''.join(['#',Name,'\n'])) != 0:
+        delPos = b.readlines().index(''.join(['#',Name,'\n']))
+        delList = b.readlines()
+        while True:
+            if delList[delPos].replace('\n','') == '':
+                b.write(delList)
+                b.close()
+                break
+            delList.pop(delPos)
+        return True
+    b.close()
+    return False
 def helpMessage(sender):
     sender.sendMessage(''.join([color('6'),'Arguments:']))
     sender.sendMessage(''.join([color('a'),'List - lists all finished commands']))
@@ -229,13 +238,7 @@ def complie(sender,args):
                     l.remove("#")
                 else:
                     sender.sendMessage(''.join([color('c'),'Invalid flags']))
-                    delPos = b.readlines().index(''.join(['#',CommandName,'\n'])) #Deletes introductions to invalidated commands
-                    delList = b.readlines()
-                    while True:
-                        if delList[delPos].replace('\n','') == '':
-                            break
-                        delList.pop(delPos)
-                    return False
+                    delete(CommandName)
         i = ' '.join(l)
         if form == 1:
             a.append(''.join(['\u0009sudo("".join(["',i,'"]))\n']))
