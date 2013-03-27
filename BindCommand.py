@@ -9,7 +9,7 @@ WritingLines = []
 @hook.command('mb')
 def onCommandMb(sender,args):
     ops = open('plugins/ThunderUtils.py.dir/RandomFiles/ops.txt')
-    if ops.readlines().count(''.join([sender.getName(),'\n'])) == 0:
+    if ops.readlines().count(''.join([sender.getName,'\n'])) == 0:
         ops.close()
         sender.sendMessage(''.join([color('c'),'You are not an op.']))
         return False
@@ -113,7 +113,6 @@ def onCommandMb(sender,args):
 def complie(sender,args):
     global FullString
     FullString = []
-    CommandName = args.pop(0)
     b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','r')
     if b.readlines().count(''.join(['#',CommandName,'\n'])) != 0:
         sender.sendMessage(''.join([color('c'),'That name is already in use'])) #Checks if command name is free
@@ -128,13 +127,14 @@ def complie(sender,args):
         return False
     for i in args:
         if compose(i) == False: #Split command into lines
-            sender.sendMessage(''.join([color('c'),'You cannot bind a command to an MB'])) 
+            sender.sendMessage(''.join([color('c'),'You cannot bind a command to an MB']))
+    CommandName = args.pop(0)
     CommandName = CommandName.replace('"',"") #Replace invalid characters in the name
     a = []
     b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
-    b.write('#{}\n'.format(CommandName))
-    b.write('@hook.command("{0}",description="{0}, by {1}")\n'.format(CommandName,sender))
-    b.write('def onCommand{}(sender,args):\n'.format(CommandName)) #Write 'introduction'
+    b.write(''.join(['#',CommandName,'\n']))
+    b.write(''.join(['@hook.command("'CommandName'",description="',CommandName,', by ',sender.getName,'")\n'
+    b.write(''.join(['def onCommand',CommandName,'(sender,args):\n']) #Write 'introduction'
     b.close()
     argsNum = 0
     for i in FullString:
@@ -208,7 +208,7 @@ def complie(sender,args):
         elif form == 0:
             a.append(''.join(['\u0009bukkit.Bukkit.dispatchCommand(sender, "".join(["',i,'"]))\n']))
         elif form == 3:
-            a.append(''.join([i.format(tab='\u0009'),'\n']))
+            a.append(''.join([i.replace('{tab}','\u0009'),'\n']))
     a.append('\u0009return True\n')
     a.append('\n')
     b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
