@@ -113,12 +113,7 @@ def onCommandMb(sender,args):
 def complie(sender,args):
     global FullString
     FullString = []
-    b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','r')
-    if b.readlines().count(''.join(['#',CommandName,'\n'])) != 0:
-        sender.sendMessage(''.join([color('c'),'That name is already in use'])) #Checks if command name is free
-        b.close()
-        return False
-    b.close()
+    
     if len(args) < 2:
         sender.sendMessage(''.join([color('c'),'You must have at least three arguments']))#Argument checking
         return False
@@ -130,6 +125,12 @@ def complie(sender,args):
             sender.sendMessage(''.join([color('c'),'You cannot bind a command to an MB']))
     CommandName = args.pop(0)
     CommandName = CommandName.replace('"',"") #Replace invalid characters in the name
+    b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py')
+    if b.readlines().count(''.join(['#',CommandName,'\n'])) != 0:
+        sender.sendMessage(''.join([color('c'),'That name is already in use'])) #Checks if command name is free
+        b.close()
+        return False
+    b.close()
     a = []
     b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
     b.write(''.join(['#',CommandName,'\n']))
