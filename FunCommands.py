@@ -278,3 +278,15 @@ def onCommandQuick(sender, args):
 
     return True
     
+#choice
+@hook.command("choose",description="For those hard important decisions that you can't leave to chance")
+def onCommandChoose(sender, args):
+
+    if len(args) == 0:
+        sender.sendMessage(''.join([color('c'),'You must have some things to choose between']))
+        return False
+
+    sender.sendMessage(''.join([color('5'),color('l'),'You roll your magic dice!']))
+    sender.sendMessage(random.choice(args))
+
+    return True

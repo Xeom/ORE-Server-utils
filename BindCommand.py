@@ -85,7 +85,7 @@ def onCommandMb(sender,args):
                 WritingNames.remove(sender.getName())
                 sender.sendMesage(''.join([color('a'),'Successfully written into a command']))
                 return True
-            WritingNames.remove(sender.getName)
+            WritingNames.remove(sender.getName())
             return False
         sender.sendMessage(''.join([color('c'),'You do not have anything being written']))
         return False
@@ -97,8 +97,8 @@ def onCommandMb(sender,args):
         return False
     if args[0] == 'cancel':
         if WritingNames.count(sender.getName()) == 1:
-            WritingLines.pop(WritingNames.index(sender.getName))
-            WritingNames.remove(sender.getName)
+            WritingLines.pop(WritingNames.index(sender.getName()))
+            WritingNames.remove(sender.getName())
             sender.sendMessage(''.join([color('a'),'Successfully cancelled']))
             return True
         sender.sendMessage(''.join([color('c'),'Nothing to cancel']))
@@ -207,7 +207,7 @@ def complie(sender,args):
     a = []
     #b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
     print (''.join(['#',CommandName,'\n']))
-    print (''.join(['@hook.command("',CommandName,'",description="',CommandName,', by ',sender.getName,'")\n']))
+    print (''.join(['@hook.command("',CommandName,'",description="',CommandName,', by ',sender.getName(),'")\n']))
     print (''.join(['def onCommand',CommandName,'(sender,args):\n'])) #Write 'introduction'
     #b.close()
     argsNum = 0
