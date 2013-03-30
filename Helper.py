@@ -5,8 +5,8 @@ from java.util.logging import Level
 def color(color):
     return u'\u00A7' + color
 
-def u(u):
-    return u'\u' + u
+def u(uni):
+    return u'\u' + uni
 
 # Execute a command with root permissions
 def sudo(command):
