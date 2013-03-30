@@ -208,16 +208,19 @@ def onCommandHate(sender, args):
 def onCommandHug(sender, args):
     
     if len(args) == 0:
+
         sender.sendMessage(''.join([color("c"),"You must have an argument -",color("6")," /hug [thing]"]))
         return False
 
     if bukkit.Bukkit.getPlayer(args[0]) != None:
+
         receiverPlayer = bukkit.Bukkit.getPlayer(args[0])
         receiverPlayer.sendMessage(''.join([color("d"),"You were hugged by ",sender.getName()]))
         receiver = receiverPlayer.getName()
         sender.sendMessage(''.join([color("d"),"You hugged ",receiver]))
 
     else:
+
         receiver = args[0]
 
     bukkit.Bukkit.broadcastMessage(''.join([color(str(hex(random.randint(1,15)))[2]),color(str(hex(random.randint(1,15)))[2]),sender.getName(),color(str(hex(random.randint(1,15)))[2])," hugged ",color(str(hex(random.randint(1,15)))[2]),receiver]))
@@ -290,3 +293,12 @@ def onCommandChoose(sender, args):
     sender.sendMessage(random.choice(args))
 
     return True
+
+#lol
+@hook.command("lol")
+def onCommandLOL(sender, args):
+
+    bukkit.Bukkit.broadcastMessage(''.join([color('6'),sender.getName(),color('e')," lol'd"]))
+
+    return True
+

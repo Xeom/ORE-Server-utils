@@ -1,4 +1,6 @@
 from Helper import color
+from Helper import u
+
 import org.bukkit as bukkit
 
 FullString = []
@@ -120,7 +122,7 @@ def onCommandMb(sender,args):
                     b.close
                     break
                 n = n + 1
-                sender.sendMessage(''.join([str(n),': ',l.pop(seek).replace('\u0009','  ')]))
+                sender.sendMessage(''.join([str(n),': ',l.pop(seek).replace(u(0009),'  ')]))
             return True
         sender.sendMessage(''.join([color('c'),'No such command']))
         b.close()
@@ -270,20 +272,20 @@ def complie(sender,args):
                     delete(CommandName)
         i = ' '.join(l)
         if form == 1:
-            a.append(''.join(['\u0009sudo("".join(["',i,'"]))\n']))
+            a.append(''.join([u(0009),'sudo("".join(["',i,'"]))\n']))
         elif form == 2:
-            a.append(''.join(['\u0009bukkit.Bukkit.broadcastMessage("".join(["',i,'"]))\n']))#Appends full argument syntax
+            a.append(''.join([u(0009),'bukkit.Bukkit.broadcastMessage("".join(["',i,'"]))\n']))#Appends full argument syntax
         elif form == 0:
-            a.append(''.join(['\u0009bukkit.Bukkit.dispatchCommand(sender, "".join(["',i,'"]))\n']))
+            a.append(''.join([u(0009),'bukkit.Bukkit.dispatchCommand(sender, "".join(["',i,'"]))\n']))
         elif form == 3:
-            a.append(''.join([i.replace('{tab}','\u0009'),'\n']))
-    a.append('\u0009return True\n')
+            a.append(''.join([i.replace('{tab}',u(0009)),'\n']))
+    a.append(''.join([u(0009),'return True\n']))
     a.append('\n')
     #b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
     if argsNum != 0:
-        print (''.join(['\u0009if len(args) != ',str(argsNum),':\n']))
-        print (''.join(['\u0009\u0009sender.sendMessage("You must have ',str(argsNum),' arguments")\n']))#Writes if statement for amount of arguments
-        print ('\u0009\u0009return False\n')
+        print (''.join([u(0009),'if len(args) != ',str(argsNum),':\n']))
+        print (''.join([u(0009),u(0009),'sender.sendMessage("You must have ',str(argsNum),' arguments")\n']))#Writes if statement for amount of arguments
+        print (''.join([u(0009),u(0009),'return False\n']))
     for i in a:
         print (i) #Writes appends to command
     #b.close()
