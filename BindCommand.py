@@ -51,7 +51,7 @@ def onCommandMb(sender,args):
         if ResetAllPending.count(sender.getName()) == 1:
             b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','w')
             c = open('plugins/ThunderUtils.py.dir/RandomFiles/Template.txt')
-            b.writelines(c.readlines())
+            print lines(c.readlines())
             c.close()
             b.close()
             sender.sendMesage(''.join([color('a'),'Deleted']))
@@ -151,7 +151,7 @@ def delete(Name):
         delList = b.readlines()
         while True:
             if delList[delPos].replace('\n','') == '':
-                b.write(delList)
+                print (delList)
                 b.close()
                 break
             delList.pop(delPos)
@@ -206,9 +206,9 @@ def complie(sender,args):
     b.close()
     a = []
     b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
-    b.write(''.join(['#',CommandName,'\n']))
-    b.write(''.join(['@hook.command("',CommandName,'",description="',CommandName,', by ',sender.getName,'")\n']))
-    b.write(''.join(['def onCommand',CommandName,'(sender,args):\n'])) #Write 'introduction'
+    print (''.join(['#',CommandName,'\n']))
+    print (''.join(['@hook.command("',CommandName,'",description="',CommandName,', by ',sender.getName,'")\n']))
+    print (''.join(['def onCommand',CommandName,'(sender,args):\n'])) #Write 'introduction'
     b.close()
     argsNum = 0
     for i in FullString:
@@ -281,11 +281,11 @@ def complie(sender,args):
     a.append('\n')
     b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
     if argsNum != 0:
-        b.write(''.join(['\u0009if len(args) != ',str(argsNum),':\n']))
-        b.write(''.join(['\u0009\u0009sender.sendMessage("You must have ',str(argsNum),' arguments")\n']))#Writes if statement for amount of arguments
-        b.write('\u0009\u0009return False\n')
+        print (''.join(['\u0009if len(args) != ',str(argsNum),':\n']))
+        print (''.join(['\u0009\u0009sender.sendMessage("You must have ',str(argsNum),' arguments")\n']))#Writes if statement for amount of arguments
+        print ('\u0009\u0009return False\n')
     for i in a:
-        b.write(i) #Writes appends to command
+        print (i) #Writes appends to command
     b.close()
     return True
 
