@@ -205,11 +205,11 @@ def complie(sender,args):
         return False
     b.close()
     a = []
-    b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
+    #b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
     print (''.join(['#',CommandName,'\n']))
     print (''.join(['@hook.command("',CommandName,'",description="',CommandName,', by ',sender.getName,'")\n']))
     print (''.join(['def onCommand',CommandName,'(sender,args):\n'])) #Write 'introduction'
-    b.close()
+    #b.close()
     argsNum = 0
     for i in FullString:
         form = 0
@@ -279,14 +279,14 @@ def complie(sender,args):
             a.append(''.join([i.replace('{tab}','\u0009'),'\n']))
     a.append('\u0009return True\n')
     a.append('\n')
-    b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
+    #b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
     if argsNum != 0:
         print (''.join(['\u0009if len(args) != ',str(argsNum),':\n']))
         print (''.join(['\u0009\u0009sender.sendMessage("You must have ',str(argsNum),' arguments")\n']))#Writes if statement for amount of arguments
         print ('\u0009\u0009return False\n')
     for i in a:
         print (i) #Writes appends to command
-    b.close()
+    #b.close()
     return True
 
 def compose(argument):
