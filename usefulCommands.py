@@ -55,8 +55,6 @@ def Calc(calc):
         return False
     return q
 
-print(Calc(input('/expr ')))
-
 @hook.command("calc", description="Calculate things!")
 def onCommandCalc(sender,args):
     if len(args)==0:
