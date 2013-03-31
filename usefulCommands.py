@@ -70,18 +70,18 @@ def onCommandCalc(sender,args):
         return False
     a = ' '.join(args)
     n = '0123456789.'
-    c = 7
+    d = 7
     i = 0
     while i < len(a):
         j=a[i:i+1]
-        if c==7 and (j in n):
+        if d==7 and (j in n):
             a = ''.join([a[:i],color('3'),a[i:]])
             i+=2
-            c=3
-        if c==3 and not (j in n):
+            d=3
+        if d==3 and not (j in n):
             a = ''.join([a[:i],color('7'),a[i:]])
             i+=2
-            c=7
+            d=7
         i+=1
     sender.sendMessage(''.join([color('7'),''.join(a),color('f')," = ",color('e'),str(c)]))
     return True 
