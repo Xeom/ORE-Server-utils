@@ -14,9 +14,9 @@ def Calc(calc,sender):
             elif i == ')':
                 c-=1
             if c<0:
-                return False
+                return None
         if c>0:
-            return False
+            return None
     
     wlist = '0123456789*+-/^|&~.,() '
     calc = calc.replace('[pi]',''.join(['(',str(m.pi),')']))
@@ -47,23 +47,24 @@ def Calc(calc,sender):
     for i in calc:
         if not i in wlist:
             sender.sendMessage(''.join(["The character ",i," is not allowed! Allowed characters: ",wlist]))
-            return False
+            return ValueError
 
     try:
         q = eval(calc2)
     except:
-        sender.sendMessage('Invalid expression!')
-        return False
+        return None
     return q
 
 @hook.command("calc", description="Calculate things!")
 def onCommandCalc(sender,args):
     if len(args)==0:
         sender.sendMessage('This function requires an expression to calculate!')
-        return False
+        return None
     c=Calc(' '.join(args),sender)
 
-    if c==False:
+    if c==None:
         sender.sendMessage('Invalid expression!')
+        return False
+    elif c==ValueError:
         return False
     sender.sendMessage(''.join([' '.join(args),"=",str(c)]))
