@@ -20,17 +20,20 @@ def Calc(calc,sender):
             return None
     
     wlist = '0123456789*+-/^|&~.,() '
-    calc = calc.replace('[pi]',''.join(['(',str(m.pi),')']))
-    calc = calc.replace('[e]',''.join(['(',str(m.e),')']))
     calc = calc.replace('abs(','fabs(')
-    calc = calc.replace('deg(','degrees(')
+    calc = calc.replace('deg(','dEgrEEs(')
     calc = calc.replace('rad(','radians(')
     calc = calc.replace('rand()','random()')
+    calc = calc.replace('ceil()','cEil(')
     calc = calc.replace('^','**')
     calc = calc.replace(' xor ','^')
     calc = calc.replace(' and ','&')
     calc = calc.replace(' or ','|')
     calc = calc.replace('not ','~')
+    calc = calc.replace('pi',''.join(['(',str(m.pi),')']))
+    calc = calc.replace('e',''.join(['(',str(m.e),')']))
+    calc = calc.lower()
+    
 
     funcs = ['cos','sin','tan','acos','asin','atan','sqrt','acosh','asinh','atanh','cosh','sinh','tanh','ceil','floor','fabs','gamma','lgamma','degrees','radians','log']
     calc2=calc
