@@ -1,5 +1,6 @@
 import math as m
 import random
+from __future__ import division
 
 def Calc(calc):
     calc = calc.lower()
