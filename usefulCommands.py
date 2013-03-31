@@ -83,5 +83,5 @@ def onCommandCalc(sender,args):
             i+=2
             c=7
         i+=1
-    sender.sendMessage(''.join([color('7'),a,color('f')," = ",color('e'),str(c)]))
+    sender.sendMessage(''.join([color('7'),''.join(a),color('f')," = ",color('e'),str(c)]))
     return True 
