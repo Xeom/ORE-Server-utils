@@ -77,21 +77,21 @@ def onCommandCalc(sender,args):
     sta = sta.replace('ceil()','cEil(')
     sta = list(sta.replace('pi','PI'))
     comp = []
-    colour = f
+    colour = 'f'
     for a in sta:
-        if '1234567890.ePI'.find(a) != -1 and colour != 9:
+        if '1234567890.ePI'.find(a) != -1 and colour != '9':
             comp.append(color('9'))
             comp.append(a)
-            colour = 9
+            colour = '9'
             appended = True
-        if '().'.find(a) != -1 and colour != f:
+        if '().'.find(a) != -1 and colour != 'f':
             c
             comp.append(a)
-            colour = f
+            colour = 'f'
             appended = True
         if not appended:
             comp.append(color('7'))
-            colour = 7
+            colour = '7'
             comp.append(a)
     sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('f')," = ",color('6'),color('l'),str(c)]))
     return True 
