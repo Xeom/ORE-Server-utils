@@ -2,6 +2,8 @@ from __future__ import division
 import math as m
 import random
 
+from helper import color
+
 def Calc(calc,sender):
     calc = calc.lower()
     lbs = calc.count('(')
