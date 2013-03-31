@@ -67,4 +67,10 @@ def onCommandCalc(sender,args):
         return False
     elif c==ValueError:
         return False
-    sender.sendMessage(''.join([' '.join(args),"=",str(c)]))
+    final = list(' '.join(args))
+    for i in list('1234567890.'):
+        final.replace(str(i),''.join([color('e'),str(i),color('c')]))
+    for i in list(',()'):
+        final.replace(str(i),''.join([color('9'),str(i),color('c')]))
+    sender.sendMessage(''.join([color('c'),''.join(final),color('f')," = ",color('6'),color('l'),str(c)]))
+    return True 
