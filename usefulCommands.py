@@ -19,8 +19,8 @@ def Calc(calc,sender):
             return False
     
     wlist = '0123456789*+-/^|&~.,() '
-    calc = calc.replace('pi',''.join(['(',str(m.pi),')']))
-    calc = calc.replace('e',''.join(['(',str(m.e),')']))
+    calc = calc.replace('[pi]',''.join(['(',str(m.pi),')']))
+    calc = calc.replace('[e]',''.join(['(',str(m.e),')']))
     calc = calc.replace('abs(','fabs(')
     calc = calc.replace('deg(','degrees(')
     calc = calc.replace('rad(','radians(')
