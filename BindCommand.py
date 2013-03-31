@@ -11,7 +11,7 @@ WritingLines = []
 @hook.command('mb')
 def onCommandMb(sender,args):
     ops = open('plugins/ThunderUtils.py.dir/RandomFiles/ops.txt')
-    if ops.readlines().count(''.join([sender.getName(),'\n'])) == 0:
+    if not ''.join([sender.getName(),'\n']) in ops.readlines():
         ops.close()
         sender.sendMessage(''.join([color('c'),'You are not an op.']))
         return False
@@ -45,12 +45,12 @@ def onCommandMb(sender,args):
     if args[0] == 'deleteall': #Reset
         sender.sendMessage(''.join([color('4'),'Are you CERTAIN you want to delete ALL MB commands?']))
         sender.sendMessage(''.join([color('4'),'Respond with /mb confirmdelete or /mb declinedelete']))
-        if ResetAllPending.count(sender.getName()) == 0:
+        if not sender.getName() in ResetAllPending == 0:
             ResetAllPending.append(sender.getName())
             return True
         return False
     if args[0] == 'confirmdelete':
-        if ResetAllPending.count(sender.getName()) == 1:
+        if sender.getName() in ResetAllPending:
             b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','w')
             c = open('plugins/ThunderUtils.py.dir/RandomFiles/Template.txt')
             print lines(c.readlines())
@@ -61,7 +61,7 @@ def onCommandMb(sender,args):
         sender.sendMesage(''.join([color('c'),'You have no pending deletion requests']))
         return False
     if args[0] == 'declinedelete':
-        if ResetAllPending.count(sender.getName()) == 1:
+        if sender.getName() in ResetAllPending :
             ResetAllPending.remove(sender.getName())
             sender.sendMesage(''.join([color('a'),'Not deleted']))
             return True
@@ -72,7 +72,7 @@ def onCommandMb(sender,args):
         return True  ### Commands after here must need args
     if args[0] == 'write': #Start new multi thing command 
         args.pop(0)
-        if WritingNames.count(sender.getName()) == 0:
+        if not sender.getName() in WritingNames:
             WritingNames.append(sender.getName())
             WritingLines.append(args)
             sender.sendMesage(''.join([color('a'),'New command started, and written to']))
@@ -81,7 +81,7 @@ def onCommandMb(sender,args):
         sender.sendMesage(''.join([color('a'),'Command written to']))
         return True
     if args[0] == 'done':
-        if WritingNames.count(sender.getName()) == 1:
+        if sender.getName() in WritingNames:
             Written = WritingLines.pop(WritingNames.index(sender.getName()))
             if complie(sender, Written = WritingLines.pop(WritingNames.index(sender.getName()))):
                 WritingNames.remove(sender.getName())
@@ -98,7 +98,7 @@ def onCommandMb(sender,args):
             return True
         return False
     if args[0] == 'cancel':
-        if WritingNames.count(sender.getName()) == 1:
+        if sender.getName() in WritingNames::
             WritingLines.pop(WritingNames.index(sender.getName()))
             WritingNames.remove(sender.getName())
             sender.sendMessage(''.join([color('a'),'Successfully cancelled']))
@@ -115,7 +115,7 @@ def onCommandMb(sender,args):
         b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py')
         l = b.readlines()
         n = 0
-        if l.count(''.join(['#',args[1],'\n'])) != 0:
+        if ''.join(['#',args[1],'\n']) in l:
             seek = l.index(''.join(['#',args[1],'\n']))
             while True:
                 if l[seek].replace('\n','') == '':
@@ -148,7 +148,7 @@ def onCommandMb(sender,args):
 
 def delete(Name):
     b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','r+')
-    if b.readlines().count(''.join(['#',Name,'\n'])) != 0:
+    if ''.join(['#',Name,'\n']) in b.readlines():
         delPos = b.readlines().index(''.join(['#',Name,'\n']))
         delList = b.readlines()
         while True:
@@ -201,7 +201,7 @@ def complie(sender,args):
             sender.sendMessage(''.join([color('c'),'You cannot bind a command to an MB']))
     CommandName = CommandName.replace('"',"") #Replace invalid characters in the name
     b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py')
-    if b.readlines().count(''.join(['#',CommandName,'\n'])) != 0:
+    if ''.join(['#',CommandName,'\n']) in b.readlines():
         sender.sendMessage(''.join([color('c'),'That name is already in use'])) #Checks if command name is free
         b.close()
         return False
@@ -243,7 +243,7 @@ def complie(sender,args):
         i = i.replace("# f","#f ")
         l = i.split()
         while True:
-            if l.count('#f') == 0:
+            if not '#f' in l:
                 break
             if form == 3:
                 l.insert(l.index("#f"),''.join(['color("',l[(l.index("#f")+1)][0],'")'])) #Replaces color flags
@@ -253,7 +253,7 @@ def complie(sender,args):
                 l[(l.index("#f")+1)] = l[(l.index("#f")+1)][1:]
             l.remove("#f")
         while True:
-            if l.count('#') == 0:
+            if not '#' in l:
                 break
             else:
                 argsValue = int(l[(l.index("#")+1)])+1
