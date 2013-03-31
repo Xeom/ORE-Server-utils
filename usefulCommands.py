@@ -74,11 +74,11 @@ def onCommandCalc(sender,args):
     i = 2
     while i < len(a):
         j=a[i:i+1]
-        if c==7 and j in n:
+        if c==7 and (j in n):
             a = ''.join([a[:i],color(3),a[i:]])
             i+=2
             c=3
-        if c==3 and not j in n:
+        if c==3 and not (j in n):
             a = ''.join([a[:i],color(7),a[i:]])
             i+=2
             c=7
