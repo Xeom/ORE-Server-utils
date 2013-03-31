@@ -70,9 +70,10 @@ def onCommandCalc(sender,args):
         return False
     elif c==ValueError:
         return False
-    sta = list(' '.join(args).replace('pi','PI'))
-    calc = calc.replace('deg(','dEgrEEs(')
-    calc = calc.replace('ceil()','cEil(')
+    sta = ' '.join(args)
+    sta = sta.replace('deg(','dEgrEEs(')
+    sta = sta.replace('ceil()','cEil(')
+    sta = list(sta.replace('pi','PI'))
     comp = []
     for a in sta:
         if '1234567890.ePI'.find(a):
