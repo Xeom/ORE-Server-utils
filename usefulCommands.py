@@ -66,4 +66,4 @@ def onCommandCalc(sender,args):
     if c==False:
         sender.sendMessage('Invalid expression!')
         return False
-    sender.sendMessage(''.join([' '.join(args),"=",c]))
+    sender.sendMessage(''.join([' '.join(args),"=",str(c)]))
