@@ -68,7 +68,7 @@ def onCommandCalc(sender,args):
         return False
     elif c==ValueError:
         return False
-    a = list(' '.join(args))
+    a = ' '.join(args)
     n = '0123456789.'
     c = 7
     i = 2
