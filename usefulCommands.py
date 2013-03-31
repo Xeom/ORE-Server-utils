@@ -71,7 +71,7 @@ def onCommandCalc(sender,args):
     a = ' '.join(args)
     n = '0123456789.'
     c = 7
-    i = 2
+    i = 0
     while i < len(a):
         j=a[i:i+1]
         if c==7 and (j in n):
