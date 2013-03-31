@@ -1,6 +1,7 @@
 from __future__ import division
 import math as m
 import random
+import helper
 
 def Calc(calc,sender):
     calc = calc.lower()
@@ -67,14 +68,20 @@ def onCommandCalc(sender,args):
         return False
     elif c==ValueError:
         return False
-    sta = list(' '.join(args))
-    comp = []
-    for a in sta:
-        if '1234567890.'.find(a):
-            comp.append(color('9'))
-            comp.append(a)
-            comp.append(color('7'))
-        else:
-            comp.append(a)
-    sender.sendMessage(''.join([color('7'),''.join(comp),color('f')," = ",color('6'),color('l'),str(c)]))
+    a = list(' '.join(args))
+    n = '0123456789.'
+    c = 7
+    i = 2
+    while i < len(a):
+        j=a[i:i+1]
+        if c==7 and j in n:
+            a = ''.join([a[:i],color(3),a[i:]])
+            i+=2
+            c=3
+        if c==3 and not j in n:
+            a = ''.join([a[:i],color(7),a[i:]])
+            i+=2
+            c=7
+        i+=1
+    sender.sendMessage(''.join([color('7'),a,color('f')," = ",color('e'),str(c)]))
     return True 
