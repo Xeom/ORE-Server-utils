@@ -2,7 +2,7 @@ from __future__ import division
 import math as m
 import random
 
-def Calc(calc):
+def Calc(calc,sender):
     calc = calc.lower()
     lbs = calc.count('(')
     rbs = calc.count(')')
@@ -60,7 +60,7 @@ def Calc(calc):
 def onCommandCalc(sender,args):
     if len(args)==0:
         sender.sendMessage('This function requires an expression to calculate!')
-    c=Calc(' '.join(args))
+    c=Calc(' '.join(args),sender)
 
     if c==False:
         sender.sendMessage('Invalid expression!')
