@@ -2,7 +2,7 @@ from __future__ import division
 import math as m
 import random
 
-from helper import color
+from Helper import color
 
 def Calc(calc,sender):
     calc = calc.lower()
