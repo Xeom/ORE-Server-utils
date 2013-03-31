@@ -68,12 +68,13 @@ def onCommandCalc(sender,args):
     elif c==ValueError:
         return False
     sta = list(' '.join(args))
-    final = []
+    comp = []
     for a in sta:
         if '1234567890.'.find(a):
-            final.append(color('9')
-            final.append(a)
-            final.append(color('7')
-        final.append(a)
-    sender.sendMessage(''.join([color('7'),''.join(final),color('f')," = ",color('6'),color('l'),str(c)]))
+            comp.append(color('9'))
+            comp.append(a)
+            comp.append(color('7'))
+        else:
+            comp.append(a)
+    sender.sendMessage(''.join([color('7'),''.join(comp),color('f')," = ",color('6'),color('l'),str(c)]))
     return True 
