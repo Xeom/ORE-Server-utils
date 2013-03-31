@@ -1,7 +1,6 @@
 from __future__ import division
 import math as m
 import random
-from Helper import color
 
 def Calc(calc,sender):
     calc = calc.lower()
@@ -71,20 +70,20 @@ def onCommandCalc(sender,args):
         return False
     elif c==ValueError:
         return False
-    a = ' '.join(args)
-    n = '0123456789.'
-    d = 7
-    i = 0
-    while i < len(a):
-        j=a[i:i+1]
-        if d==7 and (j in n):
-            a = ''.join([a[:i],color('3'),a[i:]])
-            i+=2
-            d=3
-        if d==3 and not (j in n):
-            a = ''.join([a[:i],color('7'),a[i:]])
-            i+=2
-            d=7
-        i+=1
-    sender.sendMessage(''.join([color('7'),''.join(a),color('f')," = ",color('e'),str(c)]))
+    sta = list(' '.join(args).replace('pi','PI'))
+    calc = calc.replace('deg(','dEgrEEs(')
+    calc = calc.replace('ceil()','cEil(')
+    comp = []
+    for a in sta:
+        if '1234567890.ePI'.find(a):
+            comp.append(color('9'))
+            comp.append(a)
+            comp.append(color('7'))
+        if '().'.find(a):
+            comp.append(color('f'))
+            comp.append(a)
+            comp.append(color('7'))
+        else:
+            comp.append(a)
+    sender.sendMessage(''.join([color('7'),''.join(comp).lower(),color('f')," = ",color('6'),color('l'),str(c)]))
     return True 
