@@ -12,6 +12,8 @@ import BindCommand
 import NameSystem
 import OnlinePlayers
 
+import usefulCommands
+
 @hook.enable
 def onEnable():
     Derps.load_derps("plugins/ThunderUtils.py.dir/derps.txt")
