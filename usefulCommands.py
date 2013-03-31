@@ -59,7 +59,7 @@ def Calc(calc,sender):
 def onCommandCalc(sender,args):
     if len(args)==0:
         sender.sendMessage('This function requires an expression to calculate!')
-        return None
+        return False
     c=Calc(' '.join(args),sender)
 
     if c==None:
