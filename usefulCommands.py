@@ -2,7 +2,7 @@ from __future__ import division
 import math as m
 import random
 
-def Calc(calc,sender):
+def Calc(calc):
     calc = calc.lower()
     lbs = calc.count('(')
     rbs = calc.count(')')
@@ -14,9 +14,9 @@ def Calc(calc,sender):
             elif i == ')':
                 c-=1
             if c<0:
-                sender.sendMessage('Invalid expression!')
+                return False
         if c>0:
-            sender.sendMessage('Invalid expression!')
+            return False
     
     wlist = '0123456789*+-/^|&~.,() '
     calc = calc.replace('pi',''.join(['(',str(m.pi),')']))
@@ -60,7 +60,7 @@ def Calc(calc,sender):
 def onCommandCalc(sender,args):
     if len(args)==0:
         sender.sendMessage('This function requires an expression to calculate!')
-    c=Calc(' '.join(args),sender)
+    c=Calc(' '.join(args))
 
     if c==False:
         sender.sendMessage('Invalid expression!')
