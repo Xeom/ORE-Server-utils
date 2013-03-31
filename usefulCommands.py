@@ -77,6 +77,7 @@ def onCommandCalc(sender,args):
     sta = sta.replace('ceil()','cEil(')
     sta = list(sta.replace('pi','PI'))
     comp = []
+    colour = f
     for a in sta:
         if '1234567890.ePI'.find(a) != -1 and colour != 9:
             comp.append(color('9'))
