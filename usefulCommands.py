@@ -3,8 +3,9 @@ import math as m
 import random
 
 from Helper import color
-
-colourschemes = [['3','1','9','7']]
+#[Numbers,Constants,().,+-]
+colourschemes = [['3','1','9','7'],['e','6','6','f'],['d','c','c','4'],['4','2','6','1']]
+colour = 'f'
 
 def Calc(calc,sender):
     calc = calc.lower()
@@ -64,6 +65,7 @@ def Calc(calc,sender):
 
 @hook.command("calc", description="Calculate things!")
 def onCommandCalc(sender,args):
+    global colour
     if len(args)==0:
         sender.sendMessage('This function requires an expression to calculate!')
         return False
@@ -81,17 +83,17 @@ def onCommandCalc(sender,args):
     sta = list(sta.replace('pi','PI'))
     comp = []
     colour = '7'
-    colourscheme = random.randint(0,len(colourschemes)-1)
+    cs = random.choice(colourschemes)
     for a in sta:
         appeneded = False
         if a.isdigit():
-            coladd(colourschemes[colourscheme][0])
+            coladd(cs[0])
         if 'ePI'.find(a):
-            coladd(colourschemes[colourscheme][1])
-        if '().'.find(a):
-            coladd(colourschemes[colourscheme][2])
+            coladd(cs[1])
+        if '(),.'.find(a):
+            coladd(cs[2])
         if not appended:
-            coladd(colourschemes[colourscheme][3])
+            coladd(cs[3])
         comp.append(a)
 
     sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('7'),color('l')," = ",color('3'),str(c)]))
@@ -99,6 +101,7 @@ def onCommandCalc(sender,args):
     return True 
 
 def coladd(c):
+    global colour
     if colour != c:
         comp.append(color(c))
         colour = c
