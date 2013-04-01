@@ -87,18 +87,18 @@ def onCommandCalc(sender,args):
     colour = '7'
     cs = random.choice(colourschemes)
     for a in sta:
-        appeneded = False
+        appended = False
         if a.isdigit():
             coladd(cs[0])
-        if 'ePI'.find(a):
+        if 'ePI'.find(a) != -1:
             coladd(cs[1])
-        if '(),.'.find(a):
+        if '(),.'.find(a) != -1:
             coladd(cs[2])
         if not appended:
             coladd(cs[3])
         comp.append(a)
 
-    sender.sendMessage(''.join([color('7'),''.join(comp).lower(),color('7')," = ",color('3'),color('l'),str(c)]))
+    sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('7'),"=",color('3'),color('l'),str(c)]))
 
     return True 
 
@@ -108,3 +108,5 @@ def coladd(c):
         colour = c
         appended = True
         comp.append(color(c))
+
+

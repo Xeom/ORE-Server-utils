@@ -14,6 +14,8 @@ import OnlinePlayers
 
 import usefulCommands
 
+import TestByXeo
+
 @hook.enable
 def onEnable():
     Derps.load_derps("plugins/ThunderUtils.py.dir/derps.txt")
