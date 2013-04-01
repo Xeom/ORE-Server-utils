@@ -109,18 +109,12 @@ def coladd(c):
         colour = c
         comp.append(color(c))
 
-#Names
+#Rename
 @hook.command('rename')
-def onCommandRename(sender, args):
-    sender.setItemInHand(sender.getItemInHand().setItemMeta(sender.getItemInHand().getItemMeta().setDisplayName(' '.join(args))))
-    
-    return True
-
-#Lore
-@hook.command('addlore')
 def onCommandLore(sender, args):
+    argstring = ''.join(args).replace('#f',u'\u00A7')
     I = sender.getItemInHand()
     Imeta = I.getItemMeta()
-    Imeta.setDisplayName('Test')
+    Imeta.setDisplayName()
     I.setItemMeta(Imeta)
     return True
