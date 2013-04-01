@@ -80,30 +80,6 @@ def onCommandRandom(sender,args):
     sender.sendMessage(''.join([color("c"),"Use the syntax ",color("6"),"/random [a] [b]"]))
     return False
 
-# Item Renaming
-@hook.command("itemname", description="Rename and recolour an item!")
-def onCommandItemname(sender,args):
-    
-    if len(args) == 0:
-        sender.sendMessage(''.join([color("c"),"You must have an argument -",color("6")," /itemname [name] [format1] [format2] etc."]))
-    addpos = 0
-    namestring = list(args[0])
-    
-    for x in range(1,len(args)):
-        addpos = addpos + 1
-        for i in range(0, len(args[x])):
-            
-            if itemnamewhitelist.count((args[x])[i]) == 1:
-                namestring.insert(addpos,color((args[x])[i]))
-                addpos = addpos + 2
-            
-            else:
-                sender.sendMessage(''.join([color("c"),"Sorry, the format ",color("6"),(args[x])[i],' ',color("c"),"is not availible."]))
-    
-    sender.sendMessage(''.join(namestring))
-    
-    return True
-
 #effect
 @hook.command("eff", description="Get a custom potion effect!")
 def onCommandItemname(sender,args):
