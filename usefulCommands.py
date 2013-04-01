@@ -4,6 +4,8 @@ import random
 
 from Helper import color
 
+colourschemes = [['3','1','9','7']]
+
 def Calc(calc,sender):
     calc = calc.lower()
     lbs = calc.count('(')
@@ -79,20 +81,20 @@ def onCommandCalc(sender,args):
     sta = list(sta.replace('pi','PI'))
     comp = []
     colour = '7'
-
+    colourscheme = random.randint(0,len(colourschemes)-1)
     for a in sta:
         appeneded = False
         if a.isdigit():
-            coladd('3')
+            coladd(colourschemes[colourscheme][0])
         if 'ePI'.find(a):
-            coladd('1')
+            coladd(colourschemes[colourscheme][1])
         if '().'.find(a):
-            coladd('9')
+            coladd(colourschemes[colourscheme][2])
         if not appended:
-            coladd('7')
+            coladd(colourschemes[colourscheme][3])
         comp.append(a)
 
-    sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('7'),color('l')" = ",color('3'),str(c)]))
+    sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('7'),color('l')," = ",color('3'),str(c)]))
 
     return True 
 
