@@ -6,6 +6,8 @@ from Helper import color
 #[Numbers,Constants,().,+-]
 colourschemes = [['3','1','9','7'],['e','6','6','f'],['d','c','c','4'],['4','2','6','1']]
 colour = 'f'
+comp = []
+appeneded = False
 
 def Calc(calc,sender):
     calc = calc.lower()
@@ -65,7 +67,7 @@ def Calc(calc,sender):
 
 @hook.command("calc", description="Calculate things!")
 def onCommandCalc(sender,args):
-    global colour
+    global colour, appended, comp
     if len(args)==0:
         sender.sendMessage('This function requires an expression to calculate!')
         return False
@@ -87,22 +89,22 @@ def onCommandCalc(sender,args):
     for a in sta:
         appeneded = False
         if a.isdigit():
-            comp.append(coladd(cs[0]))
+            coladd(cs[0])
         if 'ePI'.find(a):
-            comp.append(coladd(cs[1]))
+            coladd(cs[1])
         if '(),.'.find(a):
-            comp.append(coladd(cs[2]))
+            coladd(cs[2])
         if not appended:
-            comp.append(coladd(cs[3]))
+            coladd(cs[3])
         comp.append(a)
 
-    sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('7'),color('l')," = ",color('3'),str(c)]))
+    sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('7')," = ",color('3'),color('l'),str(c)]))
 
     return True 
 
 def coladd(c):
-    global colour
+    global colour, comp, appended
     if colour != c:
         colour = c
         appended = True
-        return color(c)
+        comp.append(c)
