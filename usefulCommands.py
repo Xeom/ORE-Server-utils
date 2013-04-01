@@ -98,7 +98,7 @@ def onCommandCalc(sender,args):
             coladd(cs[3])
         comp.append(a)
 
-    sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('7')," = ",color('3'),color('l'),str(c)]))
+    sender.sendMessage(''.join([color('7'),''.join(comp).lower(),color('7')," = ",color('3'),color('l'),str(c)]))
 
     return True 
 
@@ -107,4 +107,4 @@ def coladd(c):
     if colour != c:
         colour = c
         appended = True
-        comp.append(c)
+        comp.append(color(c))
