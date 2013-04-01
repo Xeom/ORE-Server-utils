@@ -15,8 +15,8 @@ def Calc(calc,sender):
                 c+=1
             elif i == ')':
                 c-=1
-            if c<0:
-                return None
+                if c<0:
+                    return None
         if c>0:
             return None
     
@@ -72,26 +72,33 @@ def onCommandCalc(sender,args):
         return False
     elif c==ValueError:
         return False
+
     sta = ''.join(args)
     sta = sta.replace('deg(','dEgrEEs(')
     sta = sta.replace('ceil()','cEil(')
     sta = list(sta.replace('pi','PI'))
     comp = []
-    colour = 'f'
+    colour = '7'
+
     for a in sta:
-        if '1234567890.ePI'.find(a) != -1 and colour != '9':
-            comp.append(color('9'))
-            comp.append(a)
-            colour = '9'
-            appended = True
-        if '().'.find(a) != -1 and colour != 'f':
-            c
-            comp.append(a)
-            colour = 'f'
-            appended = True
+        appeneded = False
+        if a.isdigit():
+            coladd('3')
+        if 'ePI'.find(a):
+            coladd('1')
+        if '().'.find(a):
+            coladd('9')
         if not appended:
-            comp.append(color('7'))
-            colour = '7'
-            comp.append(a)
-    sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('f')," = ",color('6'),color('l'),str(c)]))
+            coladd('7')
+        comp.append(a)
+
+    sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('7'),color('l')" = ",color('3'),str(c)]))
+
     return True 
+
+def coladd(c):
+    if colour != c:
+        comp.append(color(c))
+        colour = c
+        appended = True
+    
