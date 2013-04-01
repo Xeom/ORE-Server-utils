@@ -112,9 +112,11 @@ def coladd(c):
 #Rename
 @hook.command('rename')
 def onCommandLore(sender, args):
+    if len(args) == 0:
+        sender.sendMessage(''.join([color('c'),'You must have a name!']))
     argstring = ''.join(args).replace('#f',u'\u00A7')
     I = sender.getItemInHand()
     Imeta = I.getItemMeta()
-    Imeta.setDisplayName()
+    Imeta.setDisplayName(argstring)
     I.setItemMeta(Imeta)
     return True
