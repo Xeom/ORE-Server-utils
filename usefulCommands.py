@@ -87,13 +87,13 @@ def onCommandCalc(sender,args):
     for a in sta:
         appeneded = False
         if a.isdigit():
-            coladd(cs[0])
+            comp.append(coladd(cs[0]))
         if 'ePI'.find(a):
-            coladd(cs[1])
+            comp.append(coladd(cs[1]))
         if '(),.'.find(a):
-            coladd(cs[2])
+            comp.append(coladd(cs[2]))
         if not appended:
-            coladd(cs[3])
+            comp.append(coladd(cs[3]))
         comp.append(a)
 
     sender.sendMessage(''.join([color('7'),' '.join(comp).lower(),color('7'),color('l')," = ",color('3'),str(c)]))
@@ -103,7 +103,6 @@ def onCommandCalc(sender,args):
 def coladd(c):
     global colour
     if colour != c:
-        comp.append(color(c))
         colour = c
         appended = True
-    
+        return color(c)
