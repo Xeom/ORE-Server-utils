@@ -119,5 +119,6 @@ def onCommandRename(sender, args):
 #Lore
 @hook.command('addlore')
 def onCommandLore(sender, args):
-    
-sender.setItemInHand(sender.getItemInHand().setItemMeta(sender.getItemInHand().getItemMeta().setLore([' '.join(args)])))
+    sender.setItemInHand(sender.getItemInHand().setItemMeta(sender.getItemInHand().getItemMeta().setLore([' '.join(args)])))
+
+    return True
