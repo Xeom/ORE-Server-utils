@@ -135,12 +135,12 @@ def onCommandLore(sender, args):
     for i in Imeta.getLore():
         Ilore.append(i)
     if not args[0].isdigit():
-        Ilore.append(''.join(args))
+        Ilore.append(''.join([color('r'),' '.join(args)]))
     else:
         if int(args[0]) < 1 or len(Ilore) < int(args[0]):
             sender.sendMessage('You must chose a real line to edit'.join([color('c'),'']))
             return False
-        Ilore[int(args.pop(0))] = ''.join(args)
+        Ilore[int(args.pop(0))-1] = ' '.join(args[1:])
     Imeta.setLore(Ilore)
     I.setItemMeta(Imeta)
     return True
