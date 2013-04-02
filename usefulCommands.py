@@ -114,9 +114,30 @@ def coladd(c):
 def onCommandLore(sender, args):
     if len(args) == 0:
         sender.sendMessage(''.join([color('c'),'You must have a name!']))
+        return False
     argstring = ''.join(args).replace('#f',u'\u00A7')
     I = sender.getItemInHand()
     Imeta = I.getItemMeta()
     Imeta.setDisplayName(argstring)
+    I.setItemMeta(Imeta)
+    return True
+
+@hook.command('lore')
+def onCommandLore(sender, args):
+    if len(args) == 0:
+        sender.sendMessage(''.join([color('c'),'/lore [lore to add] or /lore [existing line] [edited lore]']))
+        return False
+    argstring = ''.join(args).replace('#f',u'\u00A7')
+    I = sender.getItemInHand()
+    Imeta = I.getItemMeta()
+    Ilore = Imeta.getLore()
+    if not args[0].isDigit():
+        Ilore.append(''.join(args))
+    else:
+        if int(args[0]) < 1 or len(Ilore) < int(args[0]):
+            sender.sendMessage('You must chose a real line to edit'.join([color('c'),'']))
+            return False
+        Ilore[int(args.pop(0))] = ''.join(args)
+    Imeta.setLore(Ilore)
     I.setItemMeta(Imeta)
     return True

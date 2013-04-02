@@ -44,5 +44,5 @@ def onPlayerMove(event):
             p.sendBlockChange(rLoc(l[i][1],p,i),l[i][0].getTypeId(),0)
             rLoc(l[i][1],p,i).getBlock().getState().update()
             l[i]=[rLoc(p.getLocation(),p,i).getBlock(), p.getLocation()]
-            p.sendBlockChange(rLoc(p.getLocation(),p,i),89,0)
+            p.sendBlockChange(rLoc(p.getLocation(),p,i),50,0)
             
