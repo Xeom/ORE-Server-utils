@@ -132,15 +132,16 @@ def onCommandLore(sender, args):
     I = sender.getItemInHand()
     Imeta = I.getItemMeta()
     Ilore = []
-    for i in Imeta.getLore():
-        Ilore.append(i)
+    if Imeta.getLore != None
+        for i in Imeta.getLore():
+            Ilore.append(i)
     if not args[0].isdigit():
         Ilore.append(''.join([color('r'),' '.join(args)]))
     else:
         if int(args[0]) < 1 or len(Ilore) < int(args[0]):
             sender.sendMessage('You must chose a real line to edit'.join([color('c'),'']))
             return False
-        Ilore[int(args.pop(0))-1] = ' '.join(args[1:])
+        Ilore[int(args[0])-1] = ' '.join(args[1:])
     Imeta.setLore(Ilore)
     I.setItemMeta(Imeta)
     return True
