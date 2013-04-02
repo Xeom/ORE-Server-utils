@@ -131,7 +131,8 @@ def onCommandLore(sender, args):
     I = sender.getItemInHand()
     Imeta = I.getItemMeta()
     Ilore = Imeta.getLore()
-    print(Ilore)
+    if Ilore == None:
+        Ilore = []
     if not args[0].isdigit():
         Ilore.append(''.join(args))
     else:
