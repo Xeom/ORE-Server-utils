@@ -122,6 +122,7 @@ def onCommandLore(sender, args):
     I.setItemMeta(Imeta)
     return True
 
+#lore
 @hook.command('lore')
 def onCommandLore(sender, args):
     if len(args) == 0:
@@ -130,9 +131,9 @@ def onCommandLore(sender, args):
     argstring = ''.join(args).replace('#f',u'\u00A7')
     I = sender.getItemInHand()
     Imeta = I.getItemMeta()
-    Ilore = Imeta.getLore()
-    if Ilore == None:
-        Ilore = []
+    Ilore = []
+    for i in Imeta.getLore():
+        Ilore.append(i)
     if not args[0].isdigit():
         Ilore.append(''.join(args))
     else:
