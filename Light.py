@@ -31,7 +31,7 @@ def onCommandLight(sender,args):
         pl.append(sender)
         sl.append(q)
         l.append([rLoc(sender.getLocation(),sender,i).getBlock(), sender.getLocation()])
-        sender.sendBlockChange(rLoc(sender.getLocation(),sender,i),89,0)
+        sender.sendBlockChange(rLoc(sender.getLocation(),sender,i),119,0)
         sender.sendMessage("You got a light!")
     return True
 
@@ -44,5 +44,5 @@ def onPlayerMove(event):
             p.sendBlockChange(rLoc(l[i][1],p,i),l[i][0].getTypeId(),0)
             rLoc(l[i][1],p,i).getBlock().getState().update()
             l[i]=[rLoc(p.getLocation(),p,i).getBlock(), p.getLocation()]
-            p.sendBlockChange(rLoc(p.getLocation(),p,i),50,0)
+            p.sendBlockChange(rLoc(p.getLocation(),p,i),119,0)
             
