@@ -8,6 +8,7 @@ colourschemes = [['3','1','9','7']]
 colour = 'f'
 comp = []
 appeneded = False
+Times = {}
 
 def Calc(calc,sender):
     calc = calc.lower()
@@ -132,7 +133,7 @@ def onCommandLore(sender, args):
     I = sender.getItemInHand()
     Imeta = I.getItemMeta()
     Ilore = []
-    if Imeta.getLore != None:
+    if hasattr(Imeta.getLore, '__iter__'):
         for i in Imeta.getLore():
             Ilore.append(i)
     if not args[0].isdigit():
@@ -145,3 +146,12 @@ def onCommandLore(sender, args):
     Imeta.setLore(Ilore)
     I.setItemMeta(Imeta)
     return True
+
+#Stopwatch
+@hook.command('stopwatch')
+def onCommandStopwatch(sender, args):
+    if len(args) = 0:
+        if not sender.getName() in times:
+            sender.sendMessage(''.join([color('c'),'You are not currently timing - /stopwatch toggle']))
+            return False
+        sender.sendMessage(
