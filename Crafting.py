@@ -59,11 +59,21 @@ getServer().addRecipe(R)
 
 R = s.ShapelessRecipe(GOLD_DUST)
 R.addIngredient(Material.FLINT, 1)
-R.addIngredient(Material.GOLD_INGOT 0)
+R.addIngredient(Material.GOLD_INGOT, 0)
 getServer().addRecipe(R)
 
 R = s.ShapelessRecipe(IRON_DUST)
 R.addIngredient(Material.FLINT, 1)
-R.addIngredient(Material.GOLD_INGOT 0)
+R.addIngredient(Material.GOLD_INGOT, 0)
+getServer().addRecipe(R)
+
+R = s.ShapelessRecipe(NETHER_DUST)
+R.addIngredient(Material.FLINT, 1)
+R.addIngredient(Material.NETHERRACK, 0)
+getServer().addRecipe(R)
+
+R = s.ShapelessRecipe(IRON_DUST)
+R.addIngredient(Material.SUGAR, 1)
+R.addIngredient(Material.GLOWSTONE_DUST, 1)
 getServer().addRecipe(R)
 
