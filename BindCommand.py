@@ -55,7 +55,7 @@ def onCommandMb(sender,args):
         if sender.getName() in ResetAllPending:
             b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','w')
             c = open('plugins/ThunderUtils.py.dir/RandomFiles/Template.txt')
-            print lines(c.readlines())
+            b.writelines(c.readlines())
             c.close()
             b.close()
             sender.sendMesage(''.join([color('a'),'Deleted']))
@@ -155,7 +155,7 @@ def delete(Name):
         delList = b.readlines()
         while True:
             if delList[delPos].replace('\n','') == '':
-                print (delList)
+                b.write(delList)
                 b.close()
                 break
             delList.pop(delPos)
@@ -209,11 +209,11 @@ def complie(sender,args):
         return False
     b.close()
     a = []
-    #b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
-    print (''.join(['#',CommandName,'\n']))
-    print (''.join(['@hook.command("',CommandName,'",description="',CommandName,', by ',sender.getName(),'")\n']))
-    print (''.join(['def onCommand',CommandName,'(sender,args):\n'])) #Write 'introduction'
-    #b.close()
+    b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
+    b.write(''.join(['#',CommandName,'\n']))
+    b.write(''.join(['@hook.command("',CommandName,'",description="',CommandName,', by ',sender.getName(),'")\n']))
+    b.write(''.join(['def onCommand',CommandName,'(sender,args):\n'])) #Write 'introduction'
+    b.close()
     argsNum = 0
     for i in FullString:
         form = 0
@@ -283,14 +283,14 @@ def complie(sender,args):
             a.append(''.join([i.replace('{tab}',t()),'\n']))
     a.append(''.join([t(),'return True\n']))
     a.append('\n')
-    #b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
+    b = open('plugins/ThunderUtils.py.dir/RandomFiles/Binds.py','a')
     if argsNum != 0:
-        print (''.join([t(),'if len(args) != ',str(argsNum),':\n']))
-        print (''.join([t(),t(),'sender.sendMessage("You must have ',str(argsNum),' arguments")\n']))#Writes if statement for amount of arguments
-        print (''.join([t(),t(),'return False\n']))
+        b.write(''.join([t(),'if len(args) != ',str(argsNum),':\n']))
+        b.write(''.join([t(),t(),'sender.sendMessage("You must have ',str(argsNum),' arguments")\n']))#Writes if statement for amount of arguments
+        b.write(''.join([t(),t(),'return False\n']))
     for i in a:
-        print (i) #Writes appends to command
-    #b.close()
+        b.write(i) #Writes appends to command
+    b.close()
     return True
 
 def compose(argument):

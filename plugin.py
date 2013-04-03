@@ -14,7 +14,7 @@ import OnlinePlayers
 
 import usefulCommands
 
-import TestByXeo
+import Crafting
 
 @hook.enable
 def onEnable():

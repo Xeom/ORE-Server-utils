@@ -55,11 +55,11 @@ getServer().addRecipe(R)
 
 R = ShapelessRecipe(GOLD_DUST)
 R.addIngredient(Material.FLINT, 1)
-R.addIngredient(Material.GOLD_INGOT 0)
+R.addIngredient(Material.GOLD_INGOT, 0)
 getServer().addRecipe(R)
 
 R = ShapelessRecipe(IRON_DUST)
 R.addIngredient(Material.FLINT, 1)
-R.addIngredient(Material.GOLD_INGOT 0)
+R.addIngredient(Material.GOLD_INGOT, 0)
 getServer().addRecipe(R)
 
