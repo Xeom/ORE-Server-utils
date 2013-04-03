@@ -1,5 +1,5 @@
 import org.bukkit.Material as Material
-import org.bukkit.inventory.ItemStack.ItemStack as i
+import org.bukkit.inventory.ItemStack as i
 import org.bukkit.inventory.ShapelessRecipe as s
 
 GRINDSTONE = i(Material.FLINT, 1, 2)
@@ -72,8 +72,17 @@ R.addIngredient(Material.FLINT, 1)
 R.addIngredient(Material.NETHERRACK, 0)
 getServer().addRecipe(R)
 
-R = s.ShapelessRecipe(IRON_DUST)
+R = s.ShapelessRecipe(METAL_DUST)
 R.addIngredient(Material.SUGAR, 1)
 R.addIngredient(Material.GLOWSTONE_DUST, 1)
 getServer().addRecipe(R)
 
+R = s.ShapelessRecipe(STONE_DUST)
+R.addIngredient(Material.FLINT, 1)
+R.addIngredient(Material.STONE, 0)
+getServer().addRecipe(R)
+
+R = s.ShapelessRecipe(EARTHEN_DUST)
+R.addIngredient(Material.SULPHUR, 2)
+R.addIngredient(Material.SULPHUR, 1)
+getServer().addRecipe(R)
