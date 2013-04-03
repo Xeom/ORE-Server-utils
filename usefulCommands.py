@@ -146,12 +146,3 @@ def onCommandLore(sender, args):
     Imeta.setLore(Ilore)
     I.setItemMeta(Imeta)
     return True
-
-#Stopwatch
-@hook.command('stopwatch')
-def onCommandStopwatch(sender, args):
-    if len(args) = 0:
-        if not sender.getName() in times:
-            sender.sendMessage(''.join([color('c'),'You are not currently timing - /stopwatch toggle']))
-            return False
-        sender.sendMessage(
