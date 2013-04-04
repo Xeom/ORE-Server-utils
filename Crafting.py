@@ -2,6 +2,7 @@ import org.bukkit.Material as Material
 import org.bukkit.inventory.ItemStack as i
 import org.bukkit.inventory.ShapelessRecipe as s
 import org.bukkit.Bukkit.getServer as getServer
+import org.bukkit.enchantments.Enchantment as ench
 
 GRINDSTONE = i(Material.FLINT, 5, 1)
 M = GRINDSTONE.getItemMeta()
@@ -41,6 +42,8 @@ EARTHEN_DUST.setItemMeta(M)
 FIREY_DUST = i(Material.REDSTONE, 1, 2)
 M = FIREY_DUST.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7','bFirey Dust']))
+M.setLore(['A burning powder'])
+FIREY_DUST.addEnchantment(ench.FIRE_ASPECT, 1)
 FIREY_DUST.setItemMeta(M)
 
 MAGICIANS_POWDER = i(Material.SUGAR, 1, 2)
@@ -75,7 +78,7 @@ getServer().addRecipe(R)
 
 R = s(IRON_DUST)
 R.addIngredient(Material.FLINT, 1)
-R.addIngredient(Material.GOLD_INGOT, 0)
+R.addIngredient(Material.IRON_INGOT, 0)
 getServer().addRecipe(R)
 
 R = s(NETHER_DUST)
@@ -99,7 +102,6 @@ R.addIngredient(Material.SULPHUR, 1)
 getServer().addRecipe(R)
 
 R = s(FIREY_DUST)
-R.addIngredient(Material.BlAZE_POWDER, 0)
 R.addIngredient(Material.SULPHUR, 0)
 R.addIngredient(Material.REDSTONE, 1)
 getServer().addRecipe(R)
