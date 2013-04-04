@@ -1,8 +1,15 @@
 import org.bukkit as b
 
+FLAMING_SHARD = i(Material.GOLD_NUGGET, 1, 1)
+M = FLAMING_SHARD.getItemMeta()
+M.setDisplayName(''.join([u'\u00A7',"dFlaming Shard"]))
+FLAMING_SHARD.addUnsafeEnchantment(ench.FIRE_ASPECT, 4)
+FLAMING_SHARD.setItemMeta(M)
+
 l = []
 pl = []
 sl = []
+tl = []
 
 def intLoc(loc):
     return [int(loc.getX()),int(loc.getY()),int(loc.getZ())]
@@ -14,8 +21,9 @@ def onCommandLight(sender,args):
     if sender in pl:
         i = pl.index(sender)
         sender.sendBlockChange(rLoc(l[i][1],sender,i),l[i][0].getTypeId(),0)
-        pl[i]=None
-        sl[i]=None
+        pl.pop(i)
+        sl.pop(i)
+        tl.pop(i)
         sender.sendMessage("You turned off your light.")
         return True
     if len(args)!=1:
@@ -30,6 +38,7 @@ def onCommandLight(sender,args):
         i=len(pl)
         pl.append(sender)
         sl.append(q)
+        tl.append(True)
         l.append([rLoc(sender.getLocation(),sender,i).getBlock(), sender.getLocation()])
         sender.sendBlockChange(rLoc(sender.getLocation(),sender,i),50,0)
         sender.sendMessage("You got a light!")
@@ -44,9 +53,27 @@ def onPlayerMove(event):
             p.sendBlockChange(rLoc(l[i][1],p,i),l[i][0].getTypeId(),0)
             rLoc(l[i][1],p,i).getBlock().getState().update()
             l[i]=[rLoc(p.getLocation(),p,i).getBlock(), p.getLocation()]
-            p.sendBlockChange(rLoc(p.getLocation(),p,i),50,0)
+            if tl[i]:
+                b = 51
+            else:
+                b = 50
+            p.sendBlockChange(rLoc(p.getLocation(),p,i),b,0)
+            
 
-
-#@hook.event("player.PlayerInteractEvent","Monitor")
-#def onPlayerClick(event):
-#    if event.getItem() == #Flame shard
+@hook.event("player.PlayerItemHeldEvent","Monitor")
+def onPlayerClick(event):
+    ep = event.getPlayer()
+    if ep.getItemInHand() == FLAMING_SHARD:
+        i=len(pl)
+        pl.append(sender)
+        sl.append(3)
+        tl.append(False)
+        l.append([rLoc(ep.getLocation(),ep,i).getBlock(), ep.getLocation()])
+        ep.sendBlockChange(rLoc(p.getLocation(),ep,i),51,0)
+    elif ep in pl:
+        if not tl[pl.index(pl)]:
+            i = pl.index(ep)
+            ep.sendBlockChange(rLoc(l[i][1],ep,i),l[i][0].getTypeId(),0)
+            pl.pop(i)
+            sl.pop(i)
+            tl.pop(i)
