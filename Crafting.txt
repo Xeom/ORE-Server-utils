@@ -1,0 +1,10 @@
+Flint + Cobble = Grindstone - Flint:1
+Grindstone + Gold Ingot = 2*Gold Dust - Glowstone:1
+Grindstone + Iron Ingot = 3*Iron Dust - Sugar:1
+Grindstone + Netherrack = Nether Dust - Redstone:1
+Gold Dust + Iron Dust = 2*Metal Dust - Gunpowder:1
+Stone + Grindstone = 5*Stone Dust - Gunpowder:2
+Metal Dust + Stone Dust = 2*Earthen Dust - Gunpowder:3
+Nether Dust + Blaze Powder + Gunpowder = 3*Firey Dust - Redstone:2
+Glowstone + Redstone + Firey Dust = Magician's Powder - Sugar:2
+Book + Magician's Powder = Blank SpellBook
