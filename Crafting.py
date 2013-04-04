@@ -1,6 +1,7 @@
 import org.bukkit.Material as Material
 import org.bukkit.inventory.ItemStack as i
 import org.bukkit.inventory.ShapelessRecipe as s
+import org.bukkit.inventory.ShapedRecipe as sh
 import org.bukkit.Bukkit.getServer as getServer
 import org.bukkit.enchantments.Enchantment as ench
 
@@ -42,8 +43,6 @@ EARTHEN_DUST.setItemMeta(M)
 FIREY_DUST = i(Material.REDSTONE, 1, 2)
 M = FIREY_DUST.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7','bFirey Dust']))
-M.setLore(['A burning powder'])
-FIREY_DUST.addEnchantment(ench.FIRE_ASPECT, 1)
 FIREY_DUST.setItemMeta(M)
 
 MAGICIANS_POWDER = i(Material.SUGAR, 1, 2)
@@ -65,6 +64,13 @@ MAGICIANS_INGOT = i(Material.IRON_INGOT, 1, 1)
 M = MAGICIANS_INGOT.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"bMagician's Ingot"]))
 MAGICIANS_INGOT.setItemMeta(M)
+
+FLAMING_SHARD = i(Material.GOLD_NUGGET, 1, 1)
+M = FLAMING_SHARD.getItemMeta()
+M.setDisplayName(''.join([u'\u00A7',"dFlaming Shard"]))
+FLAMING_SHARD.setItemMeta(M)
+
+###THING###
 
 R = s(GRINDSTONE)
 R.addIngredient(Material.FLINT, 0)
@@ -138,4 +144,11 @@ R.addIngredient(Material.GLOWSTONE_DUST, 1)
 R.addIngredient(Material.GLOWSTONE_DUST, 1)
 R.addIngredient(Material.GLOWSTONE_DUST, 1)
 R.addIngredient(Material.REDSTONE, 0)
+getServer().addRecipe(R)
+
+R = sh(FLAMING_SHARD)
+R.shape('pip','imi','pip')
+R.setIngredient('p',Material.REDSTONE,2)
+R.setIngredient('i',Material.BRICK,1)
+R.setIngredient('m',Material.IRON_INGOT,1)
 getServer().addRecipe(R)
