@@ -1,6 +1,6 @@
 import org.bukkit as b
 
-FLAMING_SHARD = i(Material.GOLD_NUGGET, 1, 1)
+FLAMING_SHARD = b.inventory.ItemStack(Material.GOLD_NUGGET, 1, 1)
 M = FLAMING_SHARD.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"dFlaming Shard"]))
 FLAMING_SHARD.addUnsafeEnchantment(ench.FIRE_ASPECT, 4)
