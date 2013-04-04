@@ -1,5 +1,5 @@
 import org.bukkit as b
-import org.bukkit.inventory.ItemStack as Itemstack
+import org.bukkit.inventory.ItemStack as ItemStack
 FLAMING_SHARD = ItemStack(Material.GOLD_NUGGET, 1, 1)
 M = FLAMING_SHARD.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"dFlaming Shard"]))
