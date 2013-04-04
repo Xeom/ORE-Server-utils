@@ -1,6 +1,7 @@
 import org.bukkit.Material as Material
 import org.bukkit.inventory.ItemStack as i
 import org.bukkit.inventory.ShapelessRecipe as s
+import org.bukkit.Bukkit.getServer as getServer
 
 GRINDSTONE = i(Material.FLINT, 1, 2)
 M = GRINDSTONE.getItemMeta()
@@ -51,6 +52,16 @@ SPELLBOOK = i(Material.ENCHANTED_BOOK, 1, 1)
 M = SPELLBOOK.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"dSpellbook"]))
 SPELLBOOK.setItemMeta(M)
+
+FIREY_INGOT = i(Material.BRICK, 1, 1)
+M = FIREY_INGOT.getItemMeta()
+M.setDisplayName(''.join([u'\u00A7',"bFirey Ingot"]))
+FIREY_INGOT.setItemMeta(M)
+
+MAGICIANS_INGOT = i(Material.IRON_INGOT, 1, 1)
+M = MAGICIANS_INGOT.getItemMeta()
+M.setDisplayName(''.join([u'\u00A7',"bMagician's Ingot"]))
+MAGICIANS_INGOT.setItemMeta(M)
 
 R = s(GRINDSTONE)
 R.addIngredient(Material.FLINT, 0)
@@ -104,4 +115,9 @@ R = s.ShapelessRecipe(SPELLBOOK)
 R.addIngredient(Material.BOOK, 0)
 R.addIngredient(Material.SUGAR, 2)
 getServer().addRecipe(R)
-
+	
+R = s.ShapelessRecipe(FIREY_INGOT)
+R.addIngredient(Material.SULPHUR, 1)
+R.addIngredient(Material.IRON_INGOT, 1)
+R.addIngredient(Material.REDSTONE, 2)
+getServer().addRecipe(R)
