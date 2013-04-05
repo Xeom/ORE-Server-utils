@@ -59,12 +59,9 @@ def onPlayerMove(event):
             rLoc(l[i][1],p,i).getBlock().getState().update()
             l[i]=[rLoc(p.getLocation(),p,i).getBlock(), p.getLocation()]
             if tl[i]:
-                print 'Fire'
-                b = 51
+                p.sendBlockChange(rLoc(p.getLocation(),p,i),50,0)
             else:
-                print 'Torch'
-                b = 50
-            p.sendBlockChange(rLoc(p.getLocation(),p,i),b,0)
+                p.sendBlockChange(rLoc(p.getLocation(),p,i),51,0)
             
 
 @hook.event("player.PlayerItemHeldEvent","Monitor")
@@ -76,7 +73,7 @@ def onPlayerScroll(event):
         sl.append(3)
         tl.append(False)
         l.append([rLoc(ep.getLocation(),ep,i).getBlock(), ep.getLocation()])
-        ep.sendBlockChange(rLoc(p.getLocation(),ep,i),51,0)
+        ep.sendBlockChange(rLoc(ep.getLocation(),ep,i),51,0)
     elif ep in pl:
         if not tl[pl.index(ep)]:
             i = pl.index(ep)
