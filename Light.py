@@ -68,6 +68,12 @@ def blockChanged(event):
         print 'LAMP ACTIVITY!'
         event.setCancelled(True)
 
+@hook.event("block.BlockPhysicsEvent","High")
+def blockChanged(event):
+    if event.getBlock().getTypeId() in [123,124]:
+        print 'LAMP ACTIVITY!'
+        event.setCancelled(True)
+
 @hook.event("player.PlayerInteractEvent","Monitor")
 def onPlayerClick(event):
     ep = event.getPlayer()
