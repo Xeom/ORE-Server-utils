@@ -7,6 +7,7 @@ FLAMING_SHARD = ItemStack(Material.GOLD_NUGGET, 1, 1)
 M = FLAMING_SHARD.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"dFlaming Shard"]))
 FLAMING_SHARD.addUnsafeEnchantment(ench.FIRE_ASPECT, 4)
+FLAMING_SHARD.addUnsafeEnchantment(ench.DAMAGE_ALL, 4)
 FLAMING_SHARD.setItemMeta(M)
 
 l = []
@@ -64,17 +65,17 @@ def onPlayerMove(event):
             
 
 @hook.event("player.PlayerItemHeldEvent","Monitor")
-def onPlayerClick(event):
+def onPlayerScroll(event):
     ep = event.getPlayer()
     if ep.getItemInHand() == FLAMING_SHARD:
         i=len(pl)
-        pl.append(sender)
+        pl.append(ep)
         sl.append(3)
         tl.append(False)
         l.append([rLoc(ep.getLocation(),ep,i).getBlock(), ep.getLocation()])
         ep.sendBlockChange(rLoc(p.getLocation(),ep,i),51,0)
     elif ep in pl:
-        if not tl[pl.index(pl)]:
+        if not tl[pl.index(ep)]:
             i = pl.index(ep)
             ep.sendBlockChange(rLoc(l[i][1],ep,i),l[i][0].getTypeId(),0)
             pl.pop(i)
