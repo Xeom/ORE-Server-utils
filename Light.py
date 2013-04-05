@@ -54,27 +54,26 @@ def onPlayerMove(event):
     if p in pl:
         i=pl.index(p)
         if intLoc(p.getLocation()) != intLoc(l[i][1]):
-            print 'Second if'
             p.sendBlockChange(rLoc(l[i][1],p,i),l[i][0].getTypeId(),0)
             rLoc(l[i][1],p,i).getBlock().getState().update()
             l[i]=[rLoc(p.getLocation(),p,i).getBlock(), p.getLocation()]
             if tl[i]:
                 p.sendBlockChange(rLoc(p.getLocation(),p,i),50,0)
             else:
-                p.sendBlockChange(rLoc(p.getLocation(),p,i),51,0)
+                p.sendBlockChange(rLoc(p.getLocation(),p,i),50,0)
             
 
 @hook.event("player.PlayerItemHeldEvent","Monitor")
 def onPlayerScroll(event):
     ep = event.getPlayer()
-    if ep.getItemInHand() == FLAMING_SHARD:
+    if ep.getInventory().getItem(event.getNewSlot()) == FLAMING_SHARD:
         i=len(pl)
         pl.append(ep)
         sl.append(3)
         tl.append(False)
         l.append([rLoc(ep.getLocation(),ep,i).getBlock(), ep.getLocation()])
         ep.sendBlockChange(rLoc(ep.getLocation(),ep,i),51,0)
-    elif ep in pl:
+    elif p in pl:
         if not tl[pl.index(ep)]:
             i = pl.index(ep)
             ep.sendBlockChange(rLoc(l[i][1],ep,i),l[i][0].getTypeId(),0)

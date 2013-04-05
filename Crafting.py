@@ -59,6 +59,11 @@ M = SPELLBOOK.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"dSpellbook"]))
 SPELLBOOK.setItemMeta(M)
 
+SPELL_OF_FORCE = i(Material.ENCHANTED_BOOK, 1, 2)
+M = SPELL_OF_FORCE.getItemMeta()
+M.setDisplayName(''.join([u'\u00A7',"5Spell of force"]))
+SPELL_OF_FORCE.setItemMeta(M)
+
 FIREY_INGOT = i(Material.CLAY_BRICK, 1, 1)
 M = FIREY_INGOT.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"bFirey Ingot"]))
@@ -74,9 +79,9 @@ MAGICIANS_INGOT.addUnsafeEnchantment(ench.LOOT_BONUS_MOBS, 1)
 FLAMING_SHARD = i(Material.GOLD_NUGGET, 1, 1)
 M = FLAMING_SHARD.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"dFlaming Shard"]))
-FLAMING_SHARD.addUnsafeEnchantment(ench.FIRE_ASPECT, 4)
-FLAMING_SHARD.addUnsafeEnchantment(ench.DAMAGE_ALL, 10)
 FLAMING_SHARD.setItemMeta(M)
+FLAMING_SHARD.addUnsafeEnchantment(ench.FIRE_ASPECT, 3)
+FLAMING_SHARD.addUnsafeEnchantment(ench.DAMAGE_ALL, 5)
 
 MAGICIANS_BLADE = i(Material.GOLD_SWORD, 1, 0)
 M = MAGICIANS_BLADE.getItemMeta()
@@ -91,6 +96,7 @@ M = DARK_INGOT.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"dDark Ingot"]))
 DARK_INGOT.setItemMeta(M)
 DARK_INGOT.addUnsafeEnchantment(ench.DAMAGE_UNDEAD, 1)
+
 ###THING###
 
 R = s(GRINDSTONE)
