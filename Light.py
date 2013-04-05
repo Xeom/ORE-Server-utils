@@ -66,11 +66,10 @@ def onPlayerMove(event):
 def blockChanged(event):
     if event.getChangedTypeId() in [123,124]:
         print 'LAMP ACTIVITY!'
-        setCancelled (True)
+        event.setCancelled(True)
 
 @hook.event("player.PlayerInteractEvent","Monitor")
 def onPlayerClick(event):
-    print 'event'
     ep = event.getPlayer()
     if event.getItem() == FLAMING_SHARD:
         print 'shard'
