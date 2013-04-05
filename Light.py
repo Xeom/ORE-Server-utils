@@ -6,8 +6,8 @@ import org.bukkit.enchantments.Enchantment as ench
 FLAMING_SHARD = ItemStack(Material.GOLD_NUGGET, 1, 1)
 M = FLAMING_SHARD.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"dFlaming Shard"]))
-FLAMING_SHARD.addUnsafeEnchantment(ench.FIRE_ASPECT, 4)
-FLAMING_SHARD.addUnsafeEnchantment(ench.DAMAGE_ALL, 4)
+FLAMING_SHARD.addUnsafeEnchantment(ench.FIRE_ASPECT, 3)
+FLAMING_SHARD.addUnsafeEnchantment(ench.DAMAGE_ALL, 5)
 FLAMING_SHARD.setItemMeta(M)
 
 l = []
@@ -67,16 +67,17 @@ def onPlayerMove(event):
 def onPlayerClick(event):
     ep = event.getPlayer()
     if ep.getItemInHand() == FLAMING_SHARD:
-        i=len(pl)
-        pl.append(ep)
-        sl.append(3)
-        tl.append(False)
-        l.append([rLoc(ep.getLocation(),ep,i).getBlock(), ep.getLocation()])
-        ep.sendBlockChange(rLoc(ep.getLocation(),ep,i),51,0)
-    elif p in pl:
-        if not tl[pl.index(ep)]:
-            i = pl.index(ep)
-            ep.sendBlockChange(rLoc(l[i][1],ep,i),l[i][0].getTypeId(),0)
-            pl.pop(i)
-            sl.pop(i)
-            tl.pop(i)
+        if ep in pl:
+            if not tl[pl.index(ep)]:
+                i = pl.index(ep)
+                ep.sendBlockChange(rLoc(l[i][1],ep,i),l[i][0].getTypeId(),0)
+                pl.pop(i)
+                sl.pop(i)
+                tl.pop(i)
+        else:
+            i=len(pl)
+            pl.append(ep)
+            sl.append(3)
+            tl.append(False)
+            l.append([rLoc(ep.getLocation(),ep,i).getBlock(), ep.getLocation()])
+            ep.sendBlockChange(rLoc(ep.getLocation(),ep,i),51,0)
