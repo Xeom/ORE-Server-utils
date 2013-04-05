@@ -195,10 +195,17 @@ getServer().addRecipe(R)
 
 R = s(DARK_INGOT)
 R.addIngredient(Material.CLAY_BRICK, 1)
-R.addIngredient(Material.SULHUR, 3)
+R.addIngredient(Material.SULPHUR, 3)
 getServer().addRecipe(R)
 
 R = s(FIREY_INGOT)
 R.addIngredient(Material.NETHER_BRICK_ITEM, 1)
 R.addIngredient(Material.REDSTONE, 2)
+getServer().addRecipe(R)
+
+R = sh(i(Material.NETHER_STAR, 1, 0))
+R.shape('dfd','fsf','dfd')
+R.setIngredient('d',Material.NETHER_BRICK_ITEM, 1)
+R.setIngredient('f',Material.CLAY_BRICK, 1)
+R.setIngredient('s',Material.GOLD_NUGGET, 1)
 getServer().addRecipe(R)

@@ -54,12 +54,15 @@ def onPlayerMove(event):
     if p in pl:
         i=pl.index(p)
         if intLoc(p.getLocation()) != intLoc(l[i][1]):
+            print 'Second if'
             p.sendBlockChange(rLoc(l[i][1],p,i),l[i][0].getTypeId(),0)
             rLoc(l[i][1],p,i).getBlock().getState().update()
             l[i]=[rLoc(p.getLocation(),p,i).getBlock(), p.getLocation()]
             if tl[i]:
+                print 'Fire'
                 b = 51
             else:
+                print 'Torch'
                 b = 50
             p.sendBlockChange(rLoc(p.getLocation(),p,i),b,0)
             
