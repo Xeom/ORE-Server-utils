@@ -63,10 +63,10 @@ def onPlayerMove(event):
                 p.sendBlockChange(rLoc(p.getLocation(),p,i),50,0)
             
 
-@hook.event("player.PlayerItemHeldEvent","Monitor")
-def onPlayerScroll(event):
+@hook.event("player.PlayerInteractEvent","Monitor")
+def onPlayerClick(event):
     ep = event.getPlayer()
-    if ep.getInventory().getItem(event.getNewSlot()) == FLAMING_SHARD:
+    if ep.getItemInHand() == FLAMING_SHARD:
         i=len(pl)
         pl.append(ep)
         sl.append(3)
