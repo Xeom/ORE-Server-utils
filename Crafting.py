@@ -51,7 +51,7 @@ FIREY_DUST.setItemMeta(M)
 MAGICIANS_POWDER = i(Material.SUGAR, 1, 2)
 M = MAGICIANS_POWDER.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"bMagician's Powder"]))
-MAGICIANS_DUST.addUnsafeEnchantment(ench.KNOCKBACK, 1)
+MAGICIANS_POWDER.addUnsafeEnchantment(ench.KNOCKBACK, 1)
 MAGICIANS_POWDER.setItemMeta(M)
 
 SPELLBOOK = i(Material.ENCHANTED_BOOK, 1, 1)
@@ -85,6 +85,13 @@ MAGICIANS_BLADE.addUnsafeEnchantment(ench.DAMAGE_ALL, 10)
 MAGICIANS_BLADE.addUnsafeEnchantment(ench.LOOTING, 4)
 MAGICIANS_BLADE.addUnsafeEnchantment(ench.UNBREAKING, 10)
 MAGICIANS_BLADE.setItemMeta(M)
+
+#DARK_INGOT = i(Material.GOLD_SWORD, 1, 1)
+#M = DARK_INGOT.getItemMeta()
+#M.setDisplayName(''.join([u'\u00A7',"bDark Ingot"]))
+#DARK_INGOT.addUnsafeEnchantment(ench.DAMAGE_UNDEAD, 1)
+#DARK_INGOT.setItemMeta(M)
+
 
 ###THING###
 
