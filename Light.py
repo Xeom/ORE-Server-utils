@@ -71,7 +71,7 @@ def onPlayerMove(event):
             else:
                 p.sendBlockChange(rLoc(p.getLocation(),p,i),51,0)
             
-@hook.event("block.BlockPhysicsEvent","High")
+@hook.event("block.BlockFormEvent","High")
 def blockChanged(event):
     ID = event.getBlock().getTypeId()
     if ID in [123,124]:
