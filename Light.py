@@ -73,14 +73,18 @@ def onPlayerMove(event):
             
 @hook.event("block.BlockFormEvent","High")
 def blockChanged(event):
+    print 'changed'
     ID = event.getBlock().getTypeId()
     if ID in [123,124]:
         event.setCancelled(True)
+        print 'cancelled'
         if ID == 123:
             for i in lightseers:
+                print 'sending on change'
                 i.sendBlockChange(event.getBlock().getLocation(), 124, 0)
         if ID == 124:
             for i in lightseers:
+                print 'sending off change'
                 i.sendBlockChange(event.getBlock().getLocation(), 123, 0)
 
 @hook.event("player.PlayerInteractEvent","Monitor")
