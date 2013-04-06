@@ -71,7 +71,7 @@ def onPlayerMove(event):
             else:
                 p.sendBlockChange(rLoc(p.getLocation(),p,i),51,0)
             
-@hook.event("block.BlockFormEvent","High")
+@hook.event("block.BlockPhysicsEvent","High")
 def blockChanged(event):
     print 'changed'
     ID = event.getBlock().getTypeId()
