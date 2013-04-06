@@ -23,6 +23,7 @@ def rLoc(loc,p,i):
 
 @hook.command("lamps", description="See lamps!")
 def onCommandLamps(sender,args):
+    global lamps
     lamps = not lamps
     return True
 
@@ -70,27 +71,28 @@ def onPlayerMove(event):
             
 @hook.event("block.BlockPhysicsEvent","High")
 def blockChanged(event):
-    ID = event.getBlock().getTypeId()
-    if ID in [123,124]:
+    if event.getBlock().getTypeId() in [123,124]:
         if lamps:
             event.setCancelled(True)
 
 
 @hook.event("player.PlayerInteractEvent","Monitor")
 def onPlayerClick(event):
-    ep = event.getPlayer()
+    sender = event.getPlayer()
     if event.getItem() == FLAMING_SHARD:
-        print 'shard'
-        if ep in pl:
-            i = pl.index(ep)
-            ep.sendBlockChange(rLoc(l[i][1],ep,i),l[i][0].getTypeId(),0)
+        if sender in pl:
+            i = pl.index(sender)
+            sender.sendBlockChange(rLoc(l[i][1],sender,i),l[i][0].getTypeId(),0)
             pl.pop(i)
             sl.pop(i)
             tl.pop(i)
+            return True
         else:
             i=len(pl)
-            pl.append(ep)
-            sl.append(3)
+            pl.append(sender)
+            sl.append(0)
             tl.append(False)
-            l.append([rLoc(ep.getLocation(),ep,i).getBlock(), ep.getLocation()])
-            ep.sendBlockChange(rLoc(ep.getLocation(),ep,i),51,0)
+            l.append([rLoc(sender.getLocation(),sender,i).getBlock(), sender.getLocation()])
+            sender.sendBlockChange(rLoc(sender.getLocation(),sender,i),51,0)
+    return True
+        
