@@ -76,10 +76,10 @@ def blockChanged(event):
     ID = event.getBlock().getTypeId()
     if ID in [123,124]:
         event.setCancelled(True)
-        if ID = 123:
+        if ID == 123:
             for i in lightseers:
                 i.sendBlockChange(event.getBlock().getLocation(), 124, 0)
-        if ID = 124:
+        if ID == 124:
             for i in lightseers:
                 i.sendBlockChange(event.getBlock().getLocation(), 123, 0)
 
