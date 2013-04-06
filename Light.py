@@ -90,7 +90,7 @@ def onPlayerClick(event):
         else:
             i=len(pl)
             pl.append(sender)
-            sl.append(0)
+            sl.append(1)
             tl.append(False)
             l.append([rLoc(sender.getLocation(),sender,i).getBlock(), sender.getLocation()])
             sender.sendBlockChange(rLoc(sender.getLocation(),sender,i),51,0)
