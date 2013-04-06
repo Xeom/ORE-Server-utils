@@ -2,6 +2,7 @@ import org.bukkit as b
 import org.bukkit.inventory.ItemStack as ItemStack
 import org.bukkit.Material as Material
 import org.bukkit.enchantments.Enchantment as ench
+import org.bukkit.event.block.Action as Action
 
 FLAMING_SHARD = ItemStack(Material.GOLD_NUGGET, 1, 1)
 M = FLAMING_SHARD.getItemMeta()
@@ -78,21 +79,22 @@ def blockChanged(event):
 
 @hook.event("player.PlayerInteractEvent","Monitor")
 def onPlayerClick(event):
-    sender = event.getPlayer()
-    if event.getItem() == FLAMING_SHARD:
-        if sender in pl:
-            i = pl.index(sender)
-            sender.sendBlockChange(rLoc(l[i][1],sender,i),l[i][0].getTypeId(),0)
-            pl.pop(i)
-            sl.pop(i)
-            tl.pop(i)
-            return True
-        else:
-            i=len(pl)
-            pl.append(sender)
-            sl.append(1)
-            tl.append(False)
-            l.append([rLoc(sender.getLocation(),sender,i).getBlock(), sender.getLocation()])
-            sender.sendBlockChange(rLoc(sender.getLocation(),sender,i),51,0)
-    return True
+    if event.getAction() == Action.RIGHT_CLICK_AIR:
+        sender = event.getPlayer()
+        if event.getItem() == FLAMING_SHARD:
+            if sender in pl:
+                i = pl.index(sender)
+                sender.sendBlockChange(rLoc(l[i][1],sender,i),l[i][0].getTypeId(),0)
+                pl.pop(i)
+                sl.pop(i)
+                tl.pop(i)
+                return True
+            else:
+                i=len(pl)
+                pl.append(sender)
+                sl.append(1)
+                tl.append(False)
+                l.append([rLoc(sender.getLocation(),sender,i).getBlock(), sender.getLocation()])
+                sender.sendBlockChange(rLoc(sender.getLocation(),sender,i),51,0)
+        return True
         

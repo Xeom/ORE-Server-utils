@@ -84,7 +84,7 @@ M.setDisplayName(''.join([u'\u00A7',"dIcey Shard"]))
 ICEY_SHARD.setItemMeta(M)
 ICEY_SHARD.addUnsafeEnchantment(ench.KNOCKBACK, 2)
 
-GOLDEN_BLADE = i(Material.GOLD_SWORD, 1, -10000)
+GOLDEN_BLADE = i(Material.GOLD_SWORD, 1, -1000)
 M = GOLDEN_BLADE.getItemMeta()
 M.setDisplayName(''.join([u'\u00A7',"dGolden Blade"]))
 GOLDEN_BLADE.setItemMeta(M)
