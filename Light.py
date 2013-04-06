@@ -14,11 +14,20 @@ l = []
 pl = []
 sl = []
 tl = []
+lightseers = []
 
 def intLoc(loc):
     return [int(loc.getX()),int(loc.getY()),int(loc.getZ())]
 def rLoc(loc,p,i):
     return b.Location(p.getWorld(),loc.getX(),loc.getY()+sl[i],loc.getZ())
+
+@hook.command("lamps", description="See lamps!")
+def onCommandLamps(sender,args):
+    if sender in lightseers:
+        lightseers.remove(sender)
+        return True
+    lightseers.append(sender)
+    return True
 
 @hook.command("light", description="Toggles a nice light!")
 def onCommandLight(sender,args):
@@ -64,15 +73,15 @@ def onPlayerMove(event):
             
 @hook.event("block.BlockPhysicsEvent","High")
 def blockChanged(event):
-    if event.getChangedTypeId() in [123,124]:
-        print 'LAMP ACTIVITY!'
+    ID = event.getBlock().getTypeId()
+    if ID in [123,124]:
         event.setCancelled(True)
-
-@hook.event("block.BlockPhysicsEvent","High")
-def blockChanged(event):
-    if event.getBlock().getTypeId() in [123,124]:
-        print 'LAMP ACTIVITY!'
-        event.setCancelled(True)
+        if ID = 123:
+            for i in lightseers:
+                i.sendBlockChange(event.getBlock().getLocation(), 124, 0)
+        if ID = 124:
+            for i in lightseers:
+                i.sendBlockChange(event.getBlock().getLocation(), 123, 0)
 
 @hook.event("player.PlayerInteractEvent","Monitor")
 def onPlayerClick(event):
