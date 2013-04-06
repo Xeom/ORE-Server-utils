@@ -3,6 +3,7 @@ import org.bukkit.inventory.ItemStack as ItemStack
 import org.bukkit.Material as Material
 import org.bukkit.enchantments.Enchantment as ench
 import org.bukkit.event.block.Action as Action
+import org.bukkit.potion.PotionEffectType as Effect
 
 FLAMING_SHARD = ItemStack(Material.GOLD_NUGGET, 1, 1)
 M = FLAMING_SHARD.getItemMeta()
@@ -83,6 +84,7 @@ def onPlayerClick(event):
         sender = event.getPlayer()
         if event.getItem() == FLAMING_SHARD:
             if sender in pl:
+                sender.removePotionEffect(Effect.FIRE_RESISTANCE)
                 i = pl.index(sender)
                 sender.sendBlockChange(rLoc(l[i][1],sender,i),l[i][0].getTypeId(),0)
                 pl.pop(i)
@@ -90,6 +92,7 @@ def onPlayerClick(event):
                 tl.pop(i)
                 return True
             else:
+                sender.addPotionEffect(PotionEffect(Effect.FIRE_RESISTANCE, 10000, 0))
                 i=len(pl)
                 pl.append(sender)
                 sl.append(1)
