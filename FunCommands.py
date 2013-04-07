@@ -6,7 +6,7 @@ from Helper import sudo
 
 import random
 
-import org.bukkit as bukkit
+import org.bukkit.Bukkit as bukkit.Bukkit
 
 from org.bukkit.potion import PotionEffectType
 from org.bukkit.potion import PotionEffect

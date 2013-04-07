@@ -3,6 +3,7 @@ import math as m
 import random
 
 from Helper import color
+
 #[Numbers,Constants,().,+-]
 colourschemes = [['3','1','9','7']]
 colour = 'f'
@@ -111,7 +112,7 @@ def coladd(c):
         comp.append(color(c))
 
 #Rename
-@hook.command('rename')
+@hook.command('rename', description='Rename the item in your hand')
 def onCommandLore(sender, args):
     if len(args) == 0:
         sender.sendMessage(''.join([color('c'),'You must have a name!']))
@@ -124,7 +125,7 @@ def onCommandLore(sender, args):
     return True
 
 #lore
-@hook.command('lore')
+@hook.command('lore', description='add lore to the item in your hand')
 def onCommandLore(sender, args):
     if len(args) == 0:
         sender.sendMessage(''.join([color('c'),'/lore [lore to add] or /lore [existing line] [edited lore]']))
@@ -146,3 +147,4 @@ def onCommandLore(sender, args):
     Imeta.setLore(Ilore)
     I.setItemMeta(Imeta)
     return True
+

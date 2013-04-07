@@ -1,7 +1,7 @@
 from Helper import color
 from Helper import sudo
 
-import org.bukkit as bukkit
+import org.bukkit.Bukkit.broadcastMessage as bukkit.Bukkit.broadcastMessage
 
 @hook.command("nameformat", description="Nameformatting. Try: /nameformat d l")
 def onCommandNameformat(sender, args):
