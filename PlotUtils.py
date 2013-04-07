@@ -32,10 +32,13 @@ def onCommandpwarp(sender, args):
         except:
             sender.sendMessage(''.join([color('c'),'Coords must be two hex values']))
             return False
+    O = plots.get((X,Z))
+    if O == None:
+        sender.sendMessage('No such plot')
+        return False
     X = (X * 256) + 128
     Z = (Z * 256) + 128
-    O = plots[(X,Z)][0]
-    if O != False:
+    if O[0] != False:
         sender.sendMessage(''.join(['Teleporting to ',O,"'s plot #",str(plots[(X,Z)][1]),'; ',str(X),',',str(Z)]))
     else:
         sender.sendMessage(''.join(['Teleporting to plot ',str(X),',',str(Z),' - Unclaimed']))
@@ -91,7 +94,7 @@ def onCommandGenerate(sender, args):
         d = int(args[0])
         for x in range(-d,d):
             for z in range(-d,d):
-                if plots[(x,z)] == None:
+                if plots.get((x,z)) == None:
                     plots[(x,z)] = [False,0,'']
                     mapgen(x,z,False,['Unclaimed'])
         pickle.dump(plots, open("Plots.xeodata", "wb"))
@@ -143,14 +146,15 @@ def onCommandPsearch(sender, args):
         return True
     if len(args) == 2:
         if args[0].isdigit() and args[1].isdigit():
-            p = plots[(args[0],args[1])]
-            if p[0] != False:
-                sender.sendMessage(''.join(['Claimed by ',p[0]]))
-                sender.sendMessage(''.join(['At ',p[2]]))
-                return True
-            else:
-                sender.sendMessage('Unclaimed')
-                return True
+            if (args[0],args[1]) in plots:
+                p = plots[(args[0],args[1])]
+                if p[0] != False:
+                    sender.sendMessage(''.join(['Claimed by ',p[0]]))
+                    sender.sendMessage(''.join(['At ',p[2]]))
+                    return True
+                else:
+                    sender.sendMessage('Unclaimed')
+                    return True
     sender.sendMessage(''.join([color('c'),'/psearch [Criteria]']))
     return False
 
