@@ -154,11 +154,11 @@ def onCommandPsearch(sender, args):
     sender.sendMessage(''.join([color('c'),'/psearch [Criteria]']))
     return False
 
-def mapgen(X,Z,C,T):
+def mapgen(X,Z,C,T): ###RED MAKE ME###
     print 'At X'+str(X)+'and Y'+str(Y)
     if C:
         print 'Lit'
     else:
         print 'unlit'
-    for I in T
+    for I in T:
     print I
