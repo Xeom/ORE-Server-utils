@@ -4,6 +4,7 @@ import org.bukkit.Material as Material
 import org.bukkit.enchantments.Enchantment as ench
 import org.bukkit.event.block.Action as Action
 import org.bukkit.potion.PotionEffectType as Effect
+import org.bukkit.potion.PotionEffect as PotionEffect
 
 FLAMING_SHARD = ItemStack(Material.GOLD_NUGGET, 1, 1)
 M = FLAMING_SHARD.getItemMeta()
