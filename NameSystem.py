@@ -1,7 +1,7 @@
 from Helper import color
 from Helper import sudo
 
-import org.bukkit.Bukkit.broadcastMessage as bukkit.Bukkit.broadcastMessage
+import org.bukkit.Bukkit.dispatchCommand as dispatchCommand
 
 @hook.command("nameformat", description="Nameformatting. Try: /nameformat d l")
 def onCommandNameformat(sender, args):
@@ -102,7 +102,7 @@ def onCommandTag(sender, args):
 @hook.command("skillup", description="Promote a user.")
 def onCommandSkillup(sender, args):
     if len(args) == 1:
-        bukkit.Bukkit.dispatchCommand(sender,"pex promote "+args[0])
+        dispatchCommand(sender,"pex promote "+args[0])
         return True
     return False
 
@@ -110,7 +110,7 @@ def onCommandSkillup(sender, args):
 @hook.command("skilldown", description="Demote a user.")
 def onCommandSkilldown(sender,args):
     if len(args) == 1:
-        bukkit.Bukkit.dispatchCommand(sender,"pex demote "+args[0])
+        dispatchCommand(sender,"pex demote "+args[0])
         return True
     return False
 
@@ -118,7 +118,7 @@ def onCommandSkilldown(sender,args):
 @hook.command("tagadd", description="Add a user to a group.")
 def onCommandTagadd(sender,args):
     if len(args) == 2:
-        bukkit.Bukkit.dispatchCommand(sender,"pex group "+args[0]+" user add "+args[1])
+        dispatchCommand(sender,"pex group "+args[0]+" user add "+args[1])
         return True
     return False
 
@@ -126,7 +126,7 @@ def onCommandTagadd(sender,args):
 @hook.command("tagremove", description="Removea user from a group.")
 def onCommandTagremove(sender,args):
     if len(args) == 2:
-        bukkit.Bukkit.dispatchCommand(sender,"pex group "+args[0]+" user remove "+args[1])
+        dispatchCommand(sender,"pex group "+args[0]+" user remove "+args[1])
         return True
     return False
 
