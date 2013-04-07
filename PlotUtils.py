@@ -161,4 +161,11 @@ def mapgen(X,Z,C,T): ###RED MAKE ME###
     else:
         print 'unlit'
     for I in T:
-    print I
+        print I
+
+@hook.command('userlist', description='Lists all users')
+def userlist(sender, args):
+    t = list(players)
+    t.sort()
+    sender.sendMessage(', '.join(t))
+    return True
