@@ -159,7 +159,7 @@ def onCommandPsearch(sender, args):
     return False
 
 def mapgen(X,Z,C,T): ###RED MAKE ME###
-    print 'At X'+str(X)+'and Y'+str(Y)
+    print 'At X'+str(X)+'and Z'+str(Z)
     if C:
         print 'Lit'
     else:
