@@ -3,15 +3,31 @@ from Helper import color
 import pickle
 import time.ctime as ctime
 
+#Loading xeodata files
 plots = pickle.load(open("Plots.xeodata", "rb"))
 players = pickle.load(open("Players.xeodata", "rb"))
 
-@hook.command('plotwarp', description='Warp to a particular plot')
+#Loading op files
+opfile = open('plugins/ThunderUtils.py.dir/RandomFiles/ops.txt')
+ops = []
+
+#Generating List of ops
+for i in opfile.readlines():
+    ops.append(i.replace('\n',''))
+
+def infreturn(i, sender):
+    sender.sendMessage(i)
+
+def redreturn(i, sender):
+    sender.sendMessage(''.join([color('c'),i]))
+
+
+@hook.command('pwarp', description='Warp to a particular plot')
 def onCommandpwarp(sender, args):
     if len(args) == 0:
-        sender.sendMessage(''.join([color('c'),'/plotwarp [X] [Z]']))
+        redreturn('/pwarp [X] [Z] |OR| /pwarp [player]', sender)
         return False
-    if args[0] in players:
+    if args[0].lower() in players:
         if len(args) == 2:
             if args[1].isdigit():
                 try:
@@ -19,43 +35,41 @@ def onCommandpwarp(sender, args):
                     X = C[0]
                     Z = C[1]
                 except:
-                    sender.sendMessage('No such plot')
+                    infreturn('No such plot', sender)
                     return False
         else:
-            C = players[args[0]][0][0]
+            C = players[args[0].lower()][0][0]
             X = C[0]
             Z = C[1]
     else:
         try:
-            X = int(args[0], 16)
-            Z = int(args[1], 16)
+            X = int(args[0])
+            Z = int(args[1])
         except:
-            sender.sendMessage(''.join([color('c'),'Coords must be two hex values']))
+            redreturn('Coords must be two values', sender)
             return False
     O = plots.get((X,Z))
     if O == None:
-        sender.sendMessage('No such plot')
+        infreturn('No such plot', sender)
         return False
-    X = (X * 256) + 128
-    Z = (Z * 256) + 128
+    V = Location(sender.getWorld(),(X * 256) + 128,18,(Z * 256) + 128)
     if O[0] != False:
-        sender.sendMessage(''.join(['Teleporting to ',O,"'s plot #",str(plots[(X,Z)][1]),'; ',str(X),',',str(Z)]))
+        infreturn(''.join(['Teleporting to ',O[0],"'s plot #",str(plots[(X,Z)][1]),'; ',str(X),',',str(Z)]), sender)
     else:
-        sender.sendMessage(''.join(['Teleporting to plot ',str(X),',',str(Z),' - Unclaimed']))
-    V = Location(sender.getWorld(),X,18,Z)
+        infreturn(''.join(['Teleporting to plot ',str(X),',',str(Z),' - Unclaimed']), sender)
     sender.teleport(V)
     return True
 
-@hook.command('claim', description='Claim a particular plot')
+@hook.command('pclaim', description='Claim a particular plot')
 def onCommandClaim(sender, args):
     if len(args) == 0:
-        sender.sendMessage(''.join([color('c'),'/claim [X] [Z]']))
+        redreturn('/claim [X] [Z]', sender)
         return False
     try:
         X = int(args[0])
         Z = int(args[1])
     except:
-        sender.sendMessage(''.join([color('c'),'Coords must be two values']))
+        redreturn('Coords must be two values', sender)
         return False
     if (X,Z) in plots:
         if plots[(X,Z)][0] == False:
@@ -65,30 +79,33 @@ def onCommandClaim(sender, args):
                 plots[(X,Z)] = [n,1,ctime()]
                 T = ctime().split()
                 mapgen(X,Z,True,[n,'Plot #1','Claimed:',' '.join([T[1],T[2],T[4]])])
-                sender.sendMessage('New user defined, and given a plot')
+                infreturn('New user defined, and given a plot', sender)
                 pickle.dump(plots, open("Plots.xeodata", "wb"))
                 pickle.dump(players, open("Players.xeodata", "wb"))
                 return True
             else:
                 p = players[n]
                 if len(p[0]) < p[1]:
-                    p[0].append(X,Z)
+                    p[0].append((X,Z))
                     plots[(X,Z)] = [n,len(p[0]),ctime()]
-                    sender.sendMessage('Plot claimed')
+                    infreturn('Plot claimed', sender)
                     pickle.dump(plots, open("Plots.xeodata", "wb"))
                     pickle.dump(players, open("Players.xeodata", "wb"))
                     return True
-                sender.sendMessage('You cannot claim another plot')
+                infreturn('You cannot claim another plot', sender)
                 return False
-        sender.sendMessage('That plot is claimed, or something, I dunno..')
+        infreturn('That plot is claimed, or something, I dunno..', sender)
         return False
-    sender.sendMessage('That plot does not exist yet')
+    infreturn('That plot does not exist yet', sender)
     return False
 
-@hook.command('generate', description='Generate new plots')
+@hook.command('pgenerate', description='Generate new plots')
 def onCommandGenerate(sender, args):
+    if not sender.getName() in ops:
+        redreturn('No permission', sender)
+        return False
     if len(args) == 0:
-        sender.sendMessage('/generate [diameter]')
+        infreturn('/generate [diameter]', sender)
         return False
     if args[0].isdigit():
         d = int(args[0])
@@ -98,78 +115,90 @@ def onCommandGenerate(sender, args):
                     plots[(x,z)] = [False,0,'']
                     mapgen(x,z,False,['Unclaimed'])
         pickle.dump(plots, open("Plots.xeodata", "wb"))
-        sender.sendMessage(''.join(['Generated ',str((d ** 2)*4),'. plots']))
+        infreturn(''.join(['Generated ',str((d ** 2)*4),'. plots']), sender)
         return True
 
-@hook.command('giveplot', description='Give someone an extra plot')
+@hook.command('pgive', description='Give someone an extra plot')
 def onCommandGiveplot(sender, args):
-    if args[0] in players:
-        players[args[0]][1] += 1
+    if not sender.getName() in ops:
+        redreturn('No permission', sender)
+        return False
+    if len(args) == 0:
+        redreturn('/giveplot [player]', sender)
+    n = args[0].lower()
+    if n in players:
+        players[n][1] += 1
         pickle.dump(players, open("Players.xeodata", "wb"))
-        sender.sendMessage(''.join([args[0],' now has ',str(players[args[0]][1]),' plots']))
+        infreturn(''.join([n,' now has ',str(players[n][1]),' plots']), sender)
         return True
-    sender.sendMessage('Not a valid player')
+    infreturn('Not a valid player', sender)
     return False
 
-@hook.command('unclaimplot', description='Unclaim a plot')
+@hook.command('punclaim', description='Unclaim a plot')
 def onCommandUnclaim(sender, args):
     if len(args) == 2:
         if args[0].isdigit() and args[1].isdigit():
             X = int(args[0])
             Z = int(args[1])
             if (X,Z) in plots:
-                if plots[(X,Z)] != False:
-                    players[plots[(X,Z)][0]][0].remove((X,Z))
-                    plots[(X,Z)] = [False,0,'']
-                    mapgen(X,Z,False,['Unclaimed'])
-                    pickle.dump(plots, open("Plots.xeodata", "wb"))
-                    pickle.dump(players, open("Players.xeodata", "wb"))
-                    return True
-            sender.sendMessage('No such plot')
+                if plots[(X,Z)][0] != False:
+                    if plots[(X,Z)][0] == sender.getName().lower():
+                        players[plots[(X,Z)][0]][0].remove((X,Z))
+                        plots[(X,Z)] = [False,0,'']
+                        mapgen(X,Z,False,['Unclaimed'])
+                        pickle.dump(plots, open("Plots.xeodata", "wb"))
+                        pickle.dump(players, open("Players.xeodata", "wb"))
+                        infreturn('Plot unclaimed', sender)
+                        return True
+            infreturn('No such plot', sender)
             return False
-        sender.sendMessage('Your coords must be integers')
+        infreturn('Your coords must be integers', sender)
         return False
-    sender.sendMessage('/unclaimplot [X] [Z]')
+    infreturn('/unclaimplot [X] [Z]', sender)
     return False
 
 @hook.command('psearch', description='Search for a user or plot')
 def onCommandPsearch(sender, args):
     if len(args) == 0:
-        sender.sendMessage(''.join([color('c'),'/psearch [Criteria]']))
+        redreturn('/psearch [Criteria]', sender)
         return False
     if args[0].lower() in players:
-        p = players[args[0].lower]
+        p = players[args[0].lower()]
         for i, v in enumerate(p[0]):
-            sender.sendMessage(''.join(['Plot ',str(i)]))
-            sender.sendMessage(''.join([str(v)]))
-            sender.sendMessage(' '.join(['Claimed',plots[v][2]]))
+            infreturn(''.join([color('6'),'Plot #',color('e'),str(i)]), sender)
+            infreturn(''.join([color('e'),str(v)]), sender)
+            infreturn(' '.join([color('6'),'Claimed ',color('e'),''.join(plots[v][2].split())]), sender)
         return True
     if len(args) == 2:
         if args[0].isdigit() and args[1].isdigit():
-            if (args[0],args[1]) in plots:
+            if (int(args[0]),int(args[1])) in plots:
                 p = plots[(args[0],args[1])]
                 if p[0] != False:
-                    sender.sendMessage(''.join(['Claimed by ',p[0]]))
-                    sender.sendMessage(''.join(['At ',p[2]]))
+                    infreturn(''.join([color('6'),'Claimed by ',color('e'),p[0]]), sender)
+                    infreturn(''.join([color('6'),'Claimed ',color('e'),''.join(p[2].split())]), sender)
                     return True
                 else:
-                    sender.sendMessage('Unclaimed')
+                    infreturn('Unclaimed', sender)
                     return True
-    sender.sendMessage(''.join([color('c'),'/psearch [Criteria]']))
+            redreturn('Plot not generated', sender)
+            return False
+        redreturn('Your coords must be numeric', sender)
+        return False
+    redreturn('/psearch [Criteria]', sender)
     return False
 
 def mapgen(X,Z,C,T): ###RED MAKE ME###
-    print 'At X'+str(X)+'and Z'+str(Z)
+    print 'At X '+str(X)+'and Z '+str(Z)
     if C:
         print 'Lit'
     else:
-        print 'unlit'
+        print 'Unlit'
     for I in T:
         print I
 
-@hook.command('userlist', description='Lists all users')
+@hook.command('pusers', description='Lists all users')
 def userlist(sender, args):
     t = list(players)
     t.sort()
-    sender.sendMessage(', '.join(t))
+    infreturn(', '.join(t), sender)
     return True
