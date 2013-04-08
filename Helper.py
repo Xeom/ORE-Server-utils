@@ -1,4 +1,4 @@
-import org.bukkit as bukkit
+import org.bukkit.Bukkit as Bukkit
 
 from java.util.logging import Level
 
@@ -7,10 +7,10 @@ def color(color):
 
 # Execute a command with root permissions
 def sudo(command):
-    bukkit.Bukkit.dispatchCommand(bukkit.Bukkit.getConsoleSender(), command)
+    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command)
 
 def info(message):
-    bukkit.Bukkit.getServer().getLogger().log(Level.INFO, message)
+    Bukkit.getServer().getLogger().log(Level.INFO, message)
 
 def severe(message):
-    bukkit.Bukkit.getServer().getLogger().log(Level.SEVERE, message)
+    Bukkit.getServer().getLogger().log(Level.SEVERE, message)
