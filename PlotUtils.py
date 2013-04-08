@@ -16,7 +16,7 @@ for i in opfile.readlines():
     ops.append(i.replace('\n',''))
 
 def infreturn(i, sender):
-    sender.sendMessage(i)
+    sender.sendMessage(''.join([color('e'),i]))
 
 def redreturn(i, sender):
     sender.sendMessage(''.join([color('c'),i]))
@@ -27,18 +27,18 @@ def onCommandpwarp(sender, args):
     if len(args) == 0:
         redreturn('/pwarp [X] [Z] |OR| /pwarp [player]', sender)
         return False
-    if args[0].lower() in players:
+    if args[0] in players:
         if len(args) == 2:
             if args[1].isdigit():
                 try:
-                    C = players[args[0].lower()][0][int(args[1])]
+                    C = players[args[0]][0][int(args[1])-1]
                     X = C[0]
                     Z = C[1]
                 except:
                     infreturn('No such plot', sender)
                     return False
         else:
-            C = players[args[0].lower()][0][0]
+            C = players[args[0]][0][0]
             X = C[0]
             Z = C[1]
     else:
@@ -73,7 +73,7 @@ def onCommandClaim(sender, args):
         return False
     if (X,Z) in plots:
         if plots[(X,Z)][0] == False:
-            n = sender.getName().lower()
+            n = sender.getName()
             if not n in players:
                 players[n] = [[(X,Z)],1]
                 plots[(X,Z)] = [n,1,ctime()]
@@ -125,7 +125,7 @@ def onCommandGiveplot(sender, args):
         return False
     if len(args) == 0:
         redreturn('/giveplot [player]', sender)
-    n = args[0].lower()
+    n = args[0]
     if n in players:
         players[n][1] += 1
         pickle.dump(players, open("Players.xeodata", "wb"))
@@ -142,7 +142,7 @@ def onCommandUnclaim(sender, args):
             Z = int(args[1])
             if (X,Z) in plots:
                 if plots[(X,Z)][0] != False:
-                    if plots[(X,Z)][0] == sender.getName().lower():
+                    if plots[(X,Z)][0] == sender.getName():
                         players[plots[(X,Z)][0]][0].remove((X,Z))
                         plots[(X,Z)] = [False,0,'']
                         mapgen(X,Z,False,['Unclaimed'])
@@ -162,17 +162,17 @@ def onCommandPsearch(sender, args):
     if len(args) == 0:
         redreturn('/psearch [Criteria]', sender)
         return False
-    if args[0].lower() in players:
-        p = players[args[0].lower()]
+    if args[0] in players:
+        p = players[args[0]]
         for i, v in enumerate(p[0]):
             infreturn(''.join([color('6'),'Plot #',color('e'),str(i)]), sender)
             infreturn(''.join([color('e'),str(v)]), sender)
-            infreturn(' '.join([color('6'),'Claimed ',color('e'),''.join(plots[v][2].split())]), sender)
+            infreturn(''.join([color('6'),'Claimed ',color('e'),' '.join(plots[v][2].split())]), sender)
         return True
     if len(args) == 2:
         if args[0].isdigit() and args[1].isdigit():
             if (int(args[0]),int(args[1])) in plots:
-                p = plots[(args[0],args[1])]
+                p = plots[(int(args[0]),int(args[1]))]
                 if p[0] != False:
                     infreturn(''.join([color('6'),'Claimed by ',color('e'),p[0]]), sender)
                     infreturn(''.join([color('6'),'Claimed ',color('e'),''.join(p[2].split())]), sender)
