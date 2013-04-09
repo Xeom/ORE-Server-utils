@@ -19,7 +19,7 @@ import Crafting
 
 @hook.enable
 def onEnable():
-    Derps.load_derps("plugins/ThunderUtils.py.dir/derps.txt")
+    Derps.load_derps("OREUtilsFiles/derps.txt")
 
 @hook.disable
 def onDisable():

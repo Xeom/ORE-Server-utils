@@ -4,11 +4,14 @@ import pickle
 import time.ctime as ctime
 
 #Loading xeodata files
-plots = pickle.load(open("Plots.xeodata", "rb"))
-players = pickle.load(open("Players.xeodata", "rb"))
+plots = pickle.load(open("OREUtilsFiles/Plots.xeodata", "rb"))
+players = pickle.load(open("OREUtilsFiles/Players.xeodata", "rb"))
+ranks = pickle.load(open("OREUtilsFiles/Ranks.xeodata", "rb"))
+
+
 
 #Loading op files
-opfile = open('plugins/ThunderUtils.py.dir/RandomFiles/ops.txt')
+opfile = open('OREUtilsFiles/ops.txt')
 ops = []
 
 #Generating List of ops
@@ -16,29 +19,79 @@ for i in opfile.readlines():
     ops.append(i.replace('\n',''))
 
 def infreturn(i, sender):
-    sender.sendMessage(''.join([color('e'),i]))
+    sender.sendMessage(''.join([color('6'),i]))
 
 def redreturn(i, sender):
     sender.sendMessage(''.join([color('c'),i]))
 
+#@hook.event('player.PlayerJoinEvent')
+#def PlayerJoin(event):
+#    if not event.getPlayer().getName() in ranks:
 
+def getMapRelative(sender):
+    loc = sender.getLocation()
+    X = int(loc.getX())
+    Z = int(loc.getZ())
+    X-=145
+    Z+=113
+    if X > 0:
+        X-=1
+    else:
+        X+=1
+    if Z > 0:
+        Z-=1
+    else:
+        Z+=1
+    return(X//3,Z//3)
+
+@hook.command('pmap', description='Find your location on the map')
+def onCommandPmap(sender, args):
+    l = getMapRelative(sender)
+    if l in plots:
+        infreturn(''.join([color('e'),getMapRelative(sender)]),sender)
+        if plots[l][0] == False:
+            infreturn('Unclaimed',sender)
+        else:
+            infreturn(''.join(['Claimed by ',plots[l][0]]))
+        return True
+    redreturn('No such plot')
+    return False
+    
 @hook.command('pwarp', description='Warp to a particular plot')
 def onCommandpwarp(sender, args):
     if len(args) == 0:
-        redreturn('/pwarp [X] [Z] |OR| /pwarp [player]', sender)
-        return False
-    if args[0] in players:
+        if getMapRelative(sender) in plots:
+            args[0] = getMapRelative(sender)[0]
+            args[1] = getMapRelative(sender)[1]
+        else:
+            redreturn('/pwarp [X] [Z] |OR| /pwarp [player]', sender)
+            return False
+    if args[0].lower() in players:
         if len(args) == 2:
             if args[1].isdigit():
                 try:
-                    C = players[args[0]][0][int(args[1])-1]
+                    C = players[args[0].lower()][0][int(args[1])]
                     X = C[0]
                     Z = C[1]
                 except:
                     infreturn('No such plot', sender)
                     return False
         else:
-            C = players[args[0]][0][0]
+            C = players[args[0].lower()][0][0]
+            X = C[0]
+            Z = C[1]
+    if args[0].isdigit:
+        if len(args) == 2:
+            if args[1].isdigit():
+                try:
+                    C = players[args[0].lower()][0][int(args[1])]
+                    X = C[0]
+                    Z = C[1]
+                except:
+                    infreturn('No such plot', sender)
+                    return False
+        else:
+            C = players[args[0].lower()][0][0]
             X = C[0]
             Z = C[1]
     else:
@@ -63,8 +116,12 @@ def onCommandpwarp(sender, args):
 @hook.command('pclaim', description='Claim a particular plot')
 def onCommandClaim(sender, args):
     if len(args) == 0:
-        redreturn('/claim [X] [Z]', sender)
-        return False
+        if getMapRelative(sender) in plots:
+            args[0] = getMapRelative(sender)[0]
+            args[1] = getMapRelative(sender)[1]
+        else:
+            redreturn('/claim [X] [Z]', sender)
+            return False
     try:
         X = int(args[0])
         Z = int(args[1])
@@ -73,15 +130,15 @@ def onCommandClaim(sender, args):
         return False
     if (X,Z) in plots:
         if plots[(X,Z)][0] == False:
-            n = sender.getName()
+            n = sender.getName().lower()
             if not n in players:
                 players[n] = [[(X,Z)],1]
                 plots[(X,Z)] = [n,1,ctime()]
                 T = ctime().split()
                 mapgen(X,Z,True,[n,'Plot #1','Claimed:',' '.join([T[1],T[2],T[4]])])
                 infreturn('New user defined, and given a plot', sender)
-                pickle.dump(plots, open("Plots.xeodata", "wb"))
-                pickle.dump(players, open("Players.xeodata", "wb"))
+                pickle.dump(plots, open("OREUtilsFiles/Plots.xeodata", "wb"))
+                pickle.dump(players, open("OREUtilsFiles/Players.xeodata", "wb"))
                 return True
             else:
                 p = players[n]
@@ -89,8 +146,8 @@ def onCommandClaim(sender, args):
                     p[0].append((X,Z))
                     plots[(X,Z)] = [n,len(p[0]),ctime()]
                     infreturn('Plot claimed', sender)
-                    pickle.dump(plots, open("Plots.xeodata", "wb"))
-                    pickle.dump(players, open("Players.xeodata", "wb"))
+                    pickle.dump(plots, open("OREUtilsFiles/Plots.xeodata", "wb"))
+                    pickle.dump(players, open("OREUtilsFiles/Players.xeodata", "wb"))
                     return True
                 infreturn('You cannot claim another plot', sender)
                 return False
@@ -98,6 +155,7 @@ def onCommandClaim(sender, args):
         return False
     infreturn('That plot does not exist yet', sender)
     return False
+
 
 @hook.command('pgenerate', description='Generate new plots')
 def onCommandGenerate(sender, args):
@@ -114,7 +172,7 @@ def onCommandGenerate(sender, args):
                 if plots.get((x,z)) == None:
                     plots[(x,z)] = [False,0,'']
                     mapgen(x,z,False,['Unclaimed'])
-        pickle.dump(plots, open("Plots.xeodata", "wb"))
+        pickle.dump(plots, open("OREUtilsFiles/Plots.xeodata", "wb"))
         infreturn(''.join(['Generated ',str((d ** 2)*4),'. plots']), sender)
         return True
 
@@ -125,10 +183,10 @@ def onCommandGiveplot(sender, args):
         return False
     if len(args) == 0:
         redreturn('/giveplot [player]', sender)
-    n = args[0]
+    n = args[0].lower()
     if n in players:
         players[n][1] += 1
-        pickle.dump(players, open("Players.xeodata", "wb"))
+        pickle.dump(players, open("OREUtilsFiles/Players.xeodata", "wb"))
         infreturn(''.join([n,' now has ',str(players[n][1]),' plots']), sender)
         return True
     infreturn('Not a valid player', sender)
@@ -136,43 +194,54 @@ def onCommandGiveplot(sender, args):
 
 @hook.command('punclaim', description='Unclaim a plot')
 def onCommandUnclaim(sender, args):
+    if len(args) == 0:
+        if getMapRelative(sender) in plots:
+            args[0] = getMapRelative(sender)[0]
+            args[1] = getMapRelative(sender)[1]
+        else:
+            redreturn('/punclaim [X] [Z]', sender)
+            return False
     if len(args) == 2:
         if args[0].isdigit() and args[1].isdigit():
             X = int(args[0])
             Z = int(args[1])
             if (X,Z) in plots:
                 if plots[(X,Z)][0] != False:
-                    if plots[(X,Z)][0] == sender.getName():
+                    if plots[(X,Z)][0] == sender.getName().lower():
                         players[plots[(X,Z)][0]][0].remove((X,Z))
                         plots[(X,Z)] = [False,0,'']
                         mapgen(X,Z,False,['Unclaimed'])
-                        pickle.dump(plots, open("Plots.xeodata", "wb"))
-                        pickle.dump(players, open("Players.xeodata", "wb"))
+                        pickle.dump(plots, open("OREUtilsFiles/Plots.xeodata", "wb"))
+                        pickle.dump(players, open("OREUtilsFiles/Players.xeodata", "wb"))
                         infreturn('Plot unclaimed', sender)
                         return True
-            infreturn('No such plot', sender)
+            redreturn('No such plot', sender)
             return False
-        infreturn('Your coords must be integers', sender)
+        redreturn('Your coords must be integers', sender)
         return False
-    infreturn('/unclaimplot [X] [Z]', sender)
+    redreturn('/punglaim [X] [Z]', sender)
     return False
 
 @hook.command('psearch', description='Search for a user or plot')
 def onCommandPsearch(sender, args):
     if len(args) == 0:
-        redreturn('/psearch [Criteria]', sender)
-        return False
-    if args[0] in players:
-        p = players[args[0]]
+        if getMapRelative(sender) in plots:
+            args[0] = getMapRelative(sender)[0]
+            args[1] = getMapRelative(sender)[1]
+        else:
+            redreturn('/pwarp [X] [Z] |OR| /pwarp [player]', sender)
+            return False
+    if args[0].lower() in players:
+        p = players[args[0].lower()]
         for i, v in enumerate(p[0]):
             infreturn(''.join([color('6'),'Plot #',color('e'),str(i)]), sender)
             infreturn(''.join([color('e'),str(v)]), sender)
-            infreturn(''.join([color('6'),'Claimed ',color('e'),' '.join(plots[v][2].split())]), sender)
+            infreturn(' '.join([color('6'),'Claimed ',color('e'),''.join(plots[v][2].split())]), sender)
         return True
     if len(args) == 2:
         if args[0].isdigit() and args[1].isdigit():
             if (int(args[0]),int(args[1])) in plots:
-                p = plots[(int(args[0]),int(args[1]))]
+                p = plots[(args[0],args[1])]
                 if p[0] != False:
                     infreturn(''.join([color('6'),'Claimed by ',color('e'),p[0]]), sender)
                     infreturn(''.join([color('6'),'Claimed ',color('e'),''.join(p[2].split())]), sender)
