@@ -5,6 +5,7 @@ import org.bukkit.enchantments.Enchantment as ench
 import org.bukkit.event.block.Action as Action
 import org.bukkit.potion.PotionEffectType as Effect
 import org.bukkit.potion.PotionEffect as PotionEffect
+import bukkit.Bukkit.broadcastMessage as broadcast
 
 FLAMING_SHARD = ItemStack(Material.GOLD_NUGGET, 1, 1)
 M = FLAMING_SHARD.getItemMeta()
@@ -17,7 +18,10 @@ l = []
 pl = []
 sl = []
 tl = []
-lamps = True
+lamps = False
+
+opfile = open('build/ops.txt')
+ops = []
 
 def intLoc(loc):
     return [int(loc.getX()),int(loc.getY()),int(loc.getZ())]
@@ -27,11 +31,18 @@ def rLoc(loc,p,i):
 @hook.command("lamps", description="See lamps!")
 def onCommandLamps(sender,args):
     global lamps
-    lamps = not lamps
-    return True
+    if sender.getName() in ops:
+        lamps = not lamps
+        if lamps:
+            broadcast('Lamps have been temporarily disabled due to lag')
+        else:
+            broadcast('Lamps have been re-enabled')
+        return True
+    return False
 
 @hook.command("light", description="Toggles a nice light!")
 def onCommandLight(sender,args):
+    
     if sender in pl:
         i = pl.index(sender)
         sender.sendBlockChange(rLoc(l[i][1],sender,i),l[i][0].getTypeId(),0)
@@ -40,9 +51,8 @@ def onCommandLight(sender,args):
         tl.pop(i)
         sender.sendMessage("You turned off your light.")
         return True
-    if len(args)!=1:
-        sender.sendMessage("This command requires 1 argument: Height of lamp in blocks")
-        return False
+    if not len(args):
+        args.append('0')
     else:
         try:
             q=int(args[0])
@@ -100,5 +110,5 @@ def onPlayerClick(event):
                 tl.append(False)
                 l.append([rLoc(sender.getLocation(),sender,i).getBlock(), sender.getLocation()])
                 sender.sendBlockChange(rLoc(sender.getLocation(),sender,i),51,0)
-        return True
+
         

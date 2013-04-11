@@ -12,7 +12,7 @@ def t():
 
 @hook.command('mb')
 def onCommandMb(sender,args):
-    ops = open('OREUtilsFiles/ops.txt')
+    ops = open('build/ops.txt')
     if not ''.join([sender.getName(),'\n']) in ops.readlines():
         ops.close()
         sender.sendMessage(''.join([color('c'),'You are not an op.']))
@@ -22,7 +22,7 @@ def onCommandMb(sender,args):
         helpMessage(sender)
         return True
     if args[0] == 'list': #List
-        b = open('OREUtilsFiles/Binds.py',"r")
+        b = open('build/Binds.py',"r")
         n = 0
         nLocal = 0
         s = ''
@@ -53,8 +53,8 @@ def onCommandMb(sender,args):
         return False
     if args[0] == 'confirmdelete':
         if sender.getName() in ResetAllPending:
-            b = open('OREUtilsFiles/Binds.py','w')
-            c = open('OREUtilsFiles/Template.txt')
+            b = open('build/Binds.py','w')
+            c = open('build/Template.txt')
             b.writelines(c.readlines())
             c.close()
             b.close()
@@ -114,7 +114,7 @@ def onCommandMb(sender,args):
         sender.sendMessage(''.join([color('c'),'No such command']))
         return False
     if args[0] == 'view': #view
-        b = open('OREUtilsFiles/Binds.py')
+        b = open('build/Binds.py')
         l = b.readlines()
         n = 0
         if ''.join(['#',args[1],'\n']) in l:
@@ -133,7 +133,7 @@ def onCommandMb(sender,args):
         sender.sendMessage(''.join([color('9'),'Searching for "',args[1],'"']))
         n = 0
         n2 = 0
-        b = open('OREUtilsFiles/Binds.py')
+        b = open('build/Binds.py')
         for i in b.readlines():
             if i[0] == '#':
                 if i.lower() == ''.join(['#',args[1].lower(),'\n']):
@@ -149,7 +149,7 @@ def onCommandMb(sender,args):
     return True
 
 def delete(Name):
-    b = open('OREUtilsFiles/Binds.py','r+')
+    b = open('build/Binds.py','r+')
     if ''.join(['#',Name,'\n']) in b.readlines():
         delPos = b.readlines().index(''.join(['#',Name,'\n']))
         delList = b.readlines()
@@ -202,14 +202,14 @@ def complie(sender,args):
         if compose(i) == False: #Split command into lines
             sender.sendMessage(''.join([color('c'),'You cannot bind a command to an MB']))
     CommandName = CommandName.replace('"',"") #Replace invalid characters in the name
-    b = open('OREUtilsFiles/Binds.py')
+    b = open('build/Binds.py')
     if ''.join(['#',CommandName,'\n']) in b.readlines():
         sender.sendMessage(''.join([color('c'),'That name is already in use'])) #Checks if command name is free
         b.close()
         return False
     b.close()
     a = []
-    b = open('OREUtilsFiles/Binds.py','a')
+    b = open('build/Binds.py','a')
     b.write(''.join(['#',CommandName,'\n']))
     b.write(''.join(['@hook.command("',CommandName,'",description="',CommandName,', by ',sender.getName(),'")\n']))
     b.write(''.join(['def onCommand',CommandName,'(sender,args):\n'])) #Write 'introduction'
@@ -283,7 +283,7 @@ def complie(sender,args):
             a.append(''.join([i.replace('{tab}',t()),'\n']))
     a.append(''.join([t(),'return True\n']))
     a.append('\n')
-    b = open('OREUtilsFiles/Binds.py','a')
+    b = open('build/Binds.py','a')
     if argsNum != 0:
         b.write(''.join([t(),'if len(args) != ',str(argsNum),':\n']))
         b.write(''.join([t(),t(),'sender.sendMessage("You must have ',str(argsNum),' arguments")\n']))#Writes if statement for amount of arguments
