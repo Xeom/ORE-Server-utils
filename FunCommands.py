@@ -10,6 +10,7 @@ import org.bukkit.Bukkit as Bukkit
 
 from org.bukkit.potion import PotionEffectType
 from org.bukkit.potion import PotionEffect
+import org.bukkit.Material as Material
 
 itemnamewhitelist = "1234567890abcdeflmnok"
 mushroomeffects = ["SLOW", "CONFUSION", "BLINDNESS"]
@@ -18,6 +19,7 @@ cakeeffects = ["SPEED", "JUMP", "NIGHT_VISION"]
 cakesayings = ["So nommy!", "You want another!", "Mmmmmmmmmm"]
 foodlistitem = [' 260', ' 282',        ' 297',         ' 319',    ' 349',' 354',' 357',  ' 360',          ' 364', ' 365',   ' 391',  ' 392',  ' 400']
 foodlistname = ['apple','bowl of soup','loaf of bread','porkchop','fish','cake','cookie','slice of melon','steak','chicken','carrot','potato','pie']
+vowels = 'aeiou'
 
 
 #food fight
@@ -46,6 +48,49 @@ def onCommandFoodfight(sender,args):
     if random.randint(1,5) == 1:
         receiver.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 40, 1, True))
         Bukkit.broadcastMessage(''.join([color("5"),"Headshot!"]))
+
+    return True
+
+#slap
+@hook.command("slap", description="Slappings!")
+def onCommandFoodfight(sender,args):
+
+    if len(args) == 0:
+        sender.sendMessage(''.join([color("c"),"/slap [Player] [Thing]"]))
+        return False
+
+    receiver = Bukkit.getPlayer(args[0])
+
+    if len(args) == 2:
+        item = args[1]
+    else:
+        item = 'large trout'
+
+    material = Material.matchMaterial(args[1])
+
+
+    if receiver == None:
+        sender.sendMessage(''.join([color('c'),'No such player.']))
+        return False
+
+    if receiver == sender:
+        receiverName = 'themself'
+    else:
+        reveiverName = receiver.getName()
+    
+    if item[0] in vowels:
+        Bukkit.broadcastMessage(''.join([color("5"),sender.getName(),color("c")," slapped ",color("5"),receiverName,color("c")," about a bit with an ",color("5"),item]))
+    else:
+        Bukkit.broadcastMessage(''.join([color("5"),sender.getName(),color("c")," slapped ",color("5"),receiverName,color("c")," about a bit with a ",color("5"),item]))
+
+
+    if random.randint(0,1):
+        receiver.addPotionEffect(PotionEffect(PotionEffectType.CONFUSION, 160, 3, True))
+    else:
+        receiver.addPotionEffect(PotionEffect(PotionEffectType.BLINDNESS, 20, 3, True))
+
+    if material != None:
+        sudo(' '.join(['give',receiver.getName(),material.getId()]))
 
     return True
         
