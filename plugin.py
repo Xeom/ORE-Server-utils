@@ -20,10 +20,14 @@ import Crafting
 @hook.enable
 def onEnable():
     Derps.load_derps("OREUtilsFiles/derps.txt")
+    return True
 
 @hook.disable
 def onDisable():
-    return
+    PlotUtils.saveall()
+    for i in range(0, 100):
+        print 'CATS'
+    return True
 
 
 

@@ -40,10 +40,12 @@ for i in config.readlines():
                     c.append(int(p))
                 except:
                     c.append(0)
-                    print 'Error while reading config!'
+                    print 'Error while reading config'
                     print i
                 else:
                     Conf[n] = c
+
+
 
 Xpos = Conf['PlotMapPosition'][0]
 Ypos = Conf['PlotMapPosition'][1]
@@ -73,7 +75,7 @@ def getMapRelative(sender):
     loc = sender.getLocation()
     X = int(loc.getX())
     Z = int(loc.getZ())
-    X-=Xpos
+    X-=Xpos+1
     Z-=Zpos+1
     if X > 0:
         X-=1
@@ -182,8 +184,8 @@ def onCommandsPloc(sender, args):
     
 @hook.command('pwarp', description='Warp to a particular plot')
 def onCommandpwarp(sender, args):
-    X = 0
-    Y = 0
+    X = None
+    Z = None
     if len(args) == 0:
         if getMapRelative(sender) in plots:
             X = getMapRelative(sender)[0]
@@ -216,12 +218,11 @@ def onCommandpwarp(sender, args):
     if O == None:
         infreturn('No such plot', sender)
         return False
-    V = Location(sender.getWorld(),(X * PlotSize) + (PlotSize/2),18,(Z * PlotSize) + (PlotSize/2))
     if O[0] != False:
         infreturn(''.join(['Teleporting to ',O[0],"'s plot #",str(plots[(X,Z)][1]),'; ',str(X),',',str(Z)]), sender)
     else:
         infreturn(''.join(['Teleporting to plot ',str(X),',',str(Z),' - Unclaimed']), sender)
-    sender.teleport(V)
+    sudo(' '.join(['tppos',sender.getName(),str((X * PlotSize) + (PlotSize/2)),'18',str((Z * PlotSize) + (PlotSize/2))]))
     return True
 
 @hook.command('pclaim', description='Claim a particular plot')
@@ -279,12 +280,16 @@ def onCommandGenerate(sender, args):
     if len(args) == 0:
         infreturn('/generate [diameter]', sender)
         return False
+    ignore = False
+    if len(args) == 2:
+        if args[2] == 'ignore':
+            ignore = True
     if args[0].isdigit():
         d = int(args[0])
         i = 0
         for x in range(-d,d):
             for z in range(-d,d):
-                if plots.get((x,z)) == None:
+                if plots.get((x,z)) == None or ignore:
                     plots[(x,z)] = [False,0,'']
                     if x == -d or x == d-1 or z == -d or z == d-1 or x == 0 or z == 0:
                         E = True
@@ -309,6 +314,7 @@ def onCommandGiveplot(sender, args):
     if n in players:
         players[n][1] += 1
         saveall()
+        infreturn(''.join([n,' now can have ',str(players[n][1]),' plots']), sender)
         return True
     infreturn('Not a valid player', sender)
     return False
